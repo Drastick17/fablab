@@ -1,42 +1,44 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+@font-face {
+  font-family: 'Co Headline Regular';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Co Headline Regular'), url('../public/fonts/Co\ Headline.woff') format('woff');
   }
-  to {
-    transform: rotate(360deg);
+  
+
+  @font-face {
+  font-family: 'Co Headline Light';
+  font-style: normal;
+  font-weight: 100;
+  src: local('Co Headline Light'), url('../public/fonts/Co\ Headline\ Light.woff') format('woff');
   }
-}
+  
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+  @font-face {
+  font-family: 'Co Headline Bold';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Co Headline Bold'), url('../public/fonts/Co\ Headline\ Bold.woff') format('woff');
   }
+
+* {
+  font-family: "Co Headline Regular";
+  margin: 0;
+  padding: 0;
 }
 
-.card {
-  padding: 2em;
+body{
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: grid;
+  place-content: center;
+
 }
 
-.read-the-docs {
-  color: #888;
+.link{
+  text-decoration: none;  
+  color: rgb(32, 136, 255);
+  font-size: 0.9rem;
 }
