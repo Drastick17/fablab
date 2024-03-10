@@ -2,8 +2,6 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 // import Link from '@mui/material/Link';
 import { Link } from "react-router-dom";
 import Grid from "@mui/material/Grid";
@@ -29,7 +27,13 @@ function Copyright(props: any) {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
+//Redirección al dar click en el botón enviar correo
+
+const handlePasswordRecovery = () => {
+  // Redirige al usuario a la página de creación de nueva contraseña
+  window.location.href = "/password-recovery";
+};
+
 const defaultTheme = createTheme({
   typography: {
     fontFamily: [
@@ -40,19 +44,18 @@ const defaultTheme = createTheme({
   },
 });
 
-export default function SignIn() {
+export default function EmailVerification() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
   };
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container className={style.mainSignIn} component="main" maxWidth="xs">
+      <Container
+        className={style.mainEmailVerification}
+        component="main"
+        maxWidth="xs"
+      >
         <CssBaseline />
         <Box
           sx={{
@@ -80,7 +83,7 @@ export default function SignIn() {
           </Box>
 
           <Typography component="h1" variant="h5">
-            Iniciar Sesión
+            Recuperación de contraseña
           </Typography>
           <Box
             component="form"
@@ -88,56 +91,45 @@ export default function SignIn() {
             noValidate
             sx={{ mt: 1 }}
           >
+            <Typography
+              component="h1"
+              variant="body2"
+              sx={{ textAlign: "justify", fontSize: "12px" }}
+            >
+              Ingresa tu correo electrónico asociado a tu cuenta para recuperar
+              tu contraseña vía email
+            </Typography>
+
             <TextField
               className={style.innerRegisterFont}
               margin="normal"
               required
+              id="recoveryEmail"
+              label="Correo Electrónico"
+              name="recoveryEmail"
               fullWidth
-              id="cedula"
-              label="Cédula"
-              name="cedula"
-              autoComplete="cedula"
               autoFocus
               size="small"
             />
-            <TextField
-              className={style.innerRegisterFont}
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Contraseña"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              size="small"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Recuérdame"
-            />
+
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick={handlePasswordRecovery}
             >
-              Iniciar sesión
+              Enviar correo
             </Button>
             <Grid container>
-              <Grid item xs>
-                <Link className="link" to="/forgot-password">
-                  ¿Olvidaste tu contraseña?
-                </Link>
-              </Grid>
               <Grid item>
                 <Link className="link" to="/sign-up">
-                  ¿No tienes cuenta?
+                  Regresar
                 </Link>
               </Grid>
             </Grid>
           </Box>
-          <Copyright sx={{ mt: 10, mb: 1 }} />
+          <Copyright sx={{ mt: 4, mb: 1 }} />
         </Box>
       </Container>
     </ThemeProvider>
