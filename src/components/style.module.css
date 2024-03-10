@@ -3,15 +3,15 @@
 }
 
 .mainSignIn{
-    max-width: 500px;
     min-width: 300px;
-    max-height: 950px;
     width: 100%;
-    height: 70%;
-    margin: 100px auto;
+    height: 525px;
+    margin: 1% auto;
     border: solid 1px #00000000;
     border-radius: 20px ;
     background-color: white;
+    padding-left: 100px;
+    
 }
 
 .mainRegister{
@@ -24,6 +24,11 @@
     border: solid 1px #00000000;
     border-radius: 20px ;
     background-color: white;
+}
+
+.innerRegisterFont>div>input{
+    font-size: 14px;
+    margin-bottom: 6px;
 }
 
 body{

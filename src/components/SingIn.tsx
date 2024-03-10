@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -9,7 +8,6 @@ import Checkbox from '@mui/material/Checkbox';
 import { Link } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -56,7 +54,7 @@ export default function SignIn() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 2,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -66,8 +64,9 @@ export default function SignIn() {
           <Typography component="h1" variant="h5">
             Iniciar Sesión
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1}}>
             <TextField
+              className={style.innerRegisterFont}
               margin="normal"
               required
               fullWidth
@@ -76,8 +75,10 @@ export default function SignIn() {
               name="cedula"
               autoComplete="cedula"
               autoFocus
+              size='small'
             />
             <TextField
+              className={style.innerRegisterFont}
               margin="normal"
               required
               fullWidth
@@ -86,6 +87,7 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              size='small'
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -113,8 +115,9 @@ export default function SignIn() {
               </Grid>
             </Grid>
           </Box>
+          <Copyright sx={{ mt: 7, mb: 1 }} />
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
+       
       </Container>
     </ThemeProvider>
   );
