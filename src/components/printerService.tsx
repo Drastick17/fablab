@@ -20,53 +20,52 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-function FormRow1() {
+const printers = [
+  {
+    nombre: "printer1",
+    descripcion: "Impresora 3D ",
+  },
+  { nombre: "printer2", descripcion: "Impresora 3D Grande" },
+  ,
+  { nombre: "printer2", descripcion: "Impresora 3D Pequeña" },
+  ,
+  { nombre: "printer3", descripcion: "Impresora 3D Mediana" },
+  ,
+  { nombre: "printer3", descripcion: "Impresora 3D Rapida" },
+  ,
+  { nombre: "printer3", descripcion: "Impresora 3D Lenta" },
+];
+
+function PrinterCreation(props: any) {
   return (
     <>
-      <Grid item xs={12} sm={6} md={4} container spacing={1}>
-        <Item>
-          <Grid item xs={12} className={style.GridPrinters}>
+      <Grid item xs={12} md={4} lg={4} className={style.GridPrincipal}>
+        <Item sx={{ display: "flex", minHeight: "250px" }}>
+          <Grid item xs={12} className={style.GridPrintssssssersImg}>
             <img
-              src="./public/img/impresora3D.jpg"
+              src={`../public/img/printers/${props.nombre}.jpg`}
               alt=""
               className={style.imgService}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid
+            className={style.GridPrintersText}
+            sx={{
+              display: "grid",
+              flexBasis: "50%",
+              justifyContent: "start",
+              textAlign: "left",
+              alignItems: "center",
+            }}
+          >
+            <Typography component="h1" variant="h6">
+              {props.nombre}
+            </Typography>
+            <Typography component="h1" variant="body1">
+              {props.descripcion}
+            </Typography>
             <Link className="link" to="/">
-              Agenda
-            </Link>
-          </Grid>
-        </Item>
-      </Grid>
-      <Grid item xs={12} sm={6} md={4} container spacing={1}>
-        <Item>
-          <Grid item xs={12} className={style.GridPrinters}>
-            <img
-              src="./public/img/impresora3D.jpg"
-              alt=""
-              className={style.imgService}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Link className="link" to="/">
-              Agenda
-            </Link>
-          </Grid>
-        </Item>
-      </Grid>
-      <Grid item xs={12} sm={6} md={4} container spacing={1}>
-        <Item>
-          <Grid item xs={12} className={style.GridPrinters}>
-            <img
-              src="./public/img/impresora3D.jpg"
-              alt=""
-              className={style.imgService}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Link className="link" to="/">
-              Agenda
+              Agenda aquí
             </Link>
           </Grid>
         </Item>
@@ -75,35 +74,13 @@ function FormRow1() {
   );
 }
 
-function FormRow2() {
-  return (
-    <React.Fragment>
-      <Grid item xs={4}>
-        <Item>Item</Item>
-      </Grid>
-      <Grid item xs={4}>
-        <Item>Item</Item>
-      </Grid>
-      <Grid item xs={4}>
-        <Item>Item</Item>
-      </Grid>
-    </React.Fragment>
-  );
-}
-
 export default function Services() {
   return (
     <Container className={style.mainServices} component="main" maxWidth="xl">
-      <Grid container spacing={1} className={style.GeneralGrid}>
-        <Grid container item spacing={3}>
-          <FormRow1 />
-        </Grid>
-        <Grid container item spacing={3}>
-          <FormRow2 />
-        </Grid>
-        <Grid container item spacing={3}>
-          <FormRow2 />
-        </Grid>
+      <Grid container columns={{ xs: 4, md: 12 }} spacing={3}>
+        {printers.map((printer) => (
+          <PrinterCreation {...printer} />
+        ))}
       </Grid>
     </Container>
   );

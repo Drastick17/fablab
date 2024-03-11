@@ -34,21 +34,26 @@
 }
 
 .imgService{
-    border-radius: 8px;
     width: 100%;
+    max-height: 200px;
+    
+    object-fit: contain;
 }
 
 .paddingContainer{
     padding: 2%;
 }
 
-.GridPrinters{
-    padding: 5px;
+.GridPrintersImg{
+    align-content: center;
 }
 
-.GeneralGrid{
+.GridPrintersText{
+}
+
+.GridPrincipal{
+
     padding: 10px;
-    background-color: black;
 }
 
 @media (max-width: 1096px) {
