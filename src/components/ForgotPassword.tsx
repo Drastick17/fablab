@@ -25,7 +25,6 @@ function Copyright(props: any) {
   );
 }
 
-
 const handlePasswordRecovery = () => {
   window.location.href = "/password-recovery";
 };
@@ -36,85 +35,80 @@ export default function EmailVerification() {
   };
 
   return (
-      <Container
-        className={style.mainEmailVerification}
-        component="main"
-        maxWidth="xs"
+    <Container
+      className={style.mainEmailVerification}
+      component="main"
+      maxWidth="xs"
+    >
+      <Box
+        sx={{
+          marginTop: 2,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
       >
-        <Box
-          sx={{
-            marginTop: 2,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Box>
-            <Grid container spacing={1}>
-              <Grid item xs={6} sx={{ textAlign: "right" }}>
-                <img
-                  className={style.logoSignInFablab}
-                  src="../public/img/logo.jpg"
-                ></img>
-              </Grid>
-              <Grid item xs={6} sx={{ textAlign: "left" }}>
-                <img
-                  className={style.logoSignInUcacue}
-                  src="../public/img/UcacueLogo.jpg"
-                ></img>
-              </Grid>
+        <Box>
+          <Grid container spacing={1}>
+            <Grid item xs={6} sx={{ textAlign: "right" }}>
+              <img
+                className={style.logoSignInFablab}
+                src="../public/img/logo.jpg"
+              ></img>
             </Grid>
-          </Box>
-
-          <Typography component="h1" variant="h5">
-            Recuperación de contraseña
-          </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-          >
-            <Typography
-              component="h1"
-              variant="body2"
-              sx={{ textAlign: "justify", fontSize: "12px" }}
-            >
-              Ingresa tu correo electrónico asociado a tu cuenta para recuperar
-              tu contraseña vía email
-            </Typography>
-
-            <TextField
-              className={style.innerRegisterFont}
-              margin="normal"
-              required
-              id="recoveryEmail"
-              label="Correo Electrónico"
-              name="recoveryEmail"
-              fullWidth
-              autoFocus
-              size="small"
-            />
-
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-              onClick={handlePasswordRecovery}
-            >
-              Enviar correo
-            </Button>
-            <Grid container>
-              <Grid item>
-                <Link className="link" to="/sign-up">
-                  Regresar
-                </Link>
-              </Grid>
+            <Grid item xs={6} sx={{ textAlign: "left" }}>
+              <img
+                className={style.logoSignInUcacue}
+                src="../public/img/UcacueLogo.jpg"
+              ></img>
             </Grid>
-          </Box>
-          <Copyright sx={{ mt: 4, mb: 1 }} />
+          </Grid>
         </Box>
-      </Container>
+
+        <Typography component="h1" variant="h5">
+          Recuperación de contraseña
+        </Typography>
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Typography
+            component="h1"
+            variant="body2"
+            sx={{ textAlign: "justify", fontSize: "12px" }}
+          >
+            Ingresa tu correo electrónico asociado a tu cuenta para recuperar tu
+            contraseña vía email
+          </Typography>
+
+          <TextField
+            className={style.innerRegisterFont}
+            margin="normal"
+            required
+            id="recoveryEmail"
+            label="Correo Electrónico"
+            name="recoveryEmail"
+            fullWidth
+            autoFocus
+            size="small"
+          />
+
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+            onClick={handlePasswordRecovery}
+          >
+            Enviar correo
+          </Button>
+          <Grid container>
+            <Grid item>
+              <Link className="link" to="/">
+                Regresar
+              </Link>
+            </Grid>
+          </Grid>
+        </Box>
+        <Copyright sx={{ mt: 4, mb: 1 }} />
+      </Box>
+    </Container>
   );
 }

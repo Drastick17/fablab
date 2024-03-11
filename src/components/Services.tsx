@@ -11,11 +11,19 @@ export default function Services() {
   return (
     <Container className={style.mainServices} component="main" maxWidth="xl">
       <Grid container spacing={1} className={style.container}>
-        <Grid item xs={12} md={8}>
+        <Grid
+          container
+          xs={12}
+          sx={{
+            marginBottom: "2rem",
+            display: "flex",
+            flexWrap: "wrap",
+          }}
+        >
           <Grid
             item
             xs={12}
-            md={8}
+            md={7}
             sx={{ flex: 1 }}
             className={style.paddingContainer}
           >
@@ -41,136 +49,347 @@ export default function Services() {
               </CardContent>
             </Card>
           </Grid>
-
           <Grid
             item
             xs={12}
-            sx={{
-              marginBottom: "2rem",
-              display: "flex",
-              flexWrap: "wrap",
-            }}
+            md={5}
+            className={style.paddingContainer}
+            sx={{ display: "grid", alignItems: "center" }}
           >
-            <Grid
-              item
-              xs={12}
-              md={3}
-              sx={{ marginRight: "2%", marginBottom: "2%" }}
+            <Card
+              sx={{
+                display: "flex",
+                backgroundColor: "#E6E6E6",
+                padding: "3.5%",
+              }}
             >
-              <Card sx={{ display: "flex", backgroundColor: "#E6E6E6" }}>
-                <CardContent sx={{ flex: 1 }}>
-                  <Typography variant="subtitle1" paragraph>
-                    Formatos Aceptados
-                  </Typography>
+              <CardContent sx={{ flex: 1 }}>
+                <Typography variant="h6" component="h2" paragraph>
+                  Imprime sobre elementos rígidos planos y circulares. Impresión
+                  a full color y de alta velocidad.
+                </Typography>
 
-                  <img
-                    src="./public/img/icons/stl-webp-icon.webp"
-                    alt=""
-                    className={style.imgIcon}
-                  />
-                  <img
-                    src="./public/img/icons/obj-svg-icon.svg"
-                    alt=""
-                    className={style.imgIcon}
-                  />
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              md={3}
-              sx={{ marginRight: "2%", marginBottom: "2%" }}
-            >
-              <Card sx={{ display: "flex", backgroundColor: "#E6E6E6" }}>
-                <CardContent sx={{ flex: 1 }}>
-                  <Typography variant="subtitle1" paragraph>
-                    Formatos Aceptados
-                  </Typography>
-
-                  <img
-                    src="./public/img/icons/stl-webp-icon.webp"
-                    alt=""
-                    className={style.imgIcon}
-                  />
-                  <img
-                    src="./public/img/icons/obj-svg-icon.svg"
-                    alt=""
-                    className={style.imgIcon}
-                  />
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              md={3}
-              sx={{ marginRight: "2%", marginBottom: "2%" }}
-            >
-              <Card sx={{ display: "flex", backgroundColor: "#E6E6E6" }}>
-                <CardContent sx={{ flex: 1 }}>
-                  <Typography variant="subtitle1" paragraph>
-                    Formatos Aceptados
-                  </Typography>
-
-                  <img
-                    src="./public/img/icons/stl-webp-icon.webp"
-                    alt=""
-                    className={style.imgIcon}
-                  />
-                  <img
-                    src="./public/img/icons/obj-svg-icon.svg"
-                    alt=""
-                    className={style.imgIcon}
-                  />
-                </CardContent>
-              </Card>
-            </Grid>
+                <Button
+                  variant="contained"
+                  sx={{
+                    backgroundColor: "#DC2137",
+                  }}
+                  className={style.Button}
+                >
+                  Agendar
+                </Button>
+              </CardContent>
+            </Card>
           </Grid>
         </Grid>
-        <Grid item xs={12} md={4} className={style.paddingContainer}>
-          <Card sx={{ display: "flex", backgroundColor: "#E6E6E6" }}>
-            <CardContent sx={{ flex: 1 }}>
-              <Typography variant="subtitle1" paragraph>
-                Imprime sobre elementos rígidos planos y circulares. Impresión a
-                full color y de alta velocidad. <br /> Tecnología de
-                impresión:Deposición de material fundido. <br /> Tipo de
-                material: PLA.
-              </Typography>
-              <Button
-                variant="contained"
-                sx={{
-                  backgroundColor: "#DC2137",
-                }}
-                className={style.Button}
-              >
-                Agendar
-              </Button>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
-
-      <Grid container spacing={1} className={style.container}>
-        <Grid item xs={12} md={4} className={style.paddingContainer}>
-          <Grid item xs={12} sx={{ marginBottom: "2rem" }}>
+        <Grid
+          container
+          xs={12}
+          sx={{
+            marginBottom: "2rem",
+            display: "flex",
+            flexWrap: "wrap",
+          }}
+        >
+          <Grid
+            item
+            xs={12}
+            md={3.7}
+            sx={{ marginRight: "2%", marginBottom: "2%" }}
+          >
             <Card sx={{ display: "flex", backgroundColor: "#E6E6E6" }}>
               <CardContent sx={{ flex: 1 }}>
                 <Typography variant="subtitle1" paragraph>
                   Formatos Aceptados
                 </Typography>
-                <ThreeDRotationIcon />
+
+                <img
+                  src="./public/img/icons/stl-webp-icon.webp"
+                  alt=""
+                  className={style.imgIcon}
+                />
+                <img
+                  src="./public/img/icons/obj-svg-icon.svg"
+                  alt=""
+                  className={style.imgIcon}
+                />
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12}>
+          <Grid
+            item
+            xs={12}
+            md={3.7}
+            sx={{ marginRight: "2%", marginBottom: "2%" }}
+          >
             <Card sx={{ display: "flex", backgroundColor: "#E6E6E6" }}>
               <CardContent sx={{ flex: 1 }}>
                 <Typography variant="subtitle1" paragraph>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Dignissimos tempora dolorem non, explicabo nisi ullam repellat
-                  sapiente, alias quia consequuntur qui enim vero eligendi
-                  provident adipisci ducimus est quibusdam rem.
+                  Materiales
+                </Typography>
+
+                <img
+                  src="./public/img/icons/stl-webp-icon.webp"
+                  alt=""
+                  className={style.imgIcon}
+                />
+                <img
+                  src="./public/img/icons/obj-svg-icon.svg"
+                  alt=""
+                  className={style.imgIcon}
+                />
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            md={3.7}
+            sx={{ marginRight: "2%", marginBottom: "2%" }}
+          >
+            <Card sx={{ display: "flex", backgroundColor: "#E6E6E6" }}>
+              <CardContent sx={{ flex: 1 }}>
+                <Typography variant="subtitle1" paragraph>
+                  Calidades
+                </Typography>
+
+                <img
+                  src="./public/img/icons/stl-webp-icon.webp"
+                  alt=""
+                  className={style.imgIcon}
+                />
+                <img
+                  src="./public/img/icons/obj-svg-icon.svg"
+                  alt=""
+                  className={style.imgIcon}
+                />
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+      </Grid>
+
+      <Grid container spacing={1} className={style.container}>
+        <Grid
+          container
+          xs={12}
+          sx={{
+            marginBottom: "2rem",
+            display: "flex",
+            flexWrap: "wrap",
+          }}
+        >
+          <Grid
+            item
+            xs={12}
+            md={5}
+            className={style.paddingContainer}
+            sx={{ display: "grid", alignItems: "center" }}
+          >
+            <Card
+              sx={{
+                display: "flex",
+                backgroundColor: "#E6E6E6",
+                padding: "3.5%",
+              }}
+            >
+              <CardContent sx={{ flex: 1 }}>
+                <Typography variant="h6" component="h2" paragraph>
+                  Imprime sobre elementos rígidos planos y circulares. Impresión
+                  a full color y de alta velocidad.
+                </Typography>
+
+                <Button
+                  variant="contained"
+                  sx={{
+                    backgroundColor: "#DC2137",
+                  }}
+                  className={style.Button}
+                >
+                  Agendar
+                </Button>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            md={7}
+            sx={{ flex: 1 }}
+            className={style.paddingContainer}
+          >
+            <Card
+              sx={{ display: "flex", boxShadow: "none" }}
+              className={style.cardImg}
+            >
+              <CardContent sx={{ flex: 1 }}>
+                <Typography
+                  variant="subtitle1"
+                  paragraph
+                  sx={{
+                    fontSize: "2.3rem",
+                  }}
+                >
+                  CNC y Laser
+                </Typography>
+                <img
+                  src="./public/img/CNC_ESCRITORIO.jpg"
+                  alt=""
+                  className={style.imgService}
+                />
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+        <Grid
+          container
+          xs={12}
+          sx={{
+            marginBottom: "2rem",
+            display: "flex",
+            flexWrap: "wrap",
+          }}
+        >
+          <Grid
+            item
+            xs={12}
+            md={3.7}
+            sx={{ marginRight: "2%", marginBottom: "2%" }}
+          >
+            <Card sx={{ display: "flex", backgroundColor: "#E6E6E6" }}>
+              <CardContent sx={{ flex: 1 }}>
+                <Typography variant="subtitle1" paragraph>
+                  Formatos Aceptados
+                </Typography>
+
+                <img
+                  src="./public/img/icons/stl-webp-icon.webp"
+                  alt=""
+                  className={style.imgIcon}
+                />
+                <img
+                  src="./public/img/icons/obj-svg-icon.svg"
+                  alt=""
+                  className={style.imgIcon}
+                />
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            md={3.7}
+            sx={{ marginRight: "2%", marginBottom: "2%" }}
+          >
+            <Card sx={{ display: "flex", backgroundColor: "#E6E6E6" }}>
+              <CardContent sx={{ flex: 1 }}>
+                <Typography variant="subtitle1" paragraph>
+                  Materiales
+                </Typography>
+
+                <img
+                  src="./public/img/icons/stl-webp-icon.webp"
+                  alt=""
+                  className={style.imgIcon}
+                />
+                <img
+                  src="./public/img/icons/obj-svg-icon.svg"
+                  alt=""
+                  className={style.imgIcon}
+                />
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            md={3.7}
+            sx={{ marginRight: "2%", marginBottom: "2%" }}
+          >
+            <Card sx={{ display: "flex", backgroundColor: "#E6E6E6" }}>
+              <CardContent sx={{ flex: 1 }}>
+                <Typography variant="subtitle1" paragraph>
+                  Calidades
+                </Typography>
+
+                <img
+                  src="./public/img/icons/stl-webp-icon.webp"
+                  alt=""
+                  className={style.imgIcon}
+                />
+                <img
+                  src="./public/img/icons/obj-svg-icon.svg"
+                  alt=""
+                  className={style.imgIcon}
+                />
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid container spacing={1} className={style.container}>
+        <Grid
+          container
+          xs={12}
+          sx={{
+            marginBottom: "2rem",
+            display: "flex",
+            flexWrap: "wrap",
+          }}
+        >
+          <Grid
+            item
+            xs={12}
+            md={7}
+            sx={{ flex: 1 }}
+            className={style.paddingContainer}
+          >
+            <Card
+              sx={{ display: "flex", boxShadow: "none" }}
+              className={style.cardImg}
+            >
+              <CardContent sx={{ flex: 1 }}>
+                <Typography
+                  variant="subtitle1"
+                  paragraph
+                  sx={{
+                    fontSize: "2.3rem",
+                  }}
+                >
+                  Inyeccion de tinta e impresión UV
+                </Typography>
+                <img
+                  src="./public/img/inyeccionTinta.jpg"
+                  alt=""
+                  className={style.imgService}
+                />
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            md={5}
+            className={style.paddingContainer}
+            sx={{ display: "grid", alignItems: "center" }}
+          >
+            <Card
+              sx={{
+                display: "flex",
+                backgroundColor: "#E6E6E6",
+                padding: "3.5%",
+              }}
+            >
+              <CardContent sx={{ flex: 1 }}>
+                <Typography variant="h6" component="h2" paragraph>
+                  Imprime sobre elementos rígidos planos y circulares. Impresión
+                  a full color y de alta velocidad.
+                </Typography>
+                <Typography variant="body1" component="h2" paragraph>
+                  Tecnología de impresión: Deposición de material fundido.
+                </Typography>
+                <Typography variant="body1" component="h2" paragraph>
+                  Tipo de material: PLA.
                 </Typography>
                 <Button
                   variant="contained"
@@ -186,95 +405,86 @@ export default function Services() {
           </Grid>
         </Grid>
         <Grid
-          item
+          container
           xs={12}
-          md={8}
-          sx={{ flex: 1 }}
-          className={style.paddingContainer}
+          sx={{
+            marginBottom: "2rem",
+            display: "flex",
+            flexWrap: "wrap",
+          }}
         >
-          <Card
-            sx={{ display: "flex", backgroundColor: "#E6E6E6" }}
-            className={style.cardImg}
+          <Grid
+            item
+            xs={12}
+            md={3.7}
+            sx={{ marginRight: "2%", marginBottom: "2%" }}
           >
-            <CardContent sx={{ flex: 1 }}>
-              <Typography
-                variant="subtitle1"
-                paragraph
-                sx={{
-                  fontSize: "2.3rem",
-                }}
-              >
-                CNC y Laser
-              </Typography>
-              <img
-                src="./public/img/impresora3D.jpg"
-                alt=""
-                className={style.imgService}
-              />
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
-      <Grid container spacing={1} className={style.container}>
-        <Grid
-          item
-          xs={12}
-          md={8}
-          sx={{ flex: 1 }}
-          className={style.paddingContainer}
-        >
-          <Card
-            sx={{ display: "flex", backgroundColor: "#E6E6E6" }}
-            className={style.cardImg}
-          >
-            <CardContent sx={{ flex: 1 }}>
-              <Typography
-                variant="subtitle1"
-                paragraph
-                sx={{
-                  fontSize: "2.3rem",
-                }}
-              >
-                Inyección de tinta y UV
-              </Typography>
-              <img
-                src="./public/img/impresora3D.jpg"
-                alt=""
-                className={style.imgService}
-              />
-            </CardContent>
-          </Card>
-        </Grid>
-
-        <Grid item xs={12} md={4} className={style.paddingContainer}>
-          <Grid item xs={12} sx={{ marginBottom: "2rem" }}>
             <Card sx={{ display: "flex", backgroundColor: "#E6E6E6" }}>
               <CardContent sx={{ flex: 1 }}>
                 <Typography variant="subtitle1" paragraph>
                   Formatos Aceptados
                 </Typography>
-                <ThreeDRotationIcon />
+
+                <img
+                  src="./public/img/icons/stl-webp-icon.webp"
+                  alt=""
+                  className={style.imgIcon}
+                />
+                <img
+                  src="./public/img/icons/obj-svg-icon.svg"
+                  alt=""
+                  className={style.imgIcon}
+                />
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12}>
+          <Grid
+            item
+            xs={12}
+            md={3.7}
+            sx={{ marginRight: "2%", marginBottom: "2%" }}
+          >
             <Card sx={{ display: "flex", backgroundColor: "#E6E6E6" }}>
               <CardContent sx={{ flex: 1 }}>
                 <Typography variant="subtitle1" paragraph>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Dignissimos tempora dolorem non, explicabo nisi ullam repellat
-                  sapiente, alias quia consequuntur qui enim vero eligendi
-                  provident adipisci ducimus est quibusdam rem.
+                  Materiales
                 </Typography>
-                <Button
-                  variant="contained"
-                  sx={{
-                    backgroundColor: "#DC2137",
-                  }}
-                  className={style.Button}
-                >
-                  Agendar
-                </Button>
+
+                <img
+                  src="./public/img/icons/stl-webp-icon.webp"
+                  alt=""
+                  className={style.imgIcon}
+                />
+                <img
+                  src="./public/img/icons/obj-svg-icon.svg"
+                  alt=""
+                  className={style.imgIcon}
+                />
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            md={3.7}
+            sx={{ marginRight: "2%", marginBottom: "2%" }}
+          >
+            <Card sx={{ display: "flex", backgroundColor: "#E6E6E6" }}>
+              <CardContent sx={{ flex: 1 }}>
+                <Typography variant="subtitle1" paragraph>
+                  Calidades
+                </Typography>
+
+                <img
+                  src="./public/img/icons/stl-webp-icon.webp"
+                  alt=""
+                  className={style.imgIcon}
+                />
+                <img
+                  src="./public/img/icons/obj-svg-icon.svg"
+                  alt=""
+                  className={style.imgIcon}
+                />
               </CardContent>
             </Card>
           </Grid>
