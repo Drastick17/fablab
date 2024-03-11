@@ -46,6 +46,11 @@
     padding: 2%;
 }
 
+.imgIcon{
+    width: 2rem;
+    padding-right: 2%;
+}
+
 .Button{
     width: 100%;
 }
