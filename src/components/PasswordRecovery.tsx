@@ -1,14 +1,12 @@
-import * as React from "react";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
+import * as React from "react";
 // import Link from '@mui/material/Link';
-import { Link } from "react-router-dom";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
 import style from "./style.module.css";
 
 function Copyright(props: any) {
@@ -27,15 +25,6 @@ function Copyright(props: any) {
   );
 }
 
-const defaultTheme = createTheme({
-  typography: {
-    fontFamily: [
-      "Co Headline Regular",
-      "Co Headline Light",
-      "Co Headline Bold",
-    ].join(","),
-  },
-});
 
 export default function EmailVerification() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -43,13 +32,11 @@ export default function EmailVerification() {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
       <Container
         className={style.mainEmailVerification}
         component="main"
         maxWidth="xs"
       >
-        <CssBaseline />
         <Box
           sx={{
             marginTop: 2,
@@ -124,6 +111,5 @@ export default function EmailVerification() {
           <Copyright sx={{ mt: 5, mb: 1 }} />
         </Box>
       </Container>
-    </ThemeProvider>
   );
 }

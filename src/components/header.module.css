@@ -1,0 +1,28 @@
+.mainHeaderNav {
+  width: 100vw;
+  height: fit-content;
+  padding: 1.2rem 2.4rem;
+  background-color: #e20613;
+  border-end-end-radius: 30px;
+}
+
+.mainServices {
+  background-color: white;
+  overflow: hidden;
+}
+
+.logoHFabLab {
+  width: 5rem;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.textNav {
+  padding-top: 15%;
+  font-size: 1rem;
+  color: white;
+}
+
+.imgService {
+  border-radius: 8px;
+}
