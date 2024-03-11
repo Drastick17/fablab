@@ -29,55 +29,60 @@ const defaultTheme = createTheme({
     },
   });
 
-export default function Services() {
-  
-  return (
-    <ThemeProvider theme={defaultTheme}>
+  export default function Services() {
+    return (
+      <ThemeProvider theme={defaultTheme}>
         <Container className={style.mainServices} component="main" maxWidth="xl">
-            <div>
-              <HeaderNav/>
-            </div>
-            
-            <Grid container spacing={1} className={style.container}>
-              <Grid item xs={8} sx={{ flex: 1}}>
-                <Typography variant="subtitle1" paragraph sx={{
-                  fontSize: "2.5rem"
+          <div>
+            <HeaderNav />
+          </div>
+  
+          <Grid container spacing={1} className={style.container}>
+            <Grid item xs={12} md={8} sx={{ flex: 1 }} className={style.paddingContainer}>
+              <Card sx={{ display: 'flex', backgroundColor: "#FFFFFF" }}>
+                <CardContent sx={{ flex: 1 }}>
+    
+                  <Typography variant="subtitle1" paragraph sx={{
+                  fontSize: "2.3rem"
                 }}>
                   Service 3D
                 </Typography>
                 <img src="./public/img/impresora3D.jpg" alt="" className={style.imgService} />
-              </Grid>
+                  </CardContent>
+                </Card>
               
-              <Grid item xs={4} md={4}>
-                <Grid item xs={12} sx={{ marginBottom: "2rem" }}>
-                  <Card sx={{ display: 'flex', backgroundColor: "#E6E6E6" }}>
-                    <CardContent sx={{ flex: 1 }}>
-                      
-                      <Typography variant="subtitle1" paragraph>
-                        Formatos Aceptados
-                      </Typography>
-                      <ThreeDRotationIcon />
-                    </CardContent>
-                    
-                  </Card>
-                </Grid>
-                <Grid item xs={12}>
-                  <Card sx={{ display: 'flex', backgroundColor: "#E6E6E6" }}>
-                    <CardContent sx={{ flex: 1 }}>
-                      
-                      <Typography variant="subtitle1" paragraph>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos tempora dolorem non, explicabo nisi ullam repellat sapiente, alias quia consequuntur qui enim vero eligendi provident adipisci ducimus est quibusdam rem.
-                      </Typography>
-                      <Button variant="contained" sx={{
-                        backgroundColor: "#DC2137"
-                      }}>Agendar</Button>
-                    </CardContent>
-                    
-                  </Card>
-                </Grid>
+            </Grid>
+  
+            <Grid item xs={12} md={4} className={style.paddingContainer}>
+              <Grid item xs={12} sx={{ marginBottom: "2rem" }}>
+                <Card sx={{ display: 'flex', backgroundColor: "#E6E6E6" }}>
+                  <CardContent sx={{ flex: 1 }}>
+  
+                    <Typography variant="subtitle1" paragraph>
+                      Formatos Aceptados
+                    </Typography>
+                    <ThreeDRotationIcon />
+                  </CardContent>
+  
+                </Card>
+              </Grid>
+              <Grid item xs={12}>
+                <Card sx={{ display: 'flex', backgroundColor: "#E6E6E6" }}>
+                  <CardContent sx={{ flex: 1 }}>
+  
+                    <Typography variant="subtitle1" paragraph>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos tempora dolorem non, explicabo nisi ullam repellat sapiente, alias quia consequuntur qui enim vero eligendi provident adipisci ducimus est quibusdam rem.
+                    </Typography>
+                    <Button variant="contained" sx={{
+                      backgroundColor: "#DC2137"
+                    }}>Agendar</Button>
+                  </CardContent>
+  
+                </Card>
               </Grid>
             </Grid>
+          </Grid>
         </Container>
-    </ThemeProvider>
-  );
-}
+      </ThemeProvider>
+    );
+  }
