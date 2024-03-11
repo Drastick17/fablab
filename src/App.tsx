@@ -5,6 +5,7 @@ import SignUp from "./components/Register";
 import EmailVerification from "./components/EmailVerification";
 import ForgotPassword from "./components/ForgotPassword";
 import PasswordRecovery from "./components/PasswordRecovery";
+import Services from "./components/Services";
 
 function App() {
   const router = createBrowserRouter([
@@ -45,6 +46,14 @@ function App() {
       element: (
         <div>
           <PasswordRecovery />
+        </div>
+      ),
+    },
+    {
+      path: "/services",
+      element: (
+        <div>
+          <Services />
         </div>
       ),
     },
