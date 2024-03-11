@@ -9,6 +9,7 @@ import ForgotPassword from "./components/ForgotPassword";
 import PasswordRecovery from "./components/PasswordRecovery";
 import Services from "./components/Services";
 import HeaderNav from "./components/HeaderNav";
+import PrinterService from "./components/printerService"
 
 function App() {
   const router = createBrowserRouter([
@@ -35,6 +36,9 @@ function App() {
     {
       path: "/services",
       element: <Services />,
+    },{
+      path: "/printerservice",
+      element: <PrinterService />,
     },
   ]);
 

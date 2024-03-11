@@ -12,8 +12,8 @@
     min-height: 100vh;
     min-width:100vw;
     background-color: white;
-    padding: 0;
-    margin: 0;
+    padding: 0px;
+    margin: 0px;
     
 }
 
@@ -40,6 +40,15 @@
 
 .paddingContainer{
     padding: 2%;
+}
+
+.GridPrinters{
+    padding: 5px;
+}
+
+.GeneralGrid{
+    padding: 10px;
+    background-color: black;
 }
 
 @media (max-width: 1096px) {

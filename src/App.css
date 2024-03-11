@@ -35,7 +35,8 @@ body {
   display: grid;
   justify-content: center;
   align-items: start;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 .link {
