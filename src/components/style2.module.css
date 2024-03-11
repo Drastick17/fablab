@@ -42,6 +42,14 @@
     padding: 4%;
 }
 
+.cardImg{
+    padding: 2%;
+}
+
+.Button{
+    width: 100%;
+}
+
 @media (max-width: 1096px) {
     /* Cambios de estilo para pantallas con ancho máximo de 768px */
     .MuiGrid-item {
