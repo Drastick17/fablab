@@ -1,18 +1,11 @@
-import ThreeDRotationIcon from "@mui/icons-material/ThreeDRotation";
-import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
-import * as React from "react";
-import { styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
-import style from "./styleServices.module.css";
 import { Grid } from "@mui/material";
-import { Link } from "react-router-dom";
+import Container from "@mui/material/Container";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import { styled } from "@mui/material/styles";
 import { motion } from "framer-motion";
-import { Opacity } from "@mui/icons-material";
+import { Link } from "react-router-dom";
+import style from "./styleServices.module.css";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
