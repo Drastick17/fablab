@@ -1,5 +1,6 @@
 import Grid from "@mui/material/Grid";
 import header from "./header.module.css";
+import { motion } from "framer-motion";
 
 export default function HeaderNav() {
   return (

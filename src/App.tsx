@@ -9,7 +9,9 @@ import ForgotPassword from "./components/ForgotPassword";
 import PasswordRecovery from "./components/PasswordRecovery";
 import Services from "./components/Services";
 import HeaderNav from "./components/HeaderNav";
-import PrinterService from "./components/printerService"
+import PrinterService from "./components/printerService";
+
+import { AnimatePresence } from "framer-motion";
 
 function App() {
   const router = createBrowserRouter([
@@ -36,7 +38,8 @@ function App() {
     {
       path: "/services",
       element: <Services />,
-    },{
+    },
+    {
       path: "/printerservice",
       element: <PrinterService />,
     },
@@ -55,10 +58,11 @@ function App() {
   return (
     <>
       <ThemeProvider theme={defaultTheme}>
-        <HeaderNav />
         <CssBaseline />
-
-        <RouterProvider router={router} />
+        <AnimatePresence>
+          <HeaderNav />
+          <RouterProvider router={router} />
+        </AnimatePresence>
       </ThemeProvider>
     </>
   );

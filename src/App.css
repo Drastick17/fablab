@@ -26,13 +26,14 @@
   font-family: "Co Headline Regular";
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: border-box !important;
 }
 
 body {
   width: 100vw;
   min-height: 100vh;
   display: grid;
+  grid-template-columns: 1fr;
   justify-content: center;
   align-items: start;
   overflow-x: hidden;
