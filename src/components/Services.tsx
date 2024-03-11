@@ -39,7 +39,7 @@ const defaultTheme = createTheme({
   
           <Grid container spacing={1} className={style.container}>
             <Grid item xs={12} md={8} sx={{ flex: 1 }} className={style.paddingContainer}>
-              <Card sx={{ display: 'flex', backgroundColor: "#FFFFFF" }}>
+              <Card sx={{ display: 'flex', backgroundColor: "#E6E6E6" }}>
                 <CardContent sx={{ flex: 1 }}>
     
                   <Typography variant="subtitle1" paragraph sx={{

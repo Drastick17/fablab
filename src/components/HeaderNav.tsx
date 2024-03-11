@@ -1,53 +1,46 @@
-import * as React from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
 import Grid from "@mui/material/Grid";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import style2 from "./style2.module.css";
-
-const defaultTheme = createTheme({
-    typography: {
-      fontFamily: [
-        "Co Headline Regular",
-        "Co Headline Light",
-        "Co Headline Bold",
-      ].join(","),
-    },
-  });
+import header from "./header.module.css";
 
 export default function HeaderNav() {
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Container className={style2.mainHeaderNav} maxWidth="lg">
-        <Box>
-        <Grid container spacing={1}>
-              <Grid item xs={8} sx={{ textAlign: "left"
-            , 
+    <header className={header.mainHeaderNav}>
+      <Grid
+        container
+        spacing={1}
+        justifyContent={"space-between"}
+        alignContent={"center"}
+      >
+        <Grid
+          item
+          xs={4}
+          sx={{
             display: "flex",
-            flexDirection: "column" 
-            }}>
-                <img
-                  className={style2.logoHFabLab}
-                  src="../public/img/logoH.jpg"
-                ></img>
-              </Grid>
-              <Grid item xs={4} sx={{ textAlign: "right" }}>
-                <Grid container spacing={1}>
-                  <Grid item xs={4} sx={{ textAlign: "center" }}>
-                    <h2 className={style2.textNav}>Acerca de FabLab</h2>
-                  </Grid>
-                  <Grid item xs={4} sx={{ textAlign: "center" }}>
-                    <h2 className={style2.textNav}>Servicios</h2>
-                  </Grid>
-                  <Grid item xs={4} sx={{ textAlign: "center" }}>
-                    <h2 className={style2.textNav}>Ubicacion</h2>
-                  </Grid>
-                </Grid>
-              </Grid>
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "0.5rem",
+            color: "#fff",
+          }}
+        >
+          <img
+            className={header.logoHFabLab}
+            src="/public/img/logo-withoutbg.png"
+          />
+          <h1>FABLAB</h1>
+        </Grid>
+        <Grid item xs={4} sx={{ textAlign: "right" }}>
+          <Grid container spacing={1}>
+            <Grid item xs={4} sx={{ textAlign: "center" }}>
+              <h2 className={header.textNav}>Acerca de FabLab</h2>
             </Grid>
-        </Box>
-      </Container>
-    </ThemeProvider>
+            <Grid item xs={4} sx={{ textAlign: "center" }}>
+              <h2 className={header.textNav}>Servicios</h2>
+            </Grid>
+            <Grid item xs={4} sx={{ textAlign: "center" }}>
+              <h2 className={header.textNav}>Ubicacion</h2>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    </header>
   );
 }

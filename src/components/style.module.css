@@ -1,19 +1,12 @@
-* {
-    font-family: "Co Headline Regular";
-    margin: 0;
-    padding: 0;
-  }
-  
+
 body{
     background-image: url("../public/img/fondoLogin.jpg" );
     background-size: cover;
     background-repeat: no-repeat;
-    
 }
 
 .logoSignInFablab{
     object-fit: contain;
-    
     height: 100%;
     width:50%;
     padding-right: 25px;
@@ -21,7 +14,6 @@ body{
 
 .logoSignInUcacue{
     object-fit: contain;
-    
     height: 100%;
     width:80%;
     padding-left: 10px;
@@ -29,7 +21,6 @@ body{
 
 .logoRegisterFablab{
     object-fit: contain;
-    
     height: 100%;
     width:25%;
     padding-right: 15px;

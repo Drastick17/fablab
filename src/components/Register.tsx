@@ -1,18 +1,16 @@
-import * as React from "react";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import TextField from "@mui/material/TextField";
+import * as React from "react";
 // import Link from '@mui/material/Link';
-import { Link } from "react-router-dom";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import style from "./style.module.css";
 import { FormControl, FormLabel, Radio, RadioGroup } from "@mui/material";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
+import style from "./style.module.css";
 
 function Copyright(props: any) {
   return (
@@ -30,21 +28,9 @@ function Copyright(props: any) {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme({
-  typography: {
-    fontFamily: [
-      "Co Headline Regular",
-      "Co Headline Light",
-      "Co Headline Bold",
-    ].join(","),
-  },
-});
 
-//Redirección al dar click en el botón registrarse
 
 const handleEmailVerification = () => {
-  // Redirige al usuario a la página de registro
   window.location.href = "/email-verification";
 };
 
@@ -59,9 +45,7 @@ export default function SignUp() {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
       <Container className={style.mainRegister} component="main" maxWidth="xs">
-        <CssBaseline />
         <Box
           sx={{
             marginTop: 1,
@@ -204,6 +188,5 @@ export default function SignUp() {
         </Box>
         <Copyright sx={{ mt: 2 }} />
       </Container>
-    </ThemeProvider>
   );
 }

@@ -1,43 +1,45 @@
-
 @font-face {
-  font-family: 'Co Headline Regular';
+  font-family: "Co Headline Regular";
   font-style: normal;
   font-weight: 400;
-  src: local('Co Headline Regular'), url('../public/fonts/Co\ Headline.woff') format('woff');
-  }
-  
+  src: local("Co Headline Regular"),
+    url("../public/fonts/Co\ Headline.woff") format("woff");
+}
 
-  @font-face {
-  font-family: 'Co Headline Light';
+@font-face {
+  font-family: "Co Headline Light";
   font-style: normal;
   font-weight: 100;
-  src: local('Co Headline Light'), url('../public/fonts/Co\ Headline\ Light.woff') format('woff');
-  }
-  
+  src: local("Co Headline Light"),
+    url("../public/fonts/Co\ Headline\ Light.woff") format("woff");
+}
 
-  @font-face {
-  font-family: 'Co Headline Bold';
+@font-face {
+  font-family: "Co Headline Bold";
   font-style: normal;
   font-weight: 600;
-  src: local('Co Headline Bold'), url('../public/fonts/Co\ Headline\ Bold.woff') format('woff');
-  }
+  src: local("Co Headline Bold"),
+    url("../public/fonts/Co\ Headline\ Bold.woff") format("woff");
+}
 
 * {
   font-family: "Co Headline Regular";
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
-body{
+body {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   display: grid;
-  place-content: center;
- 
+  justify-content: center;
+  align-items: start;
+  overflow: hidden;
 }
 
-.link{
-  text-decoration: none;  
+.link {
+  text-decoration: none;
   color: rgb(32, 136, 255);
   font-size: 0.9rem;
 }
