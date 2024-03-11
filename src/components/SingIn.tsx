@@ -27,7 +27,6 @@ function Copyright(props: any) {
   );
 }
 
-
 export default function SignIn() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -39,69 +38,65 @@ export default function SignIn() {
   };
 
   return (
-      <Container className={style.mainSignIn} component="main" maxWidth="xs">
-        <Box
-          sx={{
-            marginTop: 2,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Box>
-            <Grid container spacing={1}>
-              <Grid item xs={6} sx={{ textAlign: "right" }}>
-                <img
-                  className={style.logoSignInFablab}
-                  src="../public/img/logo.jpg"
-                ></img>
-              </Grid>
-              <Grid item xs={6} sx={{ textAlign: "left" }}>
-                <img
-                  className={style.logoSignInUcacue}
-                  src="../public/img/UcacueLogo.jpg"
-                ></img>
-              </Grid>
+    <Container className={style.mainSignIn} component="main" maxWidth="xs">
+      <Box
+        sx={{
+          marginTop: 2,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Box>
+          <Grid container spacing={1}>
+            <Grid item xs={6} sx={{ textAlign: "right" }}>
+              <img
+                className={style.logoSignInFablab}
+                src="../public/img/logo.jpg"
+              ></img>
             </Grid>
-          </Box>
+            <Grid item xs={6} sx={{ textAlign: "left" }}>
+              <img
+                className={style.logoSignInUcacue}
+                src="../public/img/UcacueLogo.jpg"
+              ></img>
+            </Grid>
+          </Grid>
+        </Box>
 
-          <Typography component="h1" variant="h5">
-            Iniciar Sesión
-          </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-          >
-            <TextField
-              className={style.innerRegisterFont}
-              margin="normal"
-              required
-              fullWidth
-              id="cedula"
-              label="Cédula"
-              name="cedula"
-              autoComplete="cedula"
-              autoFocus
-              size="small"
-            />
-            <TextField
-              className={style.innerRegisterFont}
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Contraseña"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              size="small"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Recuérdame"
-            />
+        <Typography component="h1" variant="h5">
+          Iniciar Sesión
+        </Typography>
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <TextField
+            className={style.innerRegisterFont}
+            margin="normal"
+            required
+            fullWidth
+            id="cedula"
+            label="Cédula"
+            name="cedula"
+            autoComplete="cedula"
+            autoFocus
+            size="small"
+          />
+          <TextField
+            className={style.innerRegisterFont}
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Contraseña"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            size="small"
+          />
+          <FormControlLabel
+            control={<Checkbox value="remember" color="primary" />}
+            label="Recuérdame"
+          />
+          <Link className="link" to="/services">
             <Button
               type="submit"
               fullWidth
@@ -110,21 +105,23 @@ export default function SignIn() {
             >
               Iniciar sesión
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link className="link" to="/forgot-password">
-                  ¿Olvidaste tu contraseña?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link className="link" to="/sign-up">
-                  ¿No tienes cuenta?
-                </Link>
-              </Grid>
+          </Link>
+
+          <Grid container>
+            <Grid item xs>
+              <Link className="link" to="/forgot-password">
+                ¿Olvidaste tu contraseña?
+              </Link>
             </Grid>
-          </Box>
-          <Copyright sx={{ mt: 10, mb: 1 }} />
+            <Grid item>
+              <Link className="link" to="/sign-up">
+                ¿No tienes cuenta?
+              </Link>
+            </Grid>
+          </Grid>
         </Box>
-      </Container>
+        <Copyright sx={{ mt: 10, mb: 1 }} />
+      </Box>
+    </Container>
   );
 }
