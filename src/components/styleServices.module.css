@@ -13,7 +13,8 @@
 }
 
 .GridPrintersImg{
-    align-content: left;
+    align-content: center;
+    justify-content: center;
 }
 
 
@@ -21,7 +22,7 @@
   
     width: 150%;
     height: 150%;
-    background:  #AF1C32 ;
+    background: #cb2028;
     position: absolute;
     top: -120px;
     right: 0;
@@ -32,7 +33,7 @@
   
     width: 150%;
     height: 150%;
-    background: #E20613 ;
+    background:  #0f9a49;
     position: absolute;
     top: -120px;
     right: 0;
@@ -43,7 +44,7 @@
   
     width: 150%;
     height: 150%;
-    background: #C2C3C8 ;
+    background: #35479d ;
     position: absolute;
     top: -120px;
     right: 0;
