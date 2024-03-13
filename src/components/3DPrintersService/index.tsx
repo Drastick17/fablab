@@ -8,18 +8,41 @@ import * as animation from "./animationPrinter.module";
 
 const printers = [
   {
-    nombre: "printer1",
-    descripcion: "Impresora 3D",
-  },
-  {
-    nombre: "printer2",
+    id: "printer1",
+    nombre: "Impresora 3D FDM",
     descripcion:
       "Area de trabajo: 14x14x14cm Materiales: PLA, TPU, PET Formato de archivo: STL/OBJ",
   },
-  { nombre: "printer2", descripcion: "Impresora 3D Pequeña" },
-  { nombre: "printer3", descripcion: "Impresora 3D Mediana" },
-  { nombre: "printer3", descripcion: "Impresora 3D Rapida" },
-  { nombre: "printer3", descripcion: "Impresora 3D Lenta" },
+  {
+    id: "printer2",
+    nombre: "Impresora 3D DLP",
+    descripcion:
+      "Area de trabajo: 14x14x14cm Materiales: PLA, TPU, PET Formato de archivo: STL/OBJ",
+  },
+  {
+    id: "printer3",
+    nombre: "Impresora 3D SLS",
+    descripcion:
+      "Area de trabajo: 14x14x14cm Materiales: PLA, TPU, PET Formato de archivo: STL/OBJ",
+  },
+  {
+    id: "printer1",
+    nombre: "Impresora 3D de Resina: SLA",
+    descripcion:
+      "Area de trabajo: 14x14x14cm Materiales: PLA, TPU, PET Formato de archivo: STL/OBJ",
+  },
+  {
+    id: "printer2",
+    nombre: "Impresora 3D por Estereolitografía (SLA)",
+    descripcion:
+      "Area de trabajo: 14x14x14cm Materiales: PLA, TPU, PET Formato de archivo: STL/OBJ",
+  },
+  {
+    id: "printer3",
+    nombre: " Impresora Modelado por deposición fundida",
+    descripcion:
+      "Area de trabajo: 14x14x14cm Materiales: PLA, TPU, PET Formato de archivo: STL/OBJ",
+  },
 ];
 
 function PrinterCreation(props: any) {
@@ -38,18 +61,20 @@ function PrinterCreation(props: any) {
         >
           <Grid item xs={6} className={style.GridPrintersImg}>
             <img
-              src={`../public/img/printers/${props.nombre}.jpg`}
+              src={`../public/img/printers/${props.id}.jpg`}
               alt=""
               className={style.imgService}
             />
           </Grid>
           <Grid item xs={6} className={style.GridPrintersText}>
-            <Grid container direction="column" justifyContent="space-between">
+            <Grid container direction="column" spacing={3}>
               <Grid item>
                 <Typography component="h1" variant="h6">
                   {props.nombre}
                 </Typography>
-                <Typography component="h1" variant="body1">
+              </Grid>
+              <Grid item>
+                <Typography component="p" variant="body2">
                   {props.descripcion}
                 </Typography>
               </Grid>

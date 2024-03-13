@@ -49,10 +49,6 @@ export default function SignIn() {
           duration: 2,
           times: [0, 0.2, 0.5, 0.8, 1],
         }}
-        exit={{
-          opacity: 0,
-          transition: { duration: 1 }, // Duración de salida mínimo
-        }}
       >
         <Container component="main" maxWidth="xs">
           <Box

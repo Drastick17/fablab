@@ -16,12 +16,10 @@ import UserContextProvider from "./store/UserContext";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <AnimatePresence mode="wait">
-      <motion.section>
-        <HeaderNav />
-        <main className="mainContainer">{children}</main>
-      </motion.section>
-    </AnimatePresence>
+    <>
+      <HeaderNav />
+      <main className="mainContainer">{children}</main>
+    </>
   );
 };
 
@@ -41,9 +39,7 @@ function App() {
       path: "/",
       element: (
         <Layout>
-          <AnimatePresence mode="sync">
-            <SignIn />
-          </AnimatePresence>
+          <SignIn />
         </Layout>
       ),
     },
@@ -82,9 +78,9 @@ function App() {
     {
       path: "/services",
       element: (
-        <Layout>
+        <AnimatePresence mode="wait">
           <Services />
-        </Layout>
+        </AnimatePresence>
       ),
     },
     {
@@ -101,7 +97,9 @@ function App() {
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
       <UserContextProvider>
-        <RouterProvider router={router} />
+        <AnimatePresence mode="wait">
+          <RouterProvider router={router} />
+        </AnimatePresence>
       </UserContextProvider>
     </ThemeProvider>
   );

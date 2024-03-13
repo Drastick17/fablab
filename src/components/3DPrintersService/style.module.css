@@ -74,7 +74,8 @@
 
 .GridPrintersText{
   color: black;
-  height: "95%";
+  height: "100%";
+  padding:8px;
 }
 
 @media (max-width: 1096px) {
