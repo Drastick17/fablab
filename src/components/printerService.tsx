@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import style from "./styleServices.module.css";
 import { gridPrinterAnimation } from "./animationPrinter.module";
-import { Component, useEffect, useState } from "react";
 
 const printers = [
   {
@@ -33,6 +32,7 @@ function PrinterCreation(props: any) {
         className={style.GridPrinter}
         component={motion.div}
         item
+        {...gridPrinterAnimation}
       >
         <Grid item xs={6} className={style.GridPrintersImg}>
           <img
