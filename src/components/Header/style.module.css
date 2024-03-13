@@ -1,0 +1,41 @@
+.header {
+  background-color: #e20613;
+  padding-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  padding: 20px 60px;
+}
+
+.logo {
+  width: 5rem;
+  height: 100%;
+  background-color: white;
+  border-radius: 50%;
+  transition: all ease-in-out 0.2s;
+}
+
+.logo:hover{
+  transition: all ease-in-out 0.2s;
+  transform: scale(1.05) translateY(-5px);
+
+}
+
+.menu{
+  display: flex;
+  gap: 1.75rem;
+}
+
+.menuLi{
+  color:whitesmoke;
+  text-decoration-color: transparent ;
+  transition: all ease-in-out .2s;
+}
+
+.menuLi:hover{
+  transition: all ease-in-out .2s;
+  text-underline-offset: 4px;
+  text-decoration:  underline;
+  transform: scale(1.01) translateY(-5px);
+}

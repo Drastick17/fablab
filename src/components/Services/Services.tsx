@@ -1,4 +1,3 @@
-import ThreeDRotationIcon from "@mui/icons-material/ThreeDRotation";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -6,8 +5,7 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { motion } from "framer-motion";
-import style from "./style2.module.css";
-
+import style from "./style.module.css";
 const services = [
   {
     name: "Impresoras 3D",

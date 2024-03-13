@@ -2,8 +2,8 @@ import { Grid } from "@mui/material";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import style from "./styleServices.module.css";
+import { Link, useParams } from "react-router-dom";
+import style from "./style.module.css";
 import { gridPrinterAnimation } from "./animationPrinter.module";
 
 const printers = [
@@ -23,6 +23,8 @@ const printers = [
 ];
 
 function PrinterCreation(props: any) {
+  const { serviceType } = useParams();
+  console.log(serviceType);
   return (
     <>
       <Grid
@@ -68,7 +70,7 @@ function PrinterCreation(props: any) {
   );
 }
 
-export default function Services() {
+export default function ThreeDServices() {
   return (
     <div style={{ position: "relative" }}>
       <motion.div
