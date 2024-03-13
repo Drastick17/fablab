@@ -2,31 +2,34 @@
 .mainServices{
     
     padding: 0px;
-    margin-top: 75px;
+    margin: 15px;
+}
+
+.GridPrinter{
+    border: 2px solid rgba(89, 82, 82, 0.12);
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px 1px rgba(151, 150, 150, 0.728);
+    margin: 10px;
+    height: 250px;
     
+}
+
+.GridPrintersImg{
+    align-content: left;
+}
+
+.GridPrintersText{
 }
 
 
 .imgService{
     width: 100%;
     max-height: 200px;
-    object-position: center;
     object-fit: contain;
 }
 
-.paddingContainer{
-    padding: 2%;
-}
 
-.GridPrintersImg{
-    align-content: center;
-}
 
-.ItemPrinter{
-    display: flex;
-    min-height: 250px;
-    border: solid rgb(121, 113, 113) 1px;
-}
 
 
 @media (max-width: 1096px) {
