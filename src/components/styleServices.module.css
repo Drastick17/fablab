@@ -1,8 +1,6 @@
 
 .mainServices{
-    
-    padding: 0px;
-    margin: 15px;
+    padding: 25px;
 }
 
 .GridPrinter{
@@ -18,7 +16,37 @@
     align-content: left;
 }
 
-.GridPrintersText{
+
+.BackgroundAnimation1{
+  
+    width: 150%;
+    height: 150%;
+    background:  #AF1C32 ;
+    position: absolute;
+    top: -120px;
+    right: 0;
+}
+
+
+.BackgroundAnimation2{
+  
+    width: 150%;
+    height: 150%;
+    background: #E20613 ;
+    position: absolute;
+    top: -120px;
+    right: 0;
+}
+
+
+.BackgroundAnimation3{
+  
+    width: 150%;
+    height: 150%;
+    background: #C2C3C8 ;
+    position: absolute;
+    top: -120px;
+    right: 0;
 }
 
 

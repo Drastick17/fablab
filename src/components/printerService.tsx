@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import style from "./styleServices.module.css";
 import { gridPrinterAnimation } from "./animationPrinter.module";
-import { useEffect, useState } from "react";
+import { Component, useEffect, useState } from "react";
 
 const printers = [
   {
@@ -33,8 +33,6 @@ function PrinterCreation(props: any) {
         className={style.GridPrinter}
         component={motion.div}
         item
-        {...gridPrinterAnimation}
-        transition={{ ...gridPrinterAnimation.transition, delay: props.delay }}
       >
         <Grid item xs={6} className={style.GridPrintersImg}>
           <img
@@ -71,36 +69,61 @@ function PrinterCreation(props: any) {
 }
 
 export default function Services() {
-  const [animationComplete, setAnimationComplete] = useState(false);
-  useEffect(() => {
-    // Marcar la animación como completa cuando el componente se monta
-    setAnimationComplete(true);
-  }, []); // El segundo argumento [] asegura que esto solo se ejecute una vez, al montar el componente
-
   return (
-    <motion.div
-      className="content"
-      style={{
-        opacity: 0, // Opacidad inicial en 0
-      }}
-      animate={{
-        backgroundColor: "red",
-        originX: 0,
-        originY: 0,
-        opacity: animationComplete ? 1 : 0,
-        y: animationComplete ? 0 : 20,
-      }}
-      transition={{ duration: 10 }}
-    >
+    <div style={{ position: "relative" }}>
+      <motion.div
+        className={style.BackgroundAnimation1}
+        animate={{
+          width: ["100%", "0%"],
+          transitionEnd: {
+            display: "none",
+          },
+        }}
+        transition={{
+          duration: 2,
+          ease: "easeInOut",
+          delay: 0.4,
+        }}
+      />
+
+      <motion.div
+        className={style.BackgroundAnimation2}
+        animate={{
+          transitionEnd: {
+            display: "none",
+          },
+          width: ["90%", "0%"],
+        }}
+        transition={{
+          duration: 2,
+          ease: "easeInOut",
+          delay: 0.2,
+        }}
+      />
+
+      <motion.div
+        className={style.BackgroundAnimation3}
+        animate={{
+          transitionEnd: {
+            display: "none",
+          },
+          width: ["80%", "0%"],
+        }}
+        transition={{
+          duration: 2,
+          ease: "easeInOut",
+        }}
+      />
+
       <Container className={style.mainServices} component="main" maxWidth="xl">
         <Grid container spacing={3}>
           {printers.map((printer, i) => (
             <Grid item key={i} xs={12} md={6} lg={4}>
-              <PrinterCreation delay={0.06 * i} {...printer} />
+              <PrinterCreation delay={1.5 + 0.06 * i} {...printer} />
             </Grid>
           ))}
         </Grid>
       </Container>
-    </motion.div>
+    </div>
   );
 }
