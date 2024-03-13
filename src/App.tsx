@@ -16,18 +16,8 @@ import UserContextProvider from "./store/UserContext";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <AnimatePresence>
-      <motion.section
-        animate={{ x: [80, 0], opacity: [0, 1] }}
-        transition={{
-          type: "spring",
-          stiffness: 100,
-          ease: [0.17, 0.67, 0.83, 0.67],
-        }}
-        exit={{
-          type: "spring",
-        }}
-      >
+    <AnimatePresence mode="wait">
+      <motion.section>
         <HeaderNav />
         <main className="mainContainer">{children}</main>
       </motion.section>
@@ -51,7 +41,9 @@ function App() {
       path: "/",
       element: (
         <Layout>
-          <SignIn />
+          <AnimatePresence mode="sync">
+            <SignIn />
+          </AnimatePresence>
         </Layout>
       ),
     },

@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import { motion } from "framer-motion";
 import { Link, useParams } from "react-router-dom";
 import style from "./style.module.css";
-import { gridPrinterAnimation } from "./animationPrinter.module";
+import * as animation from "./animationPrinter.module";
 
 const printers = [
   {
@@ -14,7 +14,7 @@ const printers = [
   {
     nombre: "printer2",
     descripcion:
-      "Area de trabajo: 14x14x14cm Materiales: PLA, TPU, PET \n Formato de archivo: STL/OBJ",
+      "Area de trabajo: 14x14x14cm Materiales: PLA, TPU, PET Formato de archivo: STL/OBJ",
   },
   { nombre: "printer2", descripcion: "Impresora 3D Pequeña" },
   { nombre: "printer3", descripcion: "Impresora 3D Mediana" },
@@ -27,101 +27,63 @@ function PrinterCreation(props: any) {
   console.log(serviceType);
   return (
     <>
-      <Grid
-        container
-        spacing={1}
-        justifyContent="center"
-        className={style.GridPrinter}
-        component={motion.div}
-        item
-        {...gridPrinterAnimation}
-      >
-        <Grid item xs={6} className={style.GridPrintersImg}>
-          <img
-            src={`../public/img/printers/${props.nombre}.jpg`}
-            alt=""
-            className={style.imgService}
-          />
-        </Grid>
-        <Grid item xs={6} className={style.GridPrintersText}>
-          <Grid
-            container
-            direction="column"
-            justifyContent="space-between"
-            style={{ height: "95%" }}
-          >
-            <Grid item>
-              <Typography component="h1" variant="h6">
-                {props.nombre}
-              </Typography>
-              <Typography component="h1" variant="body1">
-                {props.descripcion}
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Link className="link" to="#">
-                Agenda aquí
-              </Link>
+      <Link to="/" className="link">
+        <Grid
+          container
+          spacing={1}
+          className={style.GridPrinter}
+          component={motion.div}
+          item
+          {...animation.GridPrinterAnimation}
+        >
+          <Grid item xs={6} className={style.GridPrintersImg}>
+            <img
+              src={`../public/img/printers/${props.nombre}.jpg`}
+              alt=""
+              className={style.imgService}
+            />
+          </Grid>
+          <Grid item xs={6} className={style.GridPrintersText}>
+            <Grid container direction="column" justifyContent="space-between">
+              <Grid item>
+                <Typography component="h1" variant="h6">
+                  {props.nombre}
+                </Typography>
+                <Typography component="h1" variant="body1">
+                  {props.descripcion}
+                </Typography>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
+      </Link>
     </>
   );
 }
 
 export default function ThreeDServices() {
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: "absolute", width: "100%", height: "100vh" }}>
       <motion.div
         className={style.BackgroundAnimation1}
-        animate={{
-          width: ["100%", "0%"],
-          transitionEnd: {
-            display: "none",
-          },
-        }}
-        transition={{
-          duration: 2,
-          ease: "easeInOut",
-          delay: 0.4,
-        }}
+        {...animation.BackgroundAnimation1}
       />
 
       <motion.div
         className={style.BackgroundAnimation2}
-        animate={{
-          transitionEnd: {
-            display: "none",
-          },
-          width: ["90%", "0%"],
-        }}
-        transition={{
-          duration: 2,
-          ease: "easeInOut",
-          delay: 0.2,
-        }}
+        {...animation.BackgroundAnimation2}
       />
 
       <motion.div
         className={style.BackgroundAnimation3}
-        animate={{
-          transitionEnd: {
-            display: "none",
-          },
-          width: ["80%", "0%"],
-        }}
-        transition={{
-          duration: 2,
-          ease: "easeInOut",
-        }}
+        {...animation.BackgroundAnimation3}
       />
 
       <Container className={style.mainServices} component="main" maxWidth="xl">
         <Grid container spacing={3}>
           {printers.map((printer, i) => (
             <Grid item key={i} xs={12} md={6} lg={4}>
-              <PrinterCreation delay={1.5 + 0.06 * i} {...printer} />
+              <PrinterCreation delay={2 + 0.06 * i} {...printer} />
             </Grid>
           ))}
         </Grid>
