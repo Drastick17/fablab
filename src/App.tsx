@@ -20,6 +20,8 @@ import { AnimatePresence } from "framer-motion";
 import { useContext, useEffect } from "react";
 import UserContextProvider, { UserContext } from "./store/UserContext";
 
+import Agenda from "./components/Agenda";
+
 const guestRoutes = ["", "sign-up", "email-verification"];
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
@@ -28,21 +30,18 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    
     // if (
     //   guestRoutes.includes(pathname.split("/")[1]) &&
     //   window.localStorage.getItem("token") !== null
     // ) {
     //   setTimeout(() => navigate("/services"), 200);
     // }
-
     // if (
     //   !window.localStorage.getItem("token") &&
     //   !guestRoutes.includes(pathname.split("/")[1])
     // ) {
     //   setTimeout(() => navigate("/"), 200);
     // }
-
   }, [pathname, navigate, user]);
 
   return (
@@ -118,6 +117,14 @@ function App() {
       element: (
         <Layout>
           <PrinterService />
+        </Layout>
+      ),
+    },
+    {
+      path: "/services/:serviceType/Agenda",
+      element: (
+        <Layout>
+          <Agenda />
         </Layout>
       ),
     },

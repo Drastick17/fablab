@@ -68,9 +68,7 @@ function CardNameImgCreation(props: any) {
   );
 }
 
-function CardCharacteristicsCreation({
-  title,
-}: { title: string }) {
+function CardCharacteristicsCreation({ title }: { title: string }) {
   return (
     <>
       <Grid
@@ -141,7 +139,7 @@ function ServicesCreation(props) {
       </Grid>
       {props.isReversed ? <CardNameImgCreation {...props} /> : null}
       <CardCharacteristicsCreation title="Formatos Aceptados" {...props} />
-      <CardCharacteristicsCreation  title="Materiales" {...props} />
+      <CardCharacteristicsCreation title="Materiales" {...props} />
       <CardCharacteristicsCreation title="Calidades" {...props} />
     </>
   );
@@ -154,6 +152,7 @@ export default function Services() {
         animate={{ x: [80, 0], opacity: [0, 1] }}
         transition={{
           type: "spring",
+          bounce: 1,
           stiffness: 100,
           ease: [0.17, 0.67, 0.83, 0.67],
         }}

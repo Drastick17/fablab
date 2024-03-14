@@ -30,14 +30,15 @@ export default function SignIn() {
     <AnimatePresence mode="wait">
       <motion.div
         initial={{
-          scale: 0,
+          opacity: 0,
         }}
-        animate={{
-          scale: [0, 1],
-        }}
+        animate={{ x: [180, 0], opacity: [0, 1] }}
         transition={{
           duration: 2,
-          times: [0, 0.3],
+          type: "spring",
+          bounce: 1,
+          stiffness: 100,
+          ease: [0.17, 0.67, 0.83, 0.67],
         }}
       >
         <Container component="main" maxWidth="xs">
