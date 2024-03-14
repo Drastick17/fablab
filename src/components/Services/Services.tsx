@@ -70,8 +70,7 @@ function CardNameImgCreation(props: any) {
 
 function CardCharacteristicsCreation({
   title,
-  ...props
-}: { title: string } & any) {
+}: { title: string }) {
   return (
     <>
       <Grid
@@ -103,7 +102,7 @@ function CardCharacteristicsCreation({
   );
 }
 
-function ServicesCreation(props: any) {
+function ServicesCreation(props) {
   return (
     <>
       {!props.isReversed ? <CardNameImgCreation {...props} /> : null}
@@ -142,7 +141,7 @@ function ServicesCreation(props: any) {
       </Grid>
       {props.isReversed ? <CardNameImgCreation {...props} /> : null}
       <CardCharacteristicsCreation title="Formatos Aceptados" {...props} />
-      <CardCharacteristicsCreation title="Materiales" {...props} />
+      <CardCharacteristicsCreation  title="Materiales" {...props} />
       <CardCharacteristicsCreation title="Calidades" {...props} />
     </>
   );
@@ -166,7 +165,7 @@ export default function Services() {
           component={motion.div}
         >
           {services.map((service, i) => (
-            <ServicesCreation delay={1.5 + 0.06 * i} {...service} />
+            <ServicesCreation key={i} delay={1.5 + 0.06 * i} {...service} />
           ))}
         </Grid>
       </motion.div>

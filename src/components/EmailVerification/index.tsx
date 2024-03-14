@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import style from "./style.module.css";
 
 function Copyright() {
@@ -19,71 +19,78 @@ function Copyright() {
 }
 
 export default function EmailVerification() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    const data = Object.fromEntries(new FormData(event.currentTarget));
+    //TO-DO ADD MESSAGE TO THE USER
+    try {
+      const res = await fetch("http://localhost:8000/api/user/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, ...data }),
+      });
+      const resData = await res.json();
+      console.log(resData);
+      navigate("/");
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
     <Container component="main" maxWidth="xs">
-      <Box
-        display="flex"
-        flexDirection="column"
-        gap="1rem"
-        marginBottom={"20px"}
-        borderRadius={"24px"}
-        padding={"20px"}
-        overflow="hidden"
-        boxShadow={"5px 5px 15px 5px #ddd"}
-      >
+      <form onSubmit={handleSubmit}>
         <Box
-          display="grid"
-          paddingX={"30px"}
-          paddingTop={"20px"}
-          sx={{ gridTemplateColumns: "1fr 1fr", gridTemplateRows: "100px" }}
-          justifyContent="center"
-          alignItems="center"
+          display="flex"
+          flexDirection="column"
+          gap="1rem"
+          marginBottom={"20px"}
+          borderRadius={"24px"}
+          padding={"20px"}
+          overflow="hidden"
+          boxShadow={"5px 5px 15px 5px #ddd"}
         >
-          <img className={style.logo} src="/public/img/logo.jpg" />
-          <img className={style.logo} src="/public/img/UcacueLogo.jpg" />
+          <Box
+            display="grid"
+            paddingX={"30px"}
+            paddingTop={"20px"}
+            sx={{ gridTemplateColumns: "1fr 1fr", gridTemplateRows: "100px" }}
+            justifyContent="center"
+            alignItems="center"
+          >
+            <img className={style.logo} src="/public/img/logo.jpg" />
+            <img className={style.logo} src="/public/img/UcacueLogo.jpg" />
+          </Box>
+
+          <Typography
+            component="h1"
+            variant="body2"
+            textAlign={"justify"}
+            fontSize={15}
+          >
+            Hemos enviado un correo electrónico a tu email con un código de
+            verificación, colócalo aquí para completar tu registro
+          </Typography>
+
+          <TextField
+            required
+            id="codigoVerificacion"
+            label="Código de Verificacion"
+            placeholder="1234"
+            name="code"
+            type="number"
+            fullWidth
+            inputProps={{ maxLength: 4 }}
+            autoFocus
+            size="small"
+          />
+          <Button type="submit" fullWidth variant="contained">
+            Verificar
+          </Button>
         </Box>
-
-        <Typography
-              component="h1"
-              variant="body2"
-              textAlign={"justify"}
-              fontSize={15}
-            >
-              Hemos enviado un correo electrónico a tu email con un código de
-              verificación, colócalo aquí para completar tu registro
-            </Typography>
-
-            <TextField
-              className={style.innerRegisterFont}
-              margin="normal"
-              required
-              id="codigoVerificacion"
-              label="Código de Verificacion"
-              name="codigoVerificacion"
-              fullWidth
-              autoFocus
-              size="small"
-            />
-        <Button
-          component={Link}
-          to="#"
-          type="submit"
-          fullWidth
-          variant="contained"
-        >
-   Verificar
-        </Button>
-
-      </Box>
+      </form>
       <Copyright />
     </Container>
   );

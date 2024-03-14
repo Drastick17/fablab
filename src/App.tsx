@@ -1,20 +1,50 @@
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import "./App.css";
+import PrinterService from "./components/3DPrintersService";
 import EmailVerification from "./components/EmailVerification";
 import ForgotPassword from "./components/ForgotPassword";
 import HeaderNav from "./components/Header";
 import PasswordRecovery from "./components/PasswordRecovery";
-import PrinterService from "./components/3DPrintersService";
 import Services from "./components/Services/Services";
 import SignIn from "./components/Sign-In";
 import SignUp from "./components/Sign-up";
 
-import { AnimatePresence, motion } from "framer-motion";
-import UserContextProvider from "./store/UserContext";
+import { AnimatePresence } from "framer-motion";
+import { useContext, useEffect } from "react";
+import UserContextProvider, { UserContext } from "./store/UserContext";
+
+const guestRoutes = ["", "sign-up", "email-verification"];
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
+  const user = useContext(UserContext);
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    
+    if (
+      guestRoutes.includes(pathname.split("/")[1]) &&
+      window.localStorage.getItem("token") !== null
+    ) {
+      setTimeout(() => navigate("/services"), 200);
+    }
+
+    if (
+      !window.localStorage.getItem("token") &&
+      !guestRoutes.includes(pathname.split("/")[1])
+    ) {
+      setTimeout(() => navigate("/"), 200);
+    }
+
+  }, [pathname, navigate, user]);
+
   return (
     <>
       <HeaderNav />
@@ -52,7 +82,7 @@ function App() {
       ),
     },
     {
-      path: "/email-verification",
+      path: "/email-verification/:id",
       element: (
         <Layout>
           <EmailVerification />
@@ -78,11 +108,9 @@ function App() {
     {
       path: "/services",
       element: (
-        <AnimatePresence mode="wait">
-          <Layout>
-            <Services />
-          </Layout>
-        </AnimatePresence>
+        <Layout>
+          <Services />
+        </Layout>
       ),
     },
     {
