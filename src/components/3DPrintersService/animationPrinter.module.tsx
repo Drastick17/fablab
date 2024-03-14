@@ -7,6 +7,7 @@ export const GridPrinterAnimation = {
 export const BackgroundAnimation1 = {
   animate: {
     width: ["100%", "0%"],
+    scale: [20, 2],
     transitionEnd: {
       display: "none",
     },
@@ -21,6 +22,7 @@ export const BackgroundAnimation1 = {
 export const BackgroundAnimation2 = {
   animate: {
     width: ["90%", "0%"],
+    scale: [20, 2],
     transitionEnd: {
       display: "none",
     },
@@ -35,6 +37,7 @@ export const BackgroundAnimation2 = {
 export const BackgroundAnimation3 = {
   animate: {
     width: ["80%", "0%"],
+    scale: [20, 2],
     transitionEnd: {
       display: "none",
     },

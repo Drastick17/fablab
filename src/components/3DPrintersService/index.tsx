@@ -10,38 +10,44 @@ const printers = [
   {
     id: "printer1",
     nombre: "Impresora 3D FDM",
-    descripcion:
-      "Area de trabajo: 14x14x14cm Materiales: PLA, TPU, PET Formato de archivo: STL/OBJ",
+    areaTrabajo: "14x14x14cm",
+    materiales: "PLA, TPU, PET",
+    formato: "STL/OBJ",
   },
   {
     id: "printer2",
     nombre: "Impresora 3D DLP",
-    descripcion:
-      "Area de trabajo: 14x14x14cm Materiales: PLA, TPU, PET Formato de archivo: STL/OBJ",
+    areaTrabajo: "14x14x14cm",
+    materiales: "PLA, TPU, PET",
+    formato: "STL/OBJ",
   },
   {
     id: "printer3",
     nombre: "Impresora 3D SLS",
-    descripcion:
-      "Area de trabajo: 14x14x14cm Materiales: PLA, TPU, PET Formato de archivo: STL/OBJ",
+    areaTrabajo: "14x14x14cm",
+    materiales: "PLA, TPU, PET",
+    formato: "STL/OBJ",
   },
   {
     id: "printer1",
     nombre: "Impresora 3D de Resina: SLA",
-    descripcion:
-      "Area de trabajo: 14x14x14cm Materiales: PLA, TPU, PET Formato de archivo: STL/OBJ",
+    areaTrabajo: "14x14x14cm",
+    materiales: "PLA, TPU, PET",
+    formato: "STL/OBJ",
   },
   {
     id: "printer2",
     nombre: "Impresora 3D por Estereolitografía (SLA)",
-    descripcion:
-      "Area de trabajo: 14x14x14cm Materiales: PLA, TPU, PET Formato de archivo: STL/OBJ",
+    areaTrabajo: "14x14x14cm",
+    materiales: "PLA, TPU, PET",
+    formato: "STL/OBJ",
   },
   {
     id: "printer3",
     nombre: " Impresora Modelado por deposición fundida",
-    descripcion:
-      "Area de trabajo: 14x14x14cm Materiales: PLA, TPU, PET Formato de archivo: STL/OBJ",
+    areaTrabajo: "14x14x14cm",
+    materiales: "PLA, TPU, PET",
+    formato: "STL/OBJ",
   },
 ];
 
@@ -50,38 +56,43 @@ function PrinterCreation(props: any) {
   console.log(serviceType);
   return (
     <>
-      <Link to="/" className="link">
-        <Grid
-          container
-          spacing={1}
-          className={style.GridPrinter}
-          component={motion.div}
-          item
-          {...animation.GridPrinterAnimation}
-        >
-          <Grid item xs={6} className={style.GridPrintersImg}>
+      <Grid
+        container
+        spacing={1}
+        className={style.GridPrinter}
+        component={motion.div}
+        item
+        {...animation.GridPrinterAnimation}
+      >
+        <Grid container className={style.GridPrinterTopRow}>
+          <Grid item xs={6} md={6} lg={6} className={style.GridPrintersImg}>
             <img
               src={`../public/img/printers/${props.id}.jpg`}
               alt=""
               className={style.imgService}
             />
           </Grid>
-          <Grid item xs={6} className={style.GridPrintersText}>
-            <Grid container direction="column" spacing={3}>
-              <Grid item>
-                <Typography component="h1" variant="h6">
-                  {props.nombre}
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography component="p" variant="body2">
-                  {props.descripcion}
-                </Typography>
-              </Grid>
-            </Grid>
+          <Grid item xs={6} md={6} lg={6} className={style.GridPrintersText}>
+            <Typography component="h1" variant="h6">
+              {props.nombre}
+            </Typography>
           </Grid>
         </Grid>
-      </Link>
+        <Grid item xs={12} gap={2} className={style.GridBottomRow}>
+          <Typography fontSize={12} component="p" variant="body2">
+            Area de trabajo: {props.areaTrabajo}
+          </Typography>
+          <Typography fontSize={12} component="p" variant="body2">
+            Materiales: {props.materiales}
+          </Typography>
+          <Typography fontSize={12} component="p" variant="body2">
+            Formatos admitidos: {props.formato}
+          </Typography>
+          <Link to="/" className="link">
+            Agenda aquí
+          </Link>
+        </Grid>
+      </Grid>
     </>
   );
 }
