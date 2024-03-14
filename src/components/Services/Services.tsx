@@ -6,6 +6,8 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { motion } from "framer-motion";
 import style from "./style.module.css";
+import { Link } from "react-router-dom";
+
 const services = [
   {
     name: "Impresoras 3D",
@@ -129,6 +131,8 @@ function ServicesCreation(props: any) {
               sx={{
                 backgroundColor: "#DC2137",
               }}
+              component={Link}
+              to="/services/:serviceType"
               className={style.Button}
             >
               Agendar

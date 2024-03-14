@@ -79,7 +79,9 @@ function App() {
       path: "/services",
       element: (
         <AnimatePresence mode="wait">
-          <Services />
+          <Layout>
+            <Services />
+          </Layout>
         </AnimatePresence>
       ),
     },
