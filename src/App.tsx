@@ -29,19 +29,19 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     
-    if (
-      guestRoutes.includes(pathname.split("/")[1]) &&
-      window.localStorage.getItem("token") !== null
-    ) {
-      setTimeout(() => navigate("/services"), 200);
-    }
+    // if (
+    //   guestRoutes.includes(pathname.split("/")[1]) &&
+    //   window.localStorage.getItem("token") !== null
+    // ) {
+    //   setTimeout(() => navigate("/services"), 200);
+    // }
 
-    if (
-      !window.localStorage.getItem("token") &&
-      !guestRoutes.includes(pathname.split("/")[1])
-    ) {
-      setTimeout(() => navigate("/"), 200);
-    }
+    // if (
+    //   !window.localStorage.getItem("token") &&
+    //   !guestRoutes.includes(pathname.split("/")[1])
+    // ) {
+    //   setTimeout(() => navigate("/"), 200);
+    // }
 
   }, [pathname, navigate, user]);
 
