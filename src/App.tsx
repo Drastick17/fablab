@@ -20,7 +20,7 @@ import { AnimatePresence } from "framer-motion";
 import { useContext, useEffect } from "react";
 import UserContextProvider, { UserContext } from "./store/UserContext";
 
-import Agenda from "./components/Agenda";
+import Agendar from "./components/Agendar";
 
 const guestRoutes = ["", "sign-up", "email-verification"];
 
@@ -121,10 +121,10 @@ function App() {
       ),
     },
     {
-      path: "/services/:serviceType/Agenda",
+      path: "/agendar",
       element: (
         <Layout>
-          <Agenda />
+          <Agendar />
         </Layout>
       ),
     },

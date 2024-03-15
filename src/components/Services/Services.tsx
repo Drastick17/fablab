@@ -100,7 +100,7 @@ function CardCharacteristicsCreation({ title }: { title: string }) {
   );
 }
 
-function ServicesCreation(props) {
+function ServicesCreation(props:any) {
   return (
     <>
       {!props.isReversed ? <CardNameImgCreation {...props} /> : null}

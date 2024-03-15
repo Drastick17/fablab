@@ -34,8 +34,7 @@
 .imgService{
     object-fit: fill;
     border-radius: 8px;
-    min-width: 100%;
-    max-height: 80%;
+    width: 100%;
 }
 
 .paddingContainer{
