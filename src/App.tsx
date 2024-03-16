@@ -15,6 +15,7 @@ import PasswordRecovery from "./components/PasswordRecovery";
 import Services from "./components/Services/Services";
 import SignIn from "./components/Sign-In";
 import SignUp from "./components/Sign-up";
+import Agenda from "./components/Agenda";
 
 import { AnimatePresence } from "framer-motion";
 import { useContext, useEffect } from "react";
@@ -117,6 +118,14 @@ function App() {
       element: (
         <Layout>
           <PrinterService />
+        </Layout>
+      ),
+    },
+    {
+      path: "/services/agendar",
+      element: (
+        <Layout>
+          <Agenda />
         </Layout>
       ),
     },

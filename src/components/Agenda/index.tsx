@@ -1,119 +1,126 @@
-import {
-  Autocomplete,
-  Button,
-  Grid,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Paper,
-} from "@mui/material";
+import * as React from "react";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
-
-import dayjs, { Dayjs } from "dayjs";
-
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-
-import SendIcon from "@mui/icons-material/Send";
-import { DatePicker, DateTimePicker } from "@mui/x-date-pickers";
-import React from "react";
-import styled from "styled-components";
+import Tab from "@mui/material/Tab";
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
+import { Autocomplete, TextField } from "@mui/material";
 
 const printers = [
   {
-    label: "Impresora 3D",
+    label: "Finder - 1 a 5",
+    materials: [{ label: ["PLA", "TPU"] }],
+    qualities: [{ label: ["Alta", "Media", "Baja"] }],
+    formats: [{ label: ["STL", "OBJ"] }],
   },
   {
-    label: "CNC",
+    label: "AnyCubic Kobra Max - 1",
+    materials: [{ label: ["PLA", "TPU", "PET-G"] }],
+    qualities: [{ label: ["Alta", "Media", "Baja"] }],
+    formats: [{ label: ["STL", "OBJ"] }],
   },
   {
-    label: "Corte Laser",
-  },
-];
-
-const materials = [
-  {
-    label: "AVS",
-  },
-  {
-    label: "TPU",
-  },
-  {
-    label: "PLA",
-  },
-];
-
-const calidad = [
-  {
-    label: "Alto",
-  },
-  {
-    label: "Medio",
-  },
-  {
-    label: "Bajo",
+    label: "RaisePro 2 Plus - 1",
+    materials: [{ label: ["PLA", "TPU", "ABS", "Fibra Carbono", "Nylon"] }],
+    qualities: [
+      { label: ["Ultra alta", "Alta", "Media", "Baja", "Ultra baja"] },
+    ],
+    formats: [{ label: ["STL", "OBJ"] }],
   },
 ];
 
 export default function Agenda() {
-  const [value, setValue] = React.useState<Dayjs | null>(dayjs("2022-04-17"));
+  const [value, setValue] = React.useState("1");
+
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    setValue(newValue);
+  };
+
+  const [selectedMachine, setSelectedMachine] = React.useState(null);
+  const [selectedMaterial, setSelectedMaterial] = React.useState(null);
+  const [selectedQuality, setSelectedQuality] = React.useState(null);
+  const [selectedFormat, setSelectedFormat] = React.useState(null);
+
+  const handleMachineChange = (event, newValue) => {
+    setSelectedMachine(newValue);
+    setSelectedMaterial(null); // Reiniciar el estado del campo de materiales
+    setSelectedQuality(null); // Reiniciar el estado del campo de calidad
+    setSelectedFormat(null); // Reiniciar el estado del campo de formato
+  };
 
   return (
-    <Box
-      component="form"
-      sx={{
-        "& .MuiTextField-root": { m: 1, width: "25ch" },
-      }}
-      noValidate
-      autoComplete="off"
-      display={"flex"}
-      justifyItems={"center"}
-    >
-      <div>
-        <Autocomplete
-          disablePortal
-          id="combo-box-demo"
-          options={printers}
-          sx={{ width: 300 }}
-          renderInput={(params) => <TextField {...params} label="Maquina" />}
-        />
-      </div>
-      <div>
-        <Autocomplete
-          disablePortal
-          id="combo-box-demo"
-          options={materials}
-          sx={{ width: 300 }}
-          renderInput={(params) => <TextField {...params} label="Material" />}
-        />
-      </div>
-      <div>
-        <Autocomplete
-          disablePortal
-          id="combo-box-demo"
-          options={calidad}
-          sx={{ width: 300 }}
-          renderInput={(params) => <TextField {...params} label="Calidad" />}
-        />
-      </div>
-      <TextField
-        type="file"
-        id="outlined-basic"
-        label="STL"
-        variant="outlined"
-      />
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DemoContainer components={["DateTimePicker"]}>
-          <DateTimePicker label="Agendar Cita" />
-        </DemoContainer>
-      </LocalizationProvider>
-      <TextField id="outlined-basic" label="Precio" variant="outlined" />
-      <div>
-        <Button variant="contained">Agendar</Button>
-      </div>
+    <Box sx={{ width: "100vw", height: "100vh", typography: "body1" }}>
+      <TabContext value={value}>
+        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <TabList onChange={handleChange} aria-label="" centered>
+            <Tab label="Impresiones 3D" value="1" />
+            <Tab label="Cortadora Laser" value="2" />
+            <Tab label="CNC Router (Fresadora)" value="3" />
+            <Tab label="Cama plana UV" value="4" />
+            <Tab label="Plotter de impresion y corte" value="5" />
+            <Tab label="Grabadora laser de metal" value="6" />
+          </TabList>
+        </Box>
+
+        <TabPanel value="1">
+          <Autocomplete
+            disablePortal
+            id="combo-box-demo"
+            options={printers}
+            getOptionLabel={(option) => option.label}
+            onChange={handleMachineChange}
+            sx={{ width: 300 }}
+            renderInput={(params) => <TextField {...params} label="Maquina" />}
+          />
+
+          <Autocomplete
+            disablePortal
+            id="combo-box-demo"
+            options={
+              selectedMachine
+                ? selectedMachine.materials.flatMap(
+                    (material) => material.label
+                  )
+                : []
+            }
+            value={selectedMaterial}
+            sx={{ width: 300 }}
+            renderInput={(params) => (
+              <TextField {...params} label="Material de impresión" />
+            )}
+          />
+
+          <Autocomplete
+            disablePortal
+            id="combo-box-demo"
+            options={
+              selectedMachine
+                ? selectedMachine.qualities.flatMap((quality) => quality.label)
+                : []
+            }
+            value={selectedMaterial}
+            sx={{ width: 300 }}
+            renderInput={(params) => (
+              <TextField {...params} label="Calidad de impresión" />
+            )}
+          />
+
+          <Autocomplete
+            disablePortal
+            id="combo-box-demo"
+            options={
+              selectedMachine
+                ? selectedMachine.formats.flatMap((format) => format.label)
+                : []
+            }
+            value={selectedMaterial}
+            sx={{ width: 300 }}
+            renderInput={(params) => <TextField {...params} label="Formato" />}
+          />
+        </TabPanel>
+        <TabPanel value="2"></TabPanel>
+        <TabPanel value="3">Item Three</TabPanel>
+      </TabContext>
     </Box>
   );
 }
