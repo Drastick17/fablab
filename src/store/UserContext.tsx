@@ -23,7 +23,8 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
     email: "",
     id: "",
     roles: [],
-  });
+  }); 
+  
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

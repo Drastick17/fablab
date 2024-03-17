@@ -1,65 +1,33 @@
-.mainHeaderNav{
-    background-color: #E20613;
-    border-end-end-radius: 30px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    padding: 2px;
-}
-
-.mainServices{
-    width: 100vw;
-    min-height: 100vh;
-    min-width:100vw;
-    background-color: white;
-    padding: 0;
-    margin: 0;
-    
-}
-
-.logoHFabLab{
-    width: 15rem;
-}
-
-.textNav{
-    padding-top: 15%;
-    font-size: 1.2rem;
-    color: white;
-}
-
-.container{
-    padding-top: 2rem;
-    padding-left: 8%;
-    padding-right: 8%;
-}
-
-.imgService{
-    object-fit: fill;
-    border-radius: 8px;
-    width: 100%;
-}
-
-.paddingContainer{
-    padding: 2%;
+.image {
+  width: 100%;
+  height: 250px;
+  border-radius: 2px;
 }
 
 
-
-.cardImg{
-    padding: 2%;
+.formats h6 {
+  color: #fff;
+  background-color: #F92432;
+  padding: 0.6rem;
+  border-radius: 2px;
 }
 
-.imgIcon{
-    width: 2rem;
-    padding-right: 2%;
+.icons {
+  padding: 0.75rem;
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
 }
 
-.Button{
-    width: 100%;
+.icon {
+  justify-self: end;
+  flex-basis: 50%;
+  max-width: 3rem;
+  height: 3rem;
+  color: #F92432;
+  border: 2px solid #F92432;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  border-radius: 2px;
 }
-
-@media (max-width: 1096px) {
-    /* Cambios de estilo para pantallas con ancho máximo de 768px */
-    .MuiGrid-item {
-      width: 100% !important; /* Establecer ancho al 100% para apilar en una columna */
-    }
-  }
-  

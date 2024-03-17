@@ -1,5 +1,5 @@
 .header {
-  background-color: #e20613;
+  background-color: #F92432;
   display: flex;
   justify-content: space-between;
   flex-direction: row;
@@ -52,6 +52,9 @@ xl	1280px	@media (min-width: 1280px) { ... }
 2xl	1536px
 */
 @media (width < 640px) {
+  .header {
+    padding: 10px 30px;
+  }
   .menu {
     display: none;
   }

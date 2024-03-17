@@ -7,7 +7,6 @@ import {
   useNavigate,
 } from "react-router-dom";
 import "./App.css";
-import PrinterService from "./components/3DPrintersService";
 import Agenda from "./components/Agenda";
 import EmailVerification from "./components/EmailVerification";
 import ForgotPassword from "./components/ForgotPassword";
@@ -23,7 +22,9 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import UserContextProvider, { UserContext } from "./store/UserContext";
 
+import NotFound from "./components/404";
 import Agendar from "./components/Agendar";
+import Profile from "./components/Profile";
 
 const Layout = ({
   children,
@@ -49,7 +50,12 @@ const Layout = ({
   return (
     <>
       <HeaderNav hidden={!rol} />
-      <main className="layoutMain">{children}</main>
+      <main
+        style={{ alignItems: !rol ? "center" : "start", justifyContent: "center" }}
+        className="layoutMain"
+      >
+        {children}
+      </main>
       <ToastContainer />
     </>
   );
@@ -74,6 +80,7 @@ function App() {
           <SignIn />
         </Layout>
       ),
+      errorElement: <NotFound />,
     },
     {
       path: "/sign-up",
@@ -82,7 +89,9 @@ function App() {
           <SignUp />
         </Layout>
       ),
+      errorElement: <NotFound />,
     },
+
     {
       path: "/email-verification/:id",
       element: (
@@ -90,6 +99,7 @@ function App() {
           <EmailVerification />
         </Layout>
       ),
+      errorElement: <NotFound />,
     },
     {
       path: "/forgot-password",
@@ -98,6 +108,7 @@ function App() {
           <ForgotPassword />
         </Layout>
       ),
+      errorElement: <NotFound />,
     },
     {
       path: "/password-recovery",
@@ -106,6 +117,7 @@ function App() {
           <PasswordRecovery />
         </Layout>
       ),
+      errorElement: <NotFound />,
     },
     {
       path: "/services",
@@ -114,15 +126,25 @@ function App() {
           <Services />
         </Layout>
       ),
+      errorElement: <NotFound />,
     },
     {
-      path: "/services/:serviceType",
+      path: "/profile",
       element: (
         <Layout rol="user">
-          <PrinterService />
+          <Profile />
         </Layout>
       ),
+      errorElement: <NotFound />,
     },
+    // {
+    //   path: "/services/:serviceType",
+    //   element: (
+    //     <Layout rol="user">
+    //       <PrinterService />
+    //     </Layout>
+    //   ),
+    // },
     {
       path: "/services/agendar",
       element: (
@@ -130,6 +152,7 @@ function App() {
           <Agenda />
         </Layout>
       ),
+      errorElement: <NotFound />,
     },
     {
       path: "/agendar",
@@ -138,6 +161,7 @@ function App() {
           <Agendar />
         </Layout>
       ),
+      errorElement: <NotFound />,
     },
   ]);
 
