@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 // import Link from '@mui/material/Link';
@@ -6,6 +7,7 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import style from "./style.module.css";
+import { toast } from "react-toastify";
 
 function Copyright() {
   return (
@@ -19,39 +21,66 @@ function Copyright() {
 }
 
 export default function ForgotPassword() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    const target = event.target as HTMLFormElement;
+    const data = Object.fromEntries(new FormData(target));
+    try {
+      const res = await fetch("http://localhost:8000/api/user/resetpassword", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) {
+        return toast("Error en la petición", { type: "error" });
+      }
+
+      const resData = await res.json();
+      console.log(resData);
+      //todo messages
+    } catch (error: any) {
+      toast(error.message, { type: "error" });
+    }
   };
 
   return (
     <Container component="main" maxWidth="xs">
-      <Box
-        display="flex"
-        flexDirection="column"
-        gap="1rem"
-        marginBottom={"20px"}
-        borderRadius={"24px"}
-        padding={"20px"}
-        overflow="hidden"
-        boxShadow={"5px 5px 15px 5px #ddd"}
-      >
+      <form onSubmit={handleSubmit}>
         <Box
-          display="grid"
-          paddingX={"30px"}
-          paddingTop={"20px"}
-          sx={{ gridTemplateColumns: "1fr 1fr", gridTemplateRows: "100px" }}
-          justifyContent="center"
-          alignItems="center"
+          display="flex"
+          flexDirection="column"
+          gap="1rem"
+          marginBottom={"20px"}
+          borderRadius={"24px"}
+          padding={"20px"}
+          overflow="hidden"
+          boxShadow={"5px 5px 15px 5px #ddd"}
         >
-          <img className={style.logo} src="/public/img/logo.jpg" />
-          <img className={style.logo} src="/public/img/UcacueLogo.jpg" />
-        </Box>
-        <Typography
+          <Box
+            display="grid"
+            paddingX={"30px"}
+            paddingTop={"20px"}
+            sx={{ gridTemplateColumns: "1fr 1fr", gridTemplateRows: "100px" }}
+            justifyContent="center"
+            alignItems="center"
+          >
+            <img
+              className={style.logo}
+              src="/img/logo.jpg"
+              alt=""
+              loading="lazy"
+            />
+            <img
+              className={style.logo}
+              src="/img/UcacueLogo.jpg"
+              alt=""
+              loading="lazy"
+            />
+          </Box>
+          <Typography
             component="h1"
             variant="body2"
             textAlign={"justify"}
@@ -62,29 +91,23 @@ export default function ForgotPassword() {
           </Typography>
 
           <TextField
-            className={style.innerRegisterFont}
             margin="normal"
             required
             id="recoveryEmail"
             label="Correo Electrónico"
-            name="recoveryEmail"
+            name="email"
             fullWidth
             autoFocus
-            size="small"
+            size="medium"
           />
-        <Button
-          component={Link}
-          to="#"
-          type="submit"
-          fullWidth
-          variant="contained"
-        >
-         Enviar correo de recuperación
-        </Button>
-        <Button component={Link} to="/sign-up" className="link">
-          ¿No tienes cuenta?
-        </Button>
-      </Box>
+          <Button type="submit" fullWidth variant="contained">
+            Enviar correo de recuperación
+          </Button>
+          <Button component={Link} to="/sign-up" className="link">
+            ¿No tienes cuenta?
+          </Button>
+        </Box>
+      </form>
       <Copyright />
     </Container>
   );

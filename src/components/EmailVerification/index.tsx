@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 // import Link from '@mui/material/Link';
@@ -5,6 +6,7 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import style from "./style.module.css";
 
 function Copyright() {
@@ -31,11 +33,19 @@ export default function EmailVerification() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id, ...data }),
       });
+
+      if (!res.ok) {
+        return toast("Error en la petición", { type: "error" });
+      }
+
       const resData = await res.json();
-      console.log(resData);
+      if(resData.type === 'error'){
+        return toast("Error el código es incorrecto o ya se expiro", { type: "error" });
+      }
+      toast("Correo verificado correctamente", { type: "success" });
       navigate("/");
-    } catch (e) {
-      console.log(e);
+    } catch (e: any) {
+      toast(e.message,{ type: "error" })
     }
   };
 
@@ -60,8 +70,8 @@ export default function EmailVerification() {
             justifyContent="center"
             alignItems="center"
           >
-            <img className={style.logo} src="/public/img/logo.jpg" />
-            <img className={style.logo} src="/public/img/UcacueLogo.jpg" />
+            <img className={style.logo} src="/img/logo.jpg" />
+            <img className={style.logo} src="/img/UcacueLogo.jpg" />
           </Box>
 
           <Typography

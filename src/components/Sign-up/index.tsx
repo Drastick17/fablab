@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 // import Link from '@mui/material/Link';
@@ -11,10 +12,11 @@ import {
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import { Link, useNavigate } from "react-router-dom";
-import style from "./style.module.css";
 import { MuiTelInput } from "mui-tel-input";
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import style from "./style.module.css";
 
 function Copyright() {
   return (
@@ -30,16 +32,19 @@ function Copyright() {
 export default function SignUp() {
   const navigate = useNavigate();
   const [phone, setPhone] = useState("+593");
+
+  
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const target = event.target as HTMLFormElement;
     const data = Object.fromEntries(new FormData(target));
     const { Types: type, phone, ConfirmPassword, ...user } = data;
     const phoneNumber = String(phone).replace("+", "").replaceAll(" ", "");
-
-    //TO-DO ADD MESSAGE TO THE USER
     try {
-      if (ConfirmPassword !== data.Password) return;
+      if (ConfirmPassword !== data.Password) {
+        return toast("Las contraseñas no son iguales", { type: "error" });
+      }
+
       const res = await fetch("http://localhost:8000/api/user/create", {
         headers: {
           "Content-Type": "application/json",
@@ -51,12 +56,20 @@ export default function SignUp() {
           Types: [type],
         }),
       });
-      if (!res.ok) throw new Error("Error en la petición");
-      
+
+      if (!res.ok) {
+        return toast("Error en la petición", { type: "error" });
+      }
+
       const resData = await res.json();
-      navigate(`/email-verification/${resData.id}`);
-    } catch (error) {
-      console.log(error);
+      if (resData.id) {
+        navigate(`/email-verification/${resData.id}`);
+        return toast(`Porfavor revise el correo que enviamos a: ${user.Email}`, { type: "error" });
+      } else {
+        return toast("Error al crear el usuario", { type: "error" });
+      }
+    } catch (error: any) {
+      toast(error.message, { type: "error" });
     }
   };
 
@@ -67,7 +80,12 @@ export default function SignUp() {
           display="grid"
           justifyContent={"center"}
           alignContent={"center"}
-          sx={{ gridTemplateColumns: "1fr 1fr" }}
+          sx={{
+            columnGap: 5,
+            "@media (min-width: 780px)": {
+              gridTemplateColumns: "1fr 1fr",
+            },
+          }}
           gap="1rem"
           marginBottom={"20px"}
           borderRadius={"24px"}
@@ -85,8 +103,18 @@ export default function SignUp() {
             justifyContent="center"
             alignItems="center"
           >
-            <img className={style.logo} src="/public/img/logo.jpg" />
-            <img className={style.logo} src="/public/img/UcacueLogo.jpg" />
+            <img
+              className={style.logo}
+              src="/img/logo.jpg"
+              alt=""
+              loading="lazy"
+            />
+            <img
+              className={style.logo}
+              src="/img/UcacueLogo.jpg"
+              alt=""
+              loading="lazy"
+            />
           </Box>
 
           <Typography sx={{ gridColumn: "1/-1" }} component="h1" variant="h6">
@@ -107,6 +135,7 @@ export default function SignUp() {
               label="Cédula"
               autoFocus
               size="small"
+              //inputProps={{ minLength: 10 }}
             />
             <TextField
               required
@@ -118,12 +147,13 @@ export default function SignUp() {
               size="small"
             />
             <MuiTelInput
-              name="phone"
+              name="Phone"
               id="phone"
               onChange={(value) => {
                 setPhone(value);
               }}
               value={phone}
+              //inputProps={{ minLength: 13 }}
             />
             <TextField
               required
@@ -143,6 +173,7 @@ export default function SignUp() {
               id="password"
               autoComplete="new-password"
               size="small"
+              //inputProps={{ minLength: 8 }}
             />
             <TextField
               required
@@ -150,51 +181,41 @@ export default function SignUp() {
               name="ConfirmPassword"
               label="Confirmar contraseña"
               type="Password"
-              id="password"
-              autoComplete="new-password"
+              id="passwordConfirm"
+              autoComplete="new-passwordconfirm"
               size="small"
+              //inputProps={{ minLength: 8 }}
             />
           </div>
-          <FormControl required>
-            <FormLabel id="demo-row-radio-buttons-group-label">
-              Institución
-            </FormLabel>
+          <FormControl>
+            <FormLabel id="types">Institución</FormLabel>
             <RadioGroup
-              aria-labelledby="demo-row-radio-buttons-group-label"
+              defaultValue="OTRO"
+              aria-labelledby="types"
               name="Types"
             >
               <FormControlLabel
-                value="UCACUE1"
+                value="ESTUDIANTE"
                 control={<Radio />}
                 label="Miembro UCACUE"
               />
               <FormControlLabel
-                value="UCACUE2"
+                value="MIEMBRO"
                 control={<Radio />}
                 label="Estudiante UCACUE"
               />
               <FormControlLabel
-                value="Otro"
+                value="EXTERNO"
                 control={<Radio />}
                 label="Estudiante Universidad Externa"
               />
               <FormControlLabel
-                value="Exter"
-                control={<Radio />}
-                label="Publico general"
-              />
-              <FormControlLabel
-                value="ExterEst"
+                value="OTRO"
                 control={<Radio />}
                 label="Publico general"
               />
             </RadioGroup>
           </FormControl>
-
-          {/* <FormControlLabel
-          control={<Checkbox value="allowExtraEmails" color="primary" />}
-          label="Quiero recibir notificaciones, promociones y noticias a mi Email"
-        /> */}
           <Button
             sx={{ gridColumn: "1/-1" }}
             type="submit"

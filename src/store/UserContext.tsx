@@ -1,12 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createContext, useState } from "react";
+import { toast } from "react-toastify";
 
-type Context= {
+type Context = {
   handleSubmit?: (event: React.FormEvent<HTMLFormElement>) => void;
   user?: User;
-  resetUser?: () => void
-}
-export const UserContext = createContext<Context>({});
+  resetUser?: () => void;
+};
 
+export const UserContext = createContext<Context>({});
 
 type User = {
   username: string;
@@ -22,6 +24,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
     id: "",
     roles: [],
   });
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = Object.fromEntries(new FormData(event.currentTarget));
@@ -32,29 +35,35 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
         body: JSON.stringify(data),
       });
 
-      if(!res.ok){
-        return 
+      if (!res.ok) {
+        return toast("Error en la petición", { type: "error" });
       }
-      const resData = await res.json();
 
-      window.localStorage.setItem("token", resData.token);
-      setUser({
-        username: resData.user_name,
-        email: resData.user_email,
-        id: resData.user_id,
-        roles: resData.user_roles,
-      });
-    } catch (e) {
-      console.log(e);
+      const resData = await res.json();
+      if (resData.token) {
+        window.localStorage.setItem("token", resData.token);
+        setUser({
+          username: resData.user_name,
+          email: resData.user_email,
+          id: resData.user_id,
+          roles: resData.user_roles,
+        });
+        toast("Bienveido de vuelta " + user.username, { type: "success" });
+      } else {
+        return toast("Error al crear el usuario", { type: "error" });
+      }
+    } catch (e: any) {
+      return toast(e.message, { type: "error" });
     }
   };
 
-  const resetUser = () => setUser({
-    username: "",
-    email: "",
-    id: "",
-    roles: [],
-  })
+  const resetUser = () =>
+    setUser({
+      username: "",
+      email: "",
+      id: "",
+      roles: [],
+    });
 
   const store = {
     handleSubmit,

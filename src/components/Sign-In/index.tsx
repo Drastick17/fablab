@@ -1,16 +1,14 @@
 import Button from "@mui/material/Button";
-import Checkbox from "@mui/material/Checkbox";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import TextField from "@mui/material/TextField";
 // import Link from '@mui/material/Link';
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
-import style from "./style.module.css";
 import { AnimatePresence, motion } from "framer-motion";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import { UserContext } from "../../store/UserContext";
+import style from "./style.module.css";
 
 function Copyright() {
   return (
@@ -65,8 +63,18 @@ export default function SignIn() {
                 justifyContent="center"
                 alignItems="center"
               >
-                <img className={style.logo} src="/public/img/logo.jpg" />
-                <img className={style.logo} src="/public/img/UcacueLogo.jpg" />
+                <img
+                  className={style.logo}
+                  src="/img/logo.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+                <img
+                  className={style.logo}
+                  src="/img/UcacueLogo.jpg"
+                  alt=""
+                  loading="lazy"
+                />
               </Box>
 
               <Typography textAlign="center" component="h1" variant="h5">
@@ -89,10 +97,6 @@ export default function SignIn() {
                 type="password"
                 id="password"
                 size="medium"
-              />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Recuérdame"
               />
               <Button type="submit" fullWidth variant="contained">
                 Iniciar sesión

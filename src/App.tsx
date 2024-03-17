@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import PrinterService from "./components/3DPrintersService";
+import Agenda from "./components/Agenda";
 import EmailVerification from "./components/EmailVerification";
 import ForgotPassword from "./components/ForgotPassword";
 import HeaderNav from "./components/Header";
@@ -15,40 +16,41 @@ import PasswordRecovery from "./components/PasswordRecovery";
 import Services from "./components/Services/Services";
 import SignIn from "./components/Sign-In";
 import SignUp from "./components/Sign-up";
-import Agenda from "./components/Agenda";
 
 import { AnimatePresence } from "framer-motion";
 import { useContext, useEffect } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import UserContextProvider, { UserContext } from "./store/UserContext";
 
 import Agendar from "./components/Agendar";
 
-const guestRoutes = ["", "sign-up", "email-verification"];
-
-const Layout = ({ children }: { children: React.ReactNode }) => {
-  const user = useContext(UserContext);
+const Layout = ({
+  children,
+  rol,
+}: {
+  children: React.ReactNode;
+  rol?: string;
+}) => {
+  const { user } = useContext(UserContext);
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    // if (
-    //   guestRoutes.includes(pathname.split("/")[1]) &&
-    //   window.localStorage.getItem("token") !== null
-    // ) {
-    //   setTimeout(() => navigate("/services"), 200);
+    // if (!rol) {
+    //   return;
+    // } else if (user?.roles.includes(rol)) {
+    //   setTimeout(() => navigate("/services"));
+    // } else {
+    //   setTimeout(() => navigate("/"));
     // }
-    // if (
-    //   !window.localStorage.getItem("token") &&
-    //   !guestRoutes.includes(pathname.split("/")[1])
-    // ) {
-    //   setTimeout(() => navigate("/"), 200);
-    // }
-  }, [pathname, navigate, user]);
+  }, [pathname, navigate, user, rol]);
 
   return (
     <>
-      <HeaderNav />
-      <main className="mainContainer">{children}</main>
+      <HeaderNav hidden={!rol} />
+      <main className="layoutMain">{children}</main>
+      <ToastContainer />
     </>
   );
 };
@@ -108,7 +110,7 @@ function App() {
     {
       path: "/services",
       element: (
-        <Layout>
+        <Layout rol="user">
           <Services />
         </Layout>
       ),
@@ -116,7 +118,7 @@ function App() {
     {
       path: "/services/:serviceType",
       element: (
-        <Layout>
+        <Layout rol="user">
           <PrinterService />
         </Layout>
       ),
@@ -124,7 +126,7 @@ function App() {
     {
       path: "/services/agendar",
       element: (
-        <Layout>
+        <Layout rol="admin">
           <Agenda />
         </Layout>
       ),
@@ -132,7 +134,7 @@ function App() {
     {
       path: "/agendar",
       element: (
-        <Layout>
+        <Layout rol="user">
           <Agendar />
         </Layout>
       ),

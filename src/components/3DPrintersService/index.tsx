@@ -67,7 +67,7 @@ function PrinterCreation(props: any) {
         <Grid container className={style.GridPrinterTopRow}>
           <Grid item xs={6} md={6} lg={6} className={style.GridPrintersImg}>
             <img
-              src={`../public/img/printers/${props.id}.jpg`}
+              src={`../img/printers/${props.id}.jpg`}
               alt=""
               className={style.imgService}
             />

@@ -1,6 +1,5 @@
 .header {
   background-color: #e20613;
-
   display: flex;
   justify-content: space-between;
   flex-direction: row;
@@ -16,26 +15,47 @@
   transition: all ease-in-out 0.2s;
 }
 
-.logo:hover{
+.logo:hover {
   transition: all ease-in-out 0.2s;
   transform: scale(1.05) translateY(-5px);
-
 }
 
-.menu{
+.mobilMenu {
+  display: none;
+}
+
+.menu {
   display: flex;
   gap: 1.75rem;
+  justify-content: center;
+  align-items: center;
 }
 
-.menuLi{
-  color:whitesmoke;
-  text-decoration-color: transparent ;
-  transition: all ease-in-out .2s;
+.menuLi {
+  color: whitesmoke;
+  text-decoration-color: transparent;
+  transition: all ease-in-out 0.2s;
 }
 
-.menuLi:hover{
-  transition: all ease-in-out .2s;
+.menuLi:hover {
+  transition: all ease-in-out 0.2s;
   text-underline-offset: 4px;
-  text-decoration:  underline;
+  text-decoration: underline;
   transform: scale(1.01) translateY(-5px);
+}
+
+/*
+sm	640px	@media (min-width: 640px) { ... }
+md	768px	@media (min-width: 768px) { ... }
+lg	1024px	@media (min-width: 1024px) { ... }
+xl	1280px	@media (min-width: 1280px) { ... }
+2xl	1536px
+*/
+@media (width < 640px) {
+  .menu {
+    display: none;
+  }
+  .mobilMenu {
+    display: block;
+  }
 }

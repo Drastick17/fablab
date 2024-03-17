@@ -1,11 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
-import TabPanel from "@mui/lab/TabPanel";
-import { Autocomplete, TextField } from "@mui/material";
-
+import TabCustom from "./TabCustom";
+import FormPrinters3D from "./forms/FormPrinters3D";
+/**
+ * 
 const printers = [
   {
     label: "Finder - 1 a 5",
@@ -28,24 +30,44 @@ const printers = [
     formats: [{ label: ["STL", "OBJ"] }],
   },
 ];
+ */
+
+const services = [
+  {
+    name: "Impresiones 3D",
+    value: "1",
+  },
+  {
+    name: "Cortadora Laser",
+    value: "2",
+  },
+  {
+    name: "CNC Router (Fresadora)",
+    value: "3",
+  },
+  {
+    name: "Cama plana UV",
+    value: "4",
+  },
+  {
+    name: "Plotter de impresion y corte",
+    value: "5",
+  },
+  {
+    name: "Plotter de impresion",
+    value: "5",
+  },
+  {
+    name: "Grabadora laser de metal",
+    value: "6",
+  },
+];
 
 export default function Agenda() {
   const [value, setValue] = React.useState("1");
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+  const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
-  };
-
-  const [selectedMachine, setSelectedMachine] = React.useState(null);
-  const [selectedMaterial, setSelectedMaterial] = React.useState(null);
-  const [selectedQuality, setSelectedQuality] = React.useState(null);
-  const [selectedFormat, setSelectedFormat] = React.useState(null);
-
-  const handleMachineChange = (event, newValue) => {
-    setSelectedMachine(newValue);
-    setSelectedMaterial(null); // Reiniciar el estado del campo de materiales
-    setSelectedQuality(null); // Reiniciar el estado del campo de calidad
-    setSelectedFormat(null); // Reiniciar el estado del campo de formato
   };
 
   return (
@@ -53,73 +75,18 @@ export default function Agenda() {
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <TabList onChange={handleChange} aria-label="" centered>
-            <Tab label="Impresiones 3D" value="1" />
-            <Tab label="Cortadora Laser" value="2" />
-            <Tab label="CNC Router (Fresadora)" value="3" />
-            <Tab label="Cama plana UV" value="4" />
-            <Tab label="Plotter de impresion y corte" value="5" />
-            <Tab label="Grabadora laser de metal" value="6" />
+            {services.map((service) => (
+              <Tab label={service.name} value={service.value} />
+            ))}
           </TabList>
         </Box>
-
-        <TabPanel value="1">
-          <Autocomplete
-            disablePortal
-            id="combo-box-demo"
-            options={printers}
-            getOptionLabel={(option) => option.label}
-            onChange={handleMachineChange}
-            sx={{ width: 300 }}
-            renderInput={(params) => <TextField {...params} label="Maquina" />}
-          />
-
-          <Autocomplete
-            disablePortal
-            id="combo-box-demo"
-            options={
-              selectedMachine
-                ? selectedMachine.materials.flatMap(
-                    (material) => material.label
-                  )
-                : []
-            }
-            value={selectedMaterial}
-            sx={{ width: 300 }}
-            renderInput={(params) => (
-              <TextField {...params} label="Material de impresión" />
-            )}
-          />
-
-          <Autocomplete
-            disablePortal
-            id="combo-box-demo"
-            options={
-              selectedMachine
-                ? selectedMachine.qualities.flatMap((quality) => quality.label)
-                : []
-            }
-            value={selectedMaterial}
-            sx={{ width: 300 }}
-            renderInput={(params) => (
-              <TextField {...params} label="Calidad de impresión" />
-            )}
-          />
-
-          <Autocomplete
-            disablePortal
-            id="combo-box-demo"
-            options={
-              selectedMachine
-                ? selectedMachine.formats.flatMap((format) => format.label)
-                : []
-            }
-            value={selectedMaterial}
-            sx={{ width: 300 }}
-            renderInput={(params) => <TextField {...params} label="Formato" />}
-          />
-        </TabPanel>
-        <TabPanel value="2"></TabPanel>
-        <TabPanel value="3">Item Three</TabPanel>
+        {/* AGREGAR POR CADA SERVICIO UN TABCUSTOM,
+         si quieres cambiarles los estilos a la tab hazle en el tab custom */}
+        <TabCustom value="1">
+          <FormPrinters3D />
+        </TabCustom>
+        <TabCustom value="2"></TabCustom>
+        <TabCustom value="3"></TabCustom>
       </TabContext>
     </Box>
   );

@@ -57,7 +57,7 @@ function CardNameImgCreation(props: any) {
               {props.name}
             </Typography>
             <img
-              src={`../public/img/${props.image}.jpg`}
+              src={`../img/${props.image}.jpg`}
               alt=""
               className={style.imgService}
             />
@@ -84,12 +84,12 @@ function CardCharacteristicsCreation({ title }: { title: string }) {
             </Typography>
 
             <img
-              src="./public/img/icons/stl-webp-icon.webp"
+              src="./img/icons/stl-webp-icon.webp"
               alt=""
               className={style.imgIcon}
             />
             <img
-              src="./public/img/icons/obj-svg-icon.svg"
+              src="./img/icons/obj-svg-icon.svg"
               alt=""
               className={style.imgIcon}
             />

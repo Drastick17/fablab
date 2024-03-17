@@ -48,8 +48,8 @@ export default function PasswordRecovery() {
           justifyContent="center"
           alignItems="center"
         >
-          <img className={style.logo} src="/public/img/logo.jpg" />
-          <img className={style.logo} src="/public/img/UcacueLogo.jpg" />
+          <img className={style.logo} src="/img/logo.jpg" />
+          <img className={style.logo} src="/img/UcacueLogo.jpg" />
         </Box>
 
         <Typography

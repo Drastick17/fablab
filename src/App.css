@@ -3,7 +3,7 @@
   font-style: normal;
   font-weight: 400;
   src: local("Co Headline Regular"),
-    url("../public/fonts/Co\ Headline.woff") format("woff");
+    url("../fonts/Co\ Headline.woff") format("woff");
 }
 
 @font-face {
@@ -11,7 +11,7 @@
   font-style: normal;
   font-weight: 100;
   src: local("Co Headline Light"),
-    url("../public/fonts/Co\ Headline\ Light.woff") format("woff");
+    url("../fonts/Co\ Headline\ Light.woff") format("woff");
 }
 
 @font-face {
@@ -19,7 +19,7 @@
   font-style: normal;
   font-weight: 600;
   src: local("Co Headline Bold"),
-    url("../public/fonts/Co\ Headline\ Bold.woff") format("woff");
+    url("../fonts/Co\ Headline\ Bold.woff") format("woff");
 }
 
 * {
@@ -31,14 +31,13 @@
 
 body {
   width: 100vw;
-  min-height: 100vh;
 }
 
-.mainContainer {
-  min-width: 100%;
-  min-height: calc(100vh - 120px);
+.layoutMain {
   display: grid;
   place-content: center;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
 .link {
