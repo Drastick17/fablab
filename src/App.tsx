@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
@@ -111,11 +112,17 @@ const RouterProvider = () => {
     },
   ];
 
-  const userRoutes =
-    routeConfig.find((config) =>
-      user?.roles.some((role) => config.roles.includes(role))
-    )?.routes || [];
+  let userRoutes:any[] = [];
 
+  if (user && user.roles) {
+    user.roles.forEach(role => {
+      const matchingConfig = routeConfig.find(config => config.roles.includes(role));
+      if (matchingConfig) {
+        userRoutes = userRoutes.concat(matchingConfig.routes);
+      }
+    });
+  }
+  
   const navigations = userRoutes.map((route) => ({
     link: route.path,
     label: route.name,

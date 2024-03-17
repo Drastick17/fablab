@@ -22,7 +22,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
     username: "",
     email: "",
     id: "",
-    roles: ["user", "admin"],
+    roles: ["user","admin"],
   });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
