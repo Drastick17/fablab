@@ -1,9 +1,19 @@
 import { Link } from "react-router-dom";
 import styles from "./style.module.css"; // Importa los estilos CSS Modules
-
+import { motion } from "framer-motion";
 export default function NotFound() {
   return (
-    <div className={styles.notFound}>
+    <motion.div
+      initial={{  opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{
+        type: "spring",
+        stiffness: 260,
+        damping: 20,
+      }}
+      className={styles.notFound}
+    >
       <h1>Oops! Página no encontrada</h1>
       <p>Lo sentimos, la página que estás buscando no existe.</p>
       <div className={styles.imageContainer}>
@@ -13,6 +23,6 @@ export default function NotFound() {
         />
         <Link to="/">Volver a la página de inicio</Link>
       </div>
-    </div>
+    </motion.div>
   );
 }

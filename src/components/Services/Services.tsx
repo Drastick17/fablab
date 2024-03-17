@@ -77,7 +77,7 @@ function Services() {
         alignItems="center"
         display="grid"
         style={{
-          minHeight: 400,
+          minHeight: 500,
           backgroundBlendMode: "darken",
           backgroundColor: "#00000044",
           backgroundImage: `url(${Banner})`,

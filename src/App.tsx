@@ -1,11 +1,12 @@
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
-  createBrowserRouter,
-  RouterProvider,
+  Route,
+  BrowserRouter as Router,
+  Routes,
   useLocation,
-  useNavigate,
 } from "react-router-dom";
+
 import "./App.css";
 import Agenda from "./components/Agenda";
 import EmailVerification from "./components/EmailVerification";
@@ -17,7 +18,7 @@ import SignIn from "./components/Sign-In";
 import SignUp from "./components/Sign-up";
 
 import { AnimatePresence } from "framer-motion";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import UserContextProvider, { UserContext } from "./store/UserContext";
@@ -26,6 +27,8 @@ import NotFound from "./components/404";
 import Agendar from "./components/Agendar";
 import Profile from "./components/Profile";
 
+import { motion } from "framer-motion";
+
 const Layout = ({
   children,
   rol,
@@ -33,30 +36,104 @@ const Layout = ({
   children: React.ReactNode;
   rol?: string;
 }) => {
-  const { user } = useContext(UserContext);
   const { pathname } = useLocation();
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    // if (!rol) {
-    //   return;
-    // } else if (user?.roles.includes(rol)) {
-    //   setTimeout(() => navigate("/services"));
-    // } else {
-    //   setTimeout(() => navigate("/"));
-    // }
-  }, [pathname, navigate, user, rol]);
+  return (
+    <AnimatePresence key={pathname}>
+      <motion.section
+        key="layout"
+        initial={{ x: 300, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        exit={{ x: 300, opacity: 0 }}
+        transition={{
+          type: "spring",
+          stiffness: 260,
+          damping: 20,
+        }}
+      >
+        <main
+          style={{
+            alignItems: !rol ? "center" : "start",
+            justifyContent: "center",
+          }}
+          className="layoutMain"
+        >
+          {children}
+        </main>
+      </motion.section>
+    </AnimatePresence>
+  );
+};
+
+const RouterProvider = () => {
+  const { user } = useContext(UserContext);
+
+  const routeConfig = [
+    {
+      roles: [""],
+      routes: [
+        { path: "/", element: <SignIn />, name: "Inicio" },
+        { path: "/sign-up", element: <SignUp />, name: "Iniciar Sesión" },
+        {
+          path: "/email-verification/:id",
+          element: <EmailVerification />,
+          name: "Verificación de Correo",
+        },
+        {
+          path: "/forgot-password",
+          element: <ForgotPassword />,
+          name: "Olvidó Contraseña",
+        },
+        {
+          path: "/password-recovery",
+          element: <PasswordRecovery />,
+          name: "Recuperación de Contraseña",
+        },
+      ],
+    },
+    {
+      roles: ["user"],
+      routes: [
+        { path: "/services", element: <Services />, name: "Servicios" },
+        { path: "/profile", element: <Profile />, name: "Perfil" },
+      ],
+    },
+    {
+      roles: ["admin"],
+      routes: [
+        {
+          path: "/services/agendar",
+          element: <Agenda />,
+          name: "Agendar Servicios",
+        },
+        { path: "/agendar", element: <Agendar />, name: "Agendar" },
+      ],
+    },
+  ];
+
+  const userRoutes =
+    routeConfig.find((config) =>
+      user?.roles.some((role) => config.roles.includes(role))
+    )?.routes || [];
+
+  const navigations = userRoutes.map((route) => ({
+    link: route.path,
+    label: route.name,
+  }));
 
   return (
     <>
-      <HeaderNav hidden={!rol} />
-      <main
-        style={{ alignItems: !rol ? "center" : "start", justifyContent: "center" }}
-        className="layoutMain"
-      >
-        {children}
-      </main>
-      <ToastContainer />
+      <Router>
+        {user?.roles[0] !== "" && <HeaderNav navigations={navigations} />}
+        <Layout>
+          <Routes>
+            {userRoutes.map((route, index) => (
+              <Route key={index} {...route} />
+            ))}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Layout>
+      </Router>
     </>
   );
 };
@@ -72,109 +149,14 @@ function App() {
     },
   });
 
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: (
-        <Layout>
-          <SignIn />
-        </Layout>
-      ),
-      errorElement: <NotFound />,
-    },
-    {
-      path: "/sign-up",
-      element: (
-        <Layout>
-          <SignUp />
-        </Layout>
-      ),
-      errorElement: <NotFound />,
-    },
-
-    {
-      path: "/email-verification/:id",
-      element: (
-        <Layout>
-          <EmailVerification />
-        </Layout>
-      ),
-      errorElement: <NotFound />,
-    },
-    {
-      path: "/forgot-password",
-      element: (
-        <Layout>
-          <ForgotPassword />
-        </Layout>
-      ),
-      errorElement: <NotFound />,
-    },
-    {
-      path: "/password-recovery",
-      element: (
-        <Layout>
-          <PasswordRecovery />
-        </Layout>
-      ),
-      errorElement: <NotFound />,
-    },
-    {
-      path: "/services",
-      element: (
-        <Layout rol="user">
-          <Services />
-        </Layout>
-      ),
-      errorElement: <NotFound />,
-    },
-    {
-      path: "/profile",
-      element: (
-        <Layout rol="user">
-          <Profile />
-        </Layout>
-      ),
-      errorElement: <NotFound />,
-    },
-    // {
-    //   path: "/services/:serviceType",
-    //   element: (
-    //     <Layout rol="user">
-    //       <PrinterService />
-    //     </Layout>
-    //   ),
-    // },
-    {
-      path: "/services/agendar",
-      element: (
-        <Layout rol="admin">
-          <Agenda />
-        </Layout>
-      ),
-      errorElement: <NotFound />,
-    },
-    {
-      path: "/agendar",
-      element: (
-        <Layout rol="user">
-          <Agendar />
-        </Layout>
-      ),
-      errorElement: <NotFound />,
-    },
-  ]);
-
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
       <UserContextProvider>
-        <AnimatePresence mode="wait">
-          <RouterProvider router={router} />
-        </AnimatePresence>
+        <RouterProvider />
+        <ToastContainer />
       </UserContextProvider>
     </ThemeProvider>
   );
 }
-
 export default App;

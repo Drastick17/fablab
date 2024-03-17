@@ -22,9 +22,8 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
     username: "",
     email: "",
     id: "",
-    roles: [],
-  }); 
-  
+    roles: ["user"],
+  });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -63,7 +62,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
       username: "",
       email: "",
       id: "",
-      roles: [],
+      roles: [""],
     });
 
   const store = {

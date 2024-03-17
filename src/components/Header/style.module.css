@@ -1,10 +1,15 @@
 .header {
-  background-color: #F92432;
+  min-width: 100%;
+  background-color: #f92432;
   display: flex;
   justify-content: space-between;
   flex-direction: row;
   align-items: center;
   padding: 10px 60px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
 }
 
 .logo {

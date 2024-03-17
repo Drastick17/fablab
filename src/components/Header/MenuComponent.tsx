@@ -1,10 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Avatar, Box, Button, Menu, MenuItem } from "@mui/material";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../store/UserContext";
+import { type LinkType } from "./index";
 import style from "./style.module.css";
 
-export default function MenuComponent() {
+export default function MenuComponent({
+  navigations,
+}: {
+  navigations: LinkType[];
+}) {
   const { resetUser } = useContext(UserContext);
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -25,12 +31,14 @@ export default function MenuComponent() {
   };
   return (
     <nav className={style.menu}>
-      <Link to="/home" className={style.menuLi}>
-        Agendas
-      </Link>
-      <Link to="/services" className={style.menuLi}>
-        Servicios
-      </Link>
+      {navigations.map(
+        (nav: any) =>
+          nav.label !== "Perfil" && (
+            <Link to={nav.link} className={style.menuLi}>
+              {nav.label}
+            </Link>
+          )
+      )}
       <Box>
         <Button
           id="basic-button"

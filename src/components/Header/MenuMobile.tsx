@@ -1,11 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button, Menu, MenuItem } from "@mui/material";
 import React, { useContext, useState } from "react";
 import { FaBars } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../store/UserContext";
 import style from "./style.module.css";
+import { type LinkType } from "./index";
 
-export default function MenuMobile() {
+export default function MenuMobile({
+  navigations,
+}: {
+  navigations: LinkType[];
+}) {
   const { resetUser } = useContext(UserContext);
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -43,20 +49,16 @@ export default function MenuMobile() {
           "aria-labelledby": "basic-button",
         }}
       >
-        <MenuItem
-          onClick={() => {
-            handleClose("profile");
-          }}
-        >
-          Servicios
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            handleClose("profile");
-          }}
-        >
-          Mi perfil
-        </MenuItem>
+        {navigations.map((nav: any) => (
+          <MenuItem
+            onClick={() => {
+              navigate(nav.link);
+              handleClose("profile");
+            }}
+          >
+            {nav.label}
+          </MenuItem>
+        ))}
         <MenuItem
           onClick={() => {
             handleClose("logout");

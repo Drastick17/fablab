@@ -3,16 +3,19 @@ import MenuComponent from "./MenuComponent";
 import style from "./style.module.css";
 import MenuMobile from "./MenuMobile";
 
-export default function HeaderNav({ hidden }: { hidden: boolean }) {
+export type LinkType = {
+  link?: string;
+  label?: string;
+};
+
+export default function HeaderNav({ navigations }: { navigations: LinkType[] }) {
   return (
-    <section hidden={hidden}>
-      <header className={style.header}>
-        <Link to={"/home"}>
-          <img className={style.logo} src="/img/logo-withoutbg.png" />
-        </Link>
-        <MenuComponent />
-        <MenuMobile />
-      </header>
-    </section>
+    <header className={style.header}>
+      <Link to={"/home"}>
+        <img className={style.logo} src="/img/logo-withoutbg.png" />
+      </Link>
+      <MenuComponent navigations={navigations} />
+      <MenuMobile navigations={navigations} />
+    </header>
   );
 }
