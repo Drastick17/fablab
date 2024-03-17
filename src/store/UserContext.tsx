@@ -22,7 +22,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
     username: "",
     email: "",
     id: "",
-    roles: ["user"],
+    roles: ["user", "admin"],
   });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -39,18 +39,18 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
         return toast("Error en la petición", { type: "error" });
       }
 
-      const resData = await res.json();
-      if (resData.token) {
-        window.localStorage.setItem("token", resData.token);
+      const {token , user_name,user_email, user_id, user_roles } = await res.json();
+      if (token) {
+        window.localStorage.setItem("token", token);
         setUser({
-          username: resData.user_name,
-          email: resData.user_email,
-          id: resData.user_id,
-          roles: resData.user_roles,
+          username: user_name,
+          email: user_email,
+          id: user_id,
+          roles: user_roles,
         });
         toast("Bienveido de vuelta " + user.username, { type: "success" });
       } else {
-        return toast("Error al crear el usuario", { type: "error" });
+        return toast("Error al iniciar sesión del usuario", { type: "error" });
       }
     } catch (e: any) {
       return toast(e.message, { type: "error" });
