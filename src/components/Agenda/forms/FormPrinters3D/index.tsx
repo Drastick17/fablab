@@ -36,13 +36,13 @@ const printers = [
 export default function FormPrinters3D() {
   const { control, handleSubmit, watch, formState, getValues } =
     useForm<FormFields>({
-      mode: "onBlur",
-      reValidateMode: "onBlur",
+      mode: "onChange",
+      reValidateMode: "onChange",
       resolver: zodResolver(formSchema),
       defaultValues,
     });
   const { errors } = formState;
-    console.log(watch('machine'))
+  console.log(errors);
   //aqui manda los datos a la base
   const onSubmit = (data: any) => {
     console.log(data);
@@ -62,8 +62,8 @@ export default function FormPrinters3D() {
             fullWidth
             options={printers}
             value={value}
-            onChange={(_, newValue) => {
-              onChange(newValue);
+            onChange={(_, newValue: any) => {
+              onChange(newValue?.value);
             }}
             renderInput={(params) => {
               return (
@@ -80,6 +80,24 @@ export default function FormPrinters3D() {
                   }}
                 />
               );
+            }}
+          />
+        )}
+      />
+      <Controller
+        name="email" // el nombre tiene que ser igual al que declaraste en el scheme
+        control={control} // este siempre le pasas
+        render={({ field }) => (
+          <TextField
+            {...field}
+            placeholder="Selecciona una opción"
+            label="Tipo de documento"
+            helperText={errors?.email?.message}
+            error={!!errors.email?.message}
+            variant="standard"
+            fullWidth
+            InputLabelProps={{
+              shrink: true,
             }}
           />
         )}
