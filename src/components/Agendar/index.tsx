@@ -17,6 +17,11 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import CloseIcon from "@mui/icons-material/Close";
 import CheckIcon from "@mui/icons-material/Check";
+import { Autocomplete, TextField } from "@mui/material";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 
 const rows = [
   {
@@ -40,6 +45,22 @@ const rows = [
 ];
 
 function GridAgendar() {
+  const handleSubmit = async () => {
+    try {
+      const data = await fetch("http://localhost:8000/api/equipment/");
+      const respuesta = await data.json();
+
+      console.log(respuesta);
+    } catch (e) {}
+  };
+
+  React.useEffect(() => {
+    handleSubmit();
+  }, []);
+
+  function submit(row: []) {
+    console.log(row);
+  }
   return (
     <>
       <Typography component="h2" variant="h6" color="primary" gutterBottom>
@@ -48,7 +69,8 @@ function GridAgendar() {
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell>Hora de agendamiento</TableCell>
+            <TableCell>Hora de inicio</TableCell>
+            <TableCell>Hora de final</TableCell>
             <TableCell>Nombre</TableCell>
             <TableCell>Celular</TableCell>
             <TableCell>Material</TableCell>
@@ -61,11 +83,20 @@ function GridAgendar() {
           {rows.map((row) => (
             <TableRow key={row.id}>
               <TableCell>{row.time}</TableCell>
-              <TableCell>{row.name}</TableCell>
+              <TableCell>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DemoContainer components={["DateTimePicker"]}>
+                    <DateTimePicker label="Hora de finalización" />
+                  </DemoContainer>
+                </LocalizationProvider>
+              </TableCell>
+              <TableCell>
+                <input type="text" value={row.name} />
+              </TableCell>
               <TableCell>{row.cellphone}</TableCell>
               <TableCell>{row.material}</TableCell>
               <TableCell>{row.service}</TableCell>
-              <TableCell>{row.machine}</TableCell>
+              <TableCell></TableCell>
               <TableCell>
                 <ButtonGroup
                   variant="contained"
