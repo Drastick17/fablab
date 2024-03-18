@@ -31,6 +31,7 @@
 
 body {
   width: 100vw;
+  overflow-x: hidden;
 }
 
 .layoutMain {
@@ -39,7 +40,7 @@ body {
   justify-content: center;
   align-items: center;
   margin-top: 90px;
-  min-height: 100vh;
+  min-height: calc(100vh-90px);
   box-sizing: border-box;
 }
 

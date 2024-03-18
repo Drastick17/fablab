@@ -6,6 +6,7 @@ type Context = {
   handleSubmit?: (event: React.FormEvent<HTMLFormElement>) => void;
   user?: User;
   resetUser?: () => void;
+  loading: boolean;
 };
 
 export const UserContext = createContext<Context>({});
@@ -18,15 +19,17 @@ type User = {
 };
 
 const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({
     username: "",
     email: "",
     id: "",
-    roles: ["user", "admin"],
+    roles: [""],
   });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setLoading(true);
     const data = Object.fromEntries(new FormData(event.currentTarget));
     try {
       const res = await fetch("http://localhost:8000/api/user/login", {
@@ -53,6 +56,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
       } else {
         return toast("Error al iniciar sesión del usuario", { type: "error" });
       }
+      setLoading(false);
     } catch (e: any) {
       return toast(e.message, { type: "error" });
     }
@@ -63,13 +67,14 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
       username: "",
       email: "",
       id: "",
-      roles: ["admin", "user"],
+      roles: [""],
     });
 
   const store = {
     handleSubmit,
     resetUser,
     user,
+    loading,
   };
 
   return <UserContext.Provider value={store}>{children}</UserContext.Provider>;

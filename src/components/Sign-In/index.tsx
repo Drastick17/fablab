@@ -10,6 +10,13 @@ import { Link } from "react-router-dom";
 import { UserContext } from "../../store/UserContext";
 import style from "./style.module.css";
 
+import * as React from "react";
+import LoadingButton from "@mui/lab/LoadingButton";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
+import SaveIcon from "@mui/icons-material/Save";
+import SendIcon from "@mui/icons-material/Send";
+
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
@@ -22,7 +29,7 @@ function Copyright() {
 }
 
 export default function SignIn() {
-  const { handleSubmit } = useContext(UserContext);
+  const { handleSubmit, loading } = useContext(UserContext);
 
   return (
     <AnimatePresence mode="wait">
@@ -98,9 +105,15 @@ export default function SignIn() {
                 id="password"
                 size="medium"
               />
-              <Button type="submit" fullWidth variant="contained">
+              <LoadingButton
+                size="small"
+                loading={loading}
+                variant="contained"
+                type="submit"
+                fullWidth
+              >
                 Iniciar sesión
-              </Button>
+              </LoadingButton>
               <Button component={Link} to="/forgot-password" className="link">
                 ¿Olvidaste tu contraseña?
               </Button>

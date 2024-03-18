@@ -18,6 +18,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import style from "./style.module.css";
 
+import * as React from "react";
+import LoadingButton from "@mui/lab/LoadingButton";
+
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
@@ -31,11 +34,12 @@ function Copyright() {
 
 export default function SignUp() {
   const navigate = useNavigate();
+  const [loading, setLoading] = React.useState(false);
   const [phone, setPhone] = useState("+593");
 
-  
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setLoading(true);
     const target = event.target as HTMLFormElement;
     const data = Object.fromEntries(new FormData(target));
     const { Types: type, phone, ConfirmPassword, ...user } = data;
@@ -64,10 +68,14 @@ export default function SignUp() {
       const resData = await res.json();
       if (resData.id) {
         navigate(`/email-verification/${resData.id}`);
-        return toast(`Porfavor revise el correo que enviamos a: ${user.Email}`, { type: "error" });
+        return toast(
+          `Porfavor revise el correo que enviamos a: ${user.Email}`,
+          { type: "error" }
+        );
       } else {
         return toast("Error al crear el usuario", { type: "error" });
       }
+      setLoading(false);
     } catch (error: any) {
       toast(error.message, { type: "error" });
     }
@@ -216,14 +224,16 @@ export default function SignUp() {
               />
             </RadioGroup>
           </FormControl>
-          <Button
+          <LoadingButton
             sx={{ gridColumn: "1/-1" }}
+            size="small"
+            loading={loading}
+            variant="contained"
             type="submit"
             fullWidth
-            variant="contained"
           >
             Crear cuenta
-          </Button>
+          </LoadingButton>
           <Button
             sx={{ gridColumn: "1/-1" }}
             component={Link}
