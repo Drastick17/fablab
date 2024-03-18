@@ -6,31 +6,14 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabCustom from "./TabCustom";
 import FormPrinters3D from "./forms/FormPrinters3D";
-/**
- * 
-const printers = [
-  {
-    label: "Finder - 1 a 5",
-    materials: [{ label: ["PLA", "TPU"] }],
-    qualities: [{ label: ["Alta", "Media", "Baja"] }],
-    formats: [{ label: ["STL", "OBJ"] }],
-  },
-  {
-    label: "AnyCubic Kobra Max - 1",
-    materials: [{ label: ["PLA", "TPU", "PET-G"] }],
-    qualities: [{ label: ["Alta", "Media", "Baja"] }],
-    formats: [{ label: ["STL", "OBJ"] }],
-  },
-  {
-    label: "RaisePro 2 Plus - 1",
-    materials: [{ label: ["PLA", "TPU", "ABS", "Fibra Carbono", "Nylon"] }],
-    qualities: [
-      { label: ["Ultra alta", "Alta", "Media", "Baja", "Ultra baja"] },
-    ],
-    formats: [{ label: ["STL", "OBJ"] }],
-  },
-];
- */
+
+import CamaUv from "./templates/CamaUv";
+import Printers3D from "./templates/Printers3D";
+import Cnc from "./templates/Cnc";
+import LaserCutter from "./templates/LaserCutter";
+import Plotter from "./templates/Plotter";
+import MetalPlotter from "./templates/MetalLaser";
+import PrintPlotter from "./templates/PrintPlotter";
 
 const services = [
   {
@@ -54,12 +37,12 @@ const services = [
     value: "5",
   },
   {
-    name: "Plotter de impresion",
-    value: "5",
-  },
-  {
     name: "Grabadora laser de metal",
     value: "6",
+  },
+  {
+    name: "Plotter de impresion",
+    value: "7",
   },
 ];
 
@@ -83,10 +66,26 @@ export default function Agenda() {
         {/* AGREGAR POR CADA SERVICIO UN TABCUSTOM,
          si quieres cambiarles los estilos a la tab hazle en el tab custom */}
         <TabCustom value="1">
-          <FormPrinters3D />
+          <div>{Printers3D()}</div>
         </TabCustom>
-        <TabCustom value="2"></TabCustom>
-        <TabCustom value="3"></TabCustom>
+        <TabCustom value="2">
+          <div>{LaserCutter()}</div>
+        </TabCustom>
+        <TabCustom value="3">
+          <div>{Cnc()}</div>
+        </TabCustom>
+        <TabCustom value="4">
+          <div>{CamaUv()}</div>
+        </TabCustom>
+        <TabCustom value="5">
+          <div>{Plotter()}</div>
+        </TabCustom>
+        <TabCustom value="6">
+          <div>{MetalPlotter()}</div>
+        </TabCustom>
+        <TabCustom value="7">
+          <div>{PrintPlotter()}</div>
+        </TabCustom>
       </TabContext>
     </Box>
   );

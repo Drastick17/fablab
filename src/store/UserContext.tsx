@@ -22,7 +22,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
     username: "",
     email: "",
     id: "",
-    roles: ["user","admin"],
+    roles: ["user", "admin"],
   });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -39,7 +39,8 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
         return toast("Error en la petición", { type: "error" });
       }
 
-      const {token , user_name,user_email, user_id, user_roles } = await res.json();
+      const { token, user_name, user_email, user_id, user_roles } =
+        await res.json();
       if (token) {
         window.localStorage.setItem("token", token);
         setUser({
@@ -62,7 +63,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
       username: "",
       email: "",
       id: "",
-      roles: [""],
+      roles: ["admin", "user"],
     });
 
   const store = {
