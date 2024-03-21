@@ -26,7 +26,6 @@ export default function EmailVerification() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = Object.fromEntries(new FormData(event.currentTarget));
-    //TO-DO ADD MESSAGE TO THE USER
     try {
       const res = await fetch("http://localhost:8000/api/user/verify", {
         method: "POST",
@@ -39,13 +38,15 @@ export default function EmailVerification() {
       }
 
       const resData = await res.json();
-      if(resData.type === 'error'){
-        return toast("Error el código es incorrecto o ya se expiro", { type: "error" });
+      if (resData.type === "error") {
+        return toast("Error el código es incorrecto o ya se expiro", {
+          type: "error",
+        });
       }
       toast("Correo verificado correctamente", { type: "success" });
       navigate("/");
     } catch (e: any) {
-      toast(e.message,{ type: "error" })
+      toast(e.message, { type: "error" });
     }
   };
 

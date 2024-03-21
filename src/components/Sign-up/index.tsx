@@ -75,9 +75,10 @@ export default function SignUp() {
       } else {
         return toast("Error al crear el usuario", { type: "error" });
       }
-      setLoading(false);
     } catch (error: any) {
       toast(error.message, { type: "error" });
+    } finally {
+      setLoading(false);
     }
   };
 

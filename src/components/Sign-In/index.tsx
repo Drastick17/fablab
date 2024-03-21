@@ -10,12 +10,7 @@ import { Link } from "react-router-dom";
 import { UserContext } from "../../store/UserContext";
 import style from "./style.module.css";
 
-import * as React from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
-import SaveIcon from "@mui/icons-material/Save";
-import SendIcon from "@mui/icons-material/Send";
 
 function Copyright() {
   return (

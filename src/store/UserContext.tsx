@@ -6,7 +6,7 @@ type Context = {
   handleSubmit?: (event: React.FormEvent<HTMLFormElement>) => void;
   user?: User;
   resetUser?: () => void;
-  loading: boolean;
+  loading?: boolean;
 };
 
 export const UserContext = createContext<Context>({});
@@ -56,9 +56,10 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
       } else {
         return toast("Error al iniciar sesión del usuario", { type: "error" });
       }
-      setLoading(false);
     } catch (e: any) {
       return toast(e.message, { type: "error" });
+    } finally {
+      setLoading(false);
     }
   };
 
