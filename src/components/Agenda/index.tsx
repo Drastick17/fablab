@@ -5,7 +5,6 @@ import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabCustom from "./TabCustom";
-import FormPrinters3D from "./forms/FormPrinters3D";
 
 import CamaUv from "./templates/CamaUv";
 import Printers3D from "./templates/Printers3D";
@@ -14,50 +13,60 @@ import LaserCutter from "./templates/LaserCutter";
 import Plotter from "./templates/Plotter";
 import MetalPlotter from "./templates/MetalLaser";
 import PrintPlotter from "./templates/PrintPlotter";
+import { useParams } from "react-router-dom";
 
 const services = [
   {
     name: "Impresiones 3D",
-    value: "1",
+    value: "3dprinter",
   },
   {
     name: "Cortadora Laser",
-    value: "2",
+    value: "lasercutter",
   },
   {
     name: "CNC Router (Fresadora)",
-    value: "3",
+    value: "cnc",
   },
   {
     name: "Cama plana UV",
-    value: "4",
+    value: "uvprinter",
   },
   {
     name: "Plotter de impresion y corte",
-    value: "5",
+    value: "cutterplotter",
   },
   {
     name: "Grabadora laser de metal",
-    value: "6",
+    value: "laserplotter",
   },
   {
     name: "Plotter de impresion",
-    value: "7",
+    value: "printerplotter",
   },
 ];
 
 export default function Agenda() {
-  const [value, setValue] = React.useState("1");
+  const { type } = useParams();
+  console.log(type);
+
+  const [value, setValue] = React.useState(type);
 
   const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
+    window.history.replaceState(null, "", newValue);
   };
 
   return (
     <Box sx={{ width: "100vw", height: "100vh", typography: "body1" }}>
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <TabList onChange={handleChange} aria-label="" centered>
+          <TabList
+            onChange={handleChange}
+            aria-label=""
+            centered
+            variant="scrollable"
+          >
             {services.map((service) => (
               <Tab label={service.name} value={service.value} />
             ))}
@@ -65,25 +74,25 @@ export default function Agenda() {
         </Box>
         {/* AGREGAR POR CADA SERVICIO UN TABCUSTOM,
          si quieres cambiarles los estilos a la tab hazle en el tab custom */}
-        <TabCustom value="1">
+        <TabCustom value="3dprinter">
           <div>{Printers3D()}</div>
         </TabCustom>
-        <TabCustom value="2">
+        <TabCustom value="lasercutter">
           <div>{LaserCutter()}</div>
         </TabCustom>
-        <TabCustom value="3">
+        <TabCustom value="cnc">
           <div>{Cnc()}</div>
         </TabCustom>
-        <TabCustom value="4">
+        <TabCustom value="uvprinter">
           <div>{CamaUv()}</div>
         </TabCustom>
-        <TabCustom value="5">
+        <TabCustom value="cutterplotter">
           <div>{Plotter()}</div>
         </TabCustom>
-        <TabCustom value="6">
+        <TabCustom value="laserplotter">
           <div>{MetalPlotter()}</div>
         </TabCustom>
-        <TabCustom value="7">
+        <TabCustom value="printerplotter">
           <div>{PrintPlotter()}</div>
         </TabCustom>
       </TabContext>

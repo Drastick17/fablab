@@ -82,7 +82,6 @@ export default function RouterProvider() {
     label: route.name,
   }));
 
-
   return (
     <Router>
       {user?.roles[0] !== "" && <HeaderNav navigations={navigations} />}

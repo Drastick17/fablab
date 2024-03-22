@@ -4,24 +4,50 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import style from "./style.module.css";
 import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
 
 export default function Printers3D() {
-  const { type } = useParams(); // esto toma el valor de la URL, donde esta :type ponle lo que tu quieras y esto te lo regresa
-
-
-  console.log(type);
-
   const [data, setData] = React.useState([
     { value: "Sin seleccionar", label: "Sin seleccionar" },
   ]);
+
+  const [selectedMaterial, setSelectedMaterial] = React.useState({});
+
+  const formatos = [
+    {
+      label: "STL",
+    },
+    {
+      label: "OBJ",
+    },
+  ];
+
+  const calidad = [
+    {
+      label: "Ultra baja",
+    },
+    {
+      label: "Baja",
+    },
+    {
+      label: "Media",
+    },
+    {
+      label: "Alta",
+    },
+    {
+      label: "Ultra Alta",
+    },
+  ];
 
   React.useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await fetch("http://localhost:8000/api/material/read");
         const resData = await res.json();
-        const dataAutocomplete = resData.map((material) => {
+        const materialesFiltrados = resData.filter(
+          (material) => material.description_material === "3D Printer"
+        );
+        const dataAutocomplete = materialesFiltrados.map((material) => {
           return {
             value: material.name_material,
             label: material.name_material,
@@ -49,8 +75,24 @@ export default function Printers3D() {
         disablePortal
         id="combo-box-demo"
         options={data}
+        onChange={(evt, values) => {
+          setSelectedMaterial(values);
+        }}
         sx={{ width: 300 }}
-        renderInput={(params) => <TextField {...params} label="Maquina" />}
+        renderInput={(params) => (
+          <TextField {...params} label="Material de impresión" />
+        )}
+      />
+
+      <Autocomplete
+        disablePortal
+        id="combo-box-demo"
+        options={calidad}
+        disabled={Object.keys(selectedMaterial).length == 0}
+        sx={{ width: 300 }}
+        renderInput={(params) => (
+          <TextField {...params} label="Calidad de impresión" />
+        )}
       />
     </Box>
   );

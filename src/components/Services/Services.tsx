@@ -12,6 +12,7 @@ import style from "./style.module.css";
 import { Link } from "react-router-dom";
 
 type service = {
+  id: string;
   name: string;
   image: string;
   description: string;
@@ -19,6 +20,7 @@ type service = {
 };
 const services: service[] = [
   {
+    id: "3dprinter",
     name: "Impresoras 3D",
     image: "impresora3D",
     description:
@@ -26,6 +28,7 @@ const services: service[] = [
     formats: ["STL", "OBJ"],
   },
   {
+    id: "lasercutter",
     name: "Cortadora Laser",
     image: "CNC_ESCRITORIO",
     description:
@@ -33,6 +36,7 @@ const services: service[] = [
     formats: ["DXF", "DWG", "AI", "PDF"],
   },
   {
+    id: "cnc",
     name: "CNC",
     image: "CNC_ESCRITORIO",
     description:
@@ -40,6 +44,7 @@ const services: service[] = [
     formats: ["AI", "PSD", "PDF", "EPS"],
   },
   {
+    id: "uvprinter",
     name: "Inyeccion de tinta e impresión UV",
     image: "inyeccionTinta",
     description:
@@ -47,6 +52,7 @@ const services: service[] = [
     formats: ["DXF", "DWG", "AI", "PDF"],
   },
   {
+    id: "cutterplotter",
     name: "Plotter de impresion y corte",
     image: "inyeccionTinta",
     description:
@@ -54,6 +60,7 @@ const services: service[] = [
     formats: ["AI", "EPS", "SVG"],
   },
   {
+    id: "laserplotter",
     name: "Grabadora laser",
     image: "inyeccionTinta",
     description:
@@ -61,6 +68,7 @@ const services: service[] = [
     formats: ["DXF", "AI", "SVG"],
   },
   {
+    id: "printerplotter",
     name: "Plotter de impresion",
     image: "inyeccionTinta",
     description:
@@ -163,7 +171,7 @@ const CardComponent = (props: service) => {
             variant="outlined"
             color="error"
             component={Link}
-            to="/"
+            to={`/services/${props.id}`}
             fullWidth
           >
             Solicitar servicio
