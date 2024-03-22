@@ -3,40 +3,36 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import style from "./style.module.css";
+import { toast } from "react-toastify";
 
 export default function Printers3D() {
-  const [selectedMachine, setSelectedMachine] = React.useState(null);
-  const [selectedMaterial, setSelectedMaterial] = React.useState(null);
-  const [selectedQuality, setSelectedQuality] = React.useState(null);
-  const [selectedFormat, setSelectedFormat] = React.useState(null);
+  const [data, setData] = React.useState(null);
 
-  const handleMachineChange = (event, newValue) => {
-    setSelectedMachine(newValue);
-    setSelectedMaterial(null);
-    setSelectedQuality(null);
-    setSelectedFormat(null);
-  };
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("http://localhost:8000/api/material/read");
+        const resData = await res.json();
 
-  const printers = [
-    {
-      label: "Finder - 1 a 5",
-      materials: ["PLA", "TPU"],
-      qualities: ["Alta", "Media", "Baja"],
-      formats: ["STL", "OBJ"],
-    },
-    {
-      label: "AnyCubic Kobra Max - 1",
-      materials: ["PLA", "TPU", "PET-G"],
-      qualities: ["Alta", "Media", "Baja"],
-      formats: ["STL", "OBJ"],
-    },
-    {
-      label: "RaisePro 2 Plus - 1",
-      materials: ["PLA", "TPU", "ABS", "Fibra Carbono", "Nylon"],
-      qualities: ["Ultra alta", "Alta", "Media", "Baja", "Ultra baja"],
-      formats: ["STL", "OBJ"],
-    },
-  ];
+        console.log(resData);
+        const materialesFiltrados = resData.filter(
+          (material) => material.description_material === "3D Printer"
+        );
+        console.log(materialesFiltrados);
+        const dataAutocomplete = materialesFiltrados.map((material) => {
+          return {
+            value: material.name,
+            label: material.name,
+          };
+        });
+        setData(dataAutocomplete);
+      } catch (error) {
+        console.error("Error al obtener datos:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <Box
@@ -49,52 +45,10 @@ export default function Printers3D() {
       <Autocomplete
         disablePortal
         id="combo-box-demo"
-        options={printers}
-        getOptionLabel={(option) => option.label}
-        onChange={handleMachineChange}
+        options={data ? data : []}
         sx={{ width: 300 }}
         renderInput={(params) => <TextField {...params} label="Maquina" />}
       />
-
-      {selectedMachine && (
-        <Autocomplete
-          disablePortal
-          id="combo-box-demo"
-          options={selectedMachine.materials}
-          value={selectedMaterial}
-          onChange={(event, newValue) => setSelectedMaterial(newValue)}
-          sx={{ width: 300 }}
-          renderInput={(params) => (
-            <TextField {...params} label="Material de impresión" />
-          )}
-        />
-      )}
-
-      {selectedMachine && (
-        <Autocomplete
-          disablePortal
-          id="combo-box-demo"
-          options={selectedMachine.qualities}
-          value={selectedQuality}
-          onChange={(event, newValue) => setSelectedQuality(newValue)}
-          sx={{ width: 300 }}
-          renderInput={(params) => (
-            <TextField {...params} label="Calidad de impresión" />
-          )}
-        />
-      )}
-
-      {selectedMachine && (
-        <Autocomplete
-          disablePortal
-          id="combo-box-demo"
-          options={selectedMachine.formats}
-          value={selectedFormat}
-          onChange={(event, newValue) => setSelectedFormat(newValue)}
-          sx={{ width: 300 }}
-          renderInput={(params) => <TextField {...params} label="Formato" />}
-        />
-      )}
     </Box>
   );
 }
