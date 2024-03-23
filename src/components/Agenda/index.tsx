@@ -75,25 +75,25 @@ export default function Agenda() {
         {/* AGREGAR POR CADA SERVICIO UN TABCUSTOM,
          si quieres cambiarles los estilos a la tab hazle en el tab custom */}
         <TabCustom value="3dprinter">
-          <div>{Printers3D()}</div>
+          <Printers3D />
         </TabCustom>
         <TabCustom value="lasercutter">
-          <div>{LaserCutter()}</div>
+          <LaserCutter />
         </TabCustom>
         <TabCustom value="cnc">
-          <div>{Cnc()}</div>
+          <Cnc />
         </TabCustom>
         <TabCustom value="uvprinter">
-          <div>{CamaUv()}</div>
+          <CamaUv />
         </TabCustom>
         <TabCustom value="cutterplotter">
-          <div>{Plotter()}</div>
+          <Plotter />
         </TabCustom>
         <TabCustom value="laserplotter">
-          <div>{MetalPlotter()}</div>
+          <MetalPlotter />
         </TabCustom>
         <TabCustom value="printerplotter">
-          <div>{PrintPlotter()}</div>
+          <PrintPlotter />
         </TabCustom>
       </TabContext>
     </Box>
