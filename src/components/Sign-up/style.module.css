@@ -4,3 +4,24 @@
   object-fit: contain;
   object-position: center;
 }
+
+.outerBox{
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  gap: 1rem;
+  margin-bottom: 20px;
+  border-radius: 24px;
+  padding: 20px;
+  overflow: hidden;
+  box-shadow: 5px 5px 15px 5px #ddd;
+}
+
+.innerBox{
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 80px;
+  justify-content: center;
+  align-items: center;
+}

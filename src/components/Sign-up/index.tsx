@@ -86,32 +86,15 @@ export default function SignUp() {
     <Container component="main" maxWidth="xl">
       <form onSubmit={handleSubmit}>
         <Box
-          display="grid"
-          justifyContent={"center"}
-          alignContent={"center"}
+          className={style.outerBox}
           sx={{
             columnGap: 5,
             "@media (min-width: 780px)": {
               gridTemplateColumns: "1fr 1fr",
             },
           }}
-          gap="1rem"
-          marginBottom={"20px"}
-          borderRadius={"24px"}
-          padding={"20px"}
-          overflow="hidden"
-          boxShadow={"5px 5px 15px 5px #ddd"}
         >
-          <Box
-            display="grid"
-            sx={{
-              gridColumn: "1/-1",
-              gridTemplateColumns: "1fr 1fr",
-              gridTemplateRows: "80px",
-            }}
-            justifyContent="center"
-            alignItems="center"
-          >
+          <Box className={style.innerBox}>
             <img
               className={style.logo}
               src="/img/logo.jpg"

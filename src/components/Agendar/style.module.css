@@ -7,3 +7,9 @@
     margin: 0;
     
 }
+
+.paper{
+  padding: 8px; /* Equivalente a p: 2 en theme-ui */
+  display: flex;
+  flex-direction: column;
+}

@@ -49,24 +49,8 @@ export default function ForgotPassword() {
   return (
     <Container component="main" maxWidth="xs">
       <form onSubmit={handleSubmit}>
-        <Box
-          display="flex"
-          flexDirection="column"
-          gap="1rem"
-          marginBottom={"20px"}
-          borderRadius={"24px"}
-          padding={"20px"}
-          overflow="hidden"
-          boxShadow={"5px 5px 15px 5px #ddd"}
-        >
-          <Box
-            display="grid"
-            paddingX={"30px"}
-            paddingTop={"20px"}
-            sx={{ gridTemplateColumns: "1fr 1fr", gridTemplateRows: "100px" }}
-            justifyContent="center"
-            alignItems="center"
-          >
+        <Box className={style.outerbox}>
+          <Box className={style.innerbox}>
             <img
               className={style.logo}
               src="/img/logo.jpg"

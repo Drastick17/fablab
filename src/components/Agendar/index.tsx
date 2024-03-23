@@ -122,7 +122,7 @@ export default function Agendar() {
   return (
     <Container className={style.main} component="main" maxWidth="xl">
       <Grid item xs={12} sx={{ marginTop: "15px" }}>
-        <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
+        <Paper className={style.paper}>
           <GridAgendar />
         </Paper>
       </Grid>
