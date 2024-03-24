@@ -14,12 +14,19 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 70%;
+  width: 75%;
   background-color: #fff; 
-  border: 2px solid #4d4d4d;
-  box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.5); 
+  border: 1px solid #76737389;
+  box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.38); 
   padding-top: 8px; 
   padding-left: 16px; 
   padding-right: 16px; 
   padding-bottom: 12px;
+}
+
+.innerBox{
+  margin-top: 20px;
+  border: solid 1px #aaa8a8;
+  border-radius: 5px;
+  padding: 10px;
 }
