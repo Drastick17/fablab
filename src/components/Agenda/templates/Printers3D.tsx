@@ -6,6 +6,14 @@ import style from "./style.module.css";
 import { toast } from "react-toastify";
 
 export default function Printers3D() {
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
   const [data, setData] = React.useState([
     { value: "Sin seleccionar", label: "Sin seleccionar" },
   ]);
