@@ -10,7 +10,7 @@ import Services from "../components/Services/Services";
 import SignIn from "../components/Sign-In";
 import SignUp from "../components/Sign-up";
 
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { UserContext } from "../store/UserContext";
 

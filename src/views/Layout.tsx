@@ -1,5 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { useLocation } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { UserContext } from "../store/UserContext";
 
 export default function Layout({
   children,
@@ -8,7 +10,24 @@ export default function Layout({
   children: React.ReactNode;
   rol?: string;
 }) {
+  const navigate = useNavigate();
   const { pathname } = useLocation();
+  const { user, refreshUser } = useContext(UserContext);
+
+  useEffect(() => {
+    if (user?.id && pathname === "/") {
+      setTimeout(() => navigate("/services"), 200);
+    }
+  }, [user, pathname, navigate]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+
+  useEffect(() => {
+    refreshUser?.();
+  }, []);
 
   return (
     <AnimatePresence key={pathname}>

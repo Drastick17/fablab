@@ -23,12 +23,6 @@ function App() {
     },
   });
 
-  useEffect(()=>{
-    if(window.localStorage.getItem('token')){
-      console.log('p')
-    }
-  },[])
-
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />

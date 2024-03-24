@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 
 type Context = {
   handleSubmit?: (event: React.FormEvent<HTMLFormElement>) => void;
+  refreshUser?: () => void;
   user?: User;
   resetUser?: () => void;
   loading?: boolean;
@@ -45,7 +46,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
       const { token, user_name, user_email, user_id, user_roles } =
         await res.json();
       if (token) {
-        window.localStorage.setItem("token", token);
+        window.localStorage.setItem("token-fablab", token);
         setUser({
           username: user_name,
           email: user_email,
@@ -63,16 +64,37 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const resetUser = () =>
+  const refreshUser = async () => {
+    const token = window.localStorage.getItem("token-fablab");
+    const res = await fetch("http://localhost:8000/api/user/session", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const { user_name, user_email, user_id, user_roles } = await res.json();
+
+    setUser({
+      username: user_name,
+      email: user_email,
+      id: user_id,
+      roles: user_roles,
+    });
+  };
+
+  const resetUser = () => {
+    window.localStorage.removeItem("token-fablab");
     setUser({
       username: "",
       email: "",
       id: "",
       roles: [""],
     });
+  };
 
   const store = {
     handleSubmit,
+    refreshUser,
     resetUser,
     user,
     loading,
