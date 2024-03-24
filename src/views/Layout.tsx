@@ -26,7 +26,10 @@ export default function Layout({
 
 
   useEffect(() => {
-    refreshUser?.();
+
+    if(window.localStorage.getItem('token-fablab')){
+      refreshUser?.();
+    }
   }, []);
 
   return (

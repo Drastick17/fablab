@@ -65,21 +65,27 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const refreshUser = async () => {
-    const token = window.localStorage.getItem("token-fablab");
-    const res = await fetch("http://localhost:8000/api/user/session", {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const { user_name, user_email, user_id, user_roles } = await res.json();
+    try{
 
-    setUser({
-      username: user_name,
-      email: user_email,
-      id: user_id,
-      roles: user_roles,
-    });
+      const token = window.localStorage.getItem("token-fablab");
+      const res = await fetch("http://localhost:8000/api/user/session", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const { user_name, user_email, user_id, user_roles } = await res.json();
+  
+      setUser({
+        username: user_name,
+        email: user_email,
+        id: user_id,
+        roles: user_roles,
+      });
+
+    }catch(e){
+      console.log(e)
+    }
   };
 
   const resetUser = () => {
