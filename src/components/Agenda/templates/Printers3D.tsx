@@ -98,11 +98,25 @@ export default function Printers3D() {
             <TextField {...params} label="Calidad de impresión" />
           )}
         />
+        <TextField
+          id="outlined-basic"
+          label="Cantidad de impresiones"
+          inputProps={{ inputMode: "numeric" }}
+          variant="outlined"
+        />
         <Button variant="contained" color="error">
           Agendar
         </Button>
       </Box>
-
+      <TextField
+        id="filled-multiline-static"
+        label="Notas"
+        multiline
+        rows={4}
+        defaultValue="Coloca una descripción de tu impresión, recuerda que, mientrás más precisa sea, mejor será tu resultado"
+        variant="filled"
+        sx={{ margin: "20px" }}
+      />
       <Box
         sx={{
           width: "85%",
