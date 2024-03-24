@@ -9,18 +9,38 @@ import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
-const correo = "prueba@gmail.com";
+import { useForm, SubmitHandler } from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod"
+import { changePasswordSchema } from "../../../validations/changePasswordSchema";
+
+import style from "../style.module.css"
+
+type Inputs = {
+  password: string,
+  newPassword: string,
+  confirmPassword: string,
+};
 
 export default function passwordChange() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-        password: data.get("password"),
-        newPassword: data.get("newPassword"),
-        confirmPassword: data.get("confirmPassword"),
-    });
-  };
+  // const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
+  //   console.log({
+  //       password: data.get("password"),
+  //       newPassword: data.get("newPassword"),
+  //       confirmPassword: data.get("confirmPassword"),
+  //   });
+  // };
+
+  const {register, handleSubmit, watch, formState: {errors}} = useForm<Inputs>({
+    resolver: zodResolver(changePasswordSchema)
+  })
+
+  console.log(errors)
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    console.log(data)
+  }
 
   return (
     <Container component="main" maxWidth="xs" sx={{ minWidth: "80vw" }}>
@@ -36,7 +56,7 @@ export default function passwordChange() {
           mt: 1,
         }}
         component="form"
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmit(onSubmit)}
         noValidate
       >
         <Typography variant="h4" gutterBottom>
@@ -50,34 +70,37 @@ export default function passwordChange() {
           margin="normal"
           required
           fullWidth
-          name="password"
           label="Contraseña Actual"
           type="password"
           id="password"
           autoComplete="current-password"
+          {...register('password')}
         />
+        {errors.password?.message && <p className={style.p}>{errors.password?.message}</p>}
 
         <TextField
           margin="normal"
           required
           fullWidth
-          name="newPassword"
           label="Nueva Contraseña"
           type="password"
           id="newPassword"
           autoComplete="current-password"
+          {...register('newPassword')}
         />
+        {errors.newPassword?.message && <p className={style.p}>{errors.newPassword?.message}</p>}
 
         <TextField
           margin="normal"
           required
           fullWidth
-          name="confirmPassword"
           label="Confirmar Nueva Contraseña"
           type="password"
           id="confirmPassword"
           autoComplete="current-password"
+          {...register('confirmPassword')}
         />
+        {errors.confirmPassword?.message && <p className={style.p}>{errors.confirmPassword?.message}</p>}
 
         <Typography variant="body2" gutterBottom>
           Cambiar tu contraseña cerrará tu sesión tu dispositivo. Tendrás

@@ -56,8 +56,9 @@ export default function Profile() {
           flexGrow: 1,
           bgcolor: "background.paper",
           display: "flex",
-          height: "90%"
+          height: "90%",
         }}
+        className={style.contend}
       >
         <Tabs
           orientation="vertical"
@@ -70,13 +71,14 @@ export default function Profile() {
           <Tab label="Cambiar correo" {...a11yProps(0)} />
           <Tab label="Cambiar contraseña" {...a11yProps(1)} />
         </Tabs>
-        <TabPanel value={value} index={0}>
-          <MailChange />
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-        <PasswordChange />
-        </TabPanel>
-        
+        <div className={style.center}>
+          <TabPanel value={value} index={0}>
+            <MailChange />
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            <PasswordChange />
+          </TabPanel>
+        </div>
       </Box>
     </Container>
   );
