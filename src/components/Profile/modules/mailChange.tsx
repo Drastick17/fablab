@@ -9,16 +9,34 @@ import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
-const correo = "prueba@gmail.com";
+import { useForm, SubmitHandler } from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod"
+import { changeEmailSchema } from "../../../validations/changeEmailSchema";
+
+import style from "../style.module.css"
+
+type Inputs = {
+  email: string
+};
 
 export default function mailChange() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email")
-    });
-  };
+  // const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
+  //   console.log({
+  //     email: data.get("email")
+  //   });
+  // };
+
+  const {register, handleSubmit, watch, formState: {errors}} = useForm<Inputs>({
+    resolver: zodResolver(changeEmailSchema)
+  })
+
+  console.log(errors)
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    console.log(data)
+  }
 
   return (
     <Container component="main" maxWidth="xs" sx={{ minWidth: "80vw" }}>
@@ -34,7 +52,7 @@ export default function mailChange() {
           mt: 1,
         }}
         component="form"
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmit(onSubmit)}
         noValidate
       >
         <Typography variant="h4" gutterBottom>
@@ -51,10 +69,11 @@ export default function mailChange() {
           fullWidth
           id="email"
           label="Email Address"
-          name="email"
           autoComplete="email"
           autoFocus
+          {...register('email')}
         />
+        {errors.email?.message && <p className={style.p}>{errors.email?.message}</p>}
 
         <Typography variant="body2" gutterBottom>
           Cuando pulses sobre el botón a continuación se te enviará rediccionara a un formulario donde debes colocar el codigo de verificacion de tu correo.
