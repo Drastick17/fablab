@@ -4,44 +4,53 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 
 export default function PrintPlotter() {
-  const [selectedMachine, setSelectedMachine] = React.useState(null);
-  const [selectedMaterial, setSelectedMaterial] = React.useState(null);
-  const [selectedEspesor, setselectedEspesor] = React.useState(null);
-  const [selectedFormat, setselectedFormat] = React.useState(null);
+  const [data, setData] = React.useState([
+    { value: "Sin seleccionar", label: "Sin seleccionar" },
+  ]);
 
-  const handleMachineChange = (event, newValue) => {
-    setSelectedMachine(newValue);
-    setSelectedMaterial(null);
-    setselectedEspesor(null);
-    setselectedFormat(null);
-  };
+  const [selectedMaterial, setSelectedMaterial] = React.useState({});
 
-  const formats = [
+  const calidad = [
     {
-      label: "A2",
+      label: "Ultra baja",
     },
     {
-      label: "A1",
+      label: "Baja",
     },
     {
-      label: "A0",
+      label: "Media",
+    },
+    {
+      label: "Alta",
+    },
+    {
+      label: "Ultra Alta",
     },
   ];
 
-  const color = [
-    {
-      label: "Color",
-    },
-    {
-      label: "Blanco y negro",
-    },
-    {
-      label: "Full Color",
-    },
-    {
-      label: "Escala de Grises",
-    },
-  ];
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("http://localhost:8000/api/material/read");
+        const resData = await res.json();
+        const materialesFiltrados = resData.filter(
+          (material) => material.description_material === "Printer Cutter"
+        );
+        const dataAutocomplete = materialesFiltrados.map((material) => {
+          return {
+            value: material.name_material,
+            label: material.name_material,
+          };
+        });
+        console.log(dataAutocomplete);
+        setData(dataAutocomplete);
+      } catch (error) {
+        console.error("Error al obtener datos:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <Box
@@ -54,35 +63,24 @@ export default function PrintPlotter() {
       <Autocomplete
         disablePortal
         id="combo-box-demo"
-        options={formats}
-        getOptionLabel={(option) => option.label}
-        onChange={handleMachineChange}
+        options={data}
+        onChange={(evt, values) => {
+          setSelectedMaterial(values);
+        }}
         sx={{ width: 300 }}
-        renderInput={(params) => <TextField {...params} label="Material" />}
+        renderInput={(params) => (
+          <TextField {...params} label="Material de impresión" />
+        )}
       />
 
-      {selectedMachine && (
-        <TextField
-          id="outlined-basic"
-          label="Maquina"
-          value="Plotter de Impresión"
-          variant="outlined"
-          disabled
-        />
-      )}
-
-      {selectedMachine && (
-        <Autocomplete
-          disablePortal
-          id="combo-box-demo"
-          options={color}
-          getOptionLabel={(option) => option.label}
-          value={selectedFormat}
-          onChange={handleMachineChange}
-          sx={{ width: 300 }}
-          renderInput={(params) => <TextField {...params} label="Formatos" />}
-        />
-      )}
+      <Autocomplete
+        disablePortal
+        id="combo-box-demo"
+        options={calidad}
+        disabled={Object.keys(selectedMaterial).length == 0}
+        sx={{ width: 300 }}
+        renderInput={(params) => <TextField {...params} label="Dato 2" />}
+      />
     </Box>
   );
 }

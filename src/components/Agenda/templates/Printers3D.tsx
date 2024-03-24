@@ -12,15 +12,6 @@ export default function Printers3D() {
 
   const [selectedMaterial, setSelectedMaterial] = React.useState({});
 
-  const formatos = [
-    {
-      label: "STL",
-    },
-    {
-      label: "OBJ",
-    },
-  ];
-
   const calidad = [
     {
       label: "Ultra baja",

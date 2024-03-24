@@ -4,57 +4,53 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 
 export default function LaserCutter() {
-  const [selectedMaterial, setSelectedMaterial] = React.useState(null);
-  const [selectedEspesor, setSelectedEspesor] = React.useState(null);
-  const [selectedFormat, setSelectedFormat] = React.useState(null);
+  const [data, setData] = React.useState([
+    { value: "Sin seleccionar", label: "Sin seleccionar" },
+  ]);
 
-  const handleMaterialChange = (event, newValue) => {
-    setSelectedMaterial(newValue);
-    setSelectedEspesor(null);
-    setSelectedFormat(null);
-  };
+  const [selectedMaterial, setSelectedMaterial] = React.useState({});
 
-  const lasserCutter = [
+  const calidad = [
     {
-      label: "MDF",
-      espesor: ["3mm", "6mm", "9mm"],
+      label: "Ultra baja",
     },
     {
-      label: "Acrilico",
-      espesor: ["3mm", "6mm", "9mm"],
+      label: "Baja",
     },
     {
-      label: "Cintra",
-      espesor: ["3mm", "6mm", "9mm"],
+      label: "Media",
     },
     {
-      label: "Carton",
-      espesor: ["Por defecto"],
+      label: "Alta",
     },
     {
-      label: "Carton Maqueta",
-      espesor: ["Por defecto"],
-    },
-    {
-      label: "Otros",
-      espesor: ["Especificar"],
+      label: "Ultra Alta",
     },
   ];
 
-  const formats = [
-    {
-      label: "DXF",
-    },
-    {
-      label: "DWG",
-    },
-    {
-      label: "AI",
-    },
-    {
-      label: "PDF",
-    },
-  ];
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("http://localhost:8000/api/material/read");
+        const resData = await res.json();
+        const materialesFiltrados = resData.filter(
+          (material) => material.description_material === "Laser Cutter"
+        );
+        const dataAutocomplete = materialesFiltrados.map((material) => {
+          return {
+            value: material.name_material,
+            label: material.name_material,
+          };
+        });
+        console.log(dataAutocomplete);
+        setData(dataAutocomplete);
+      } catch (error) {
+        console.error("Error al obtener datos:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <Box
@@ -67,49 +63,24 @@ export default function LaserCutter() {
       <Autocomplete
         disablePortal
         id="combo-box-demo"
-        options={lasserCutter}
-        getOptionLabel={(option) => option.label}
-        onChange={handleMaterialChange}
+        options={data}
+        onChange={(evt, values) => {
+          setSelectedMaterial(values);
+        }}
         sx={{ width: 300 }}
-        renderInput={(params) => <TextField {...params} label="Material" />}
+        renderInput={(params) => <TextField {...params} label="Dato 2" />}
       />
 
-      {selectedMaterial && (
-        <TextField
-          id="outlined-basic"
-          label="Maquina"
-          value="Cortadora Laser"
-          variant="outlined"
-          disabled
-        />
-      )}
-
-      {selectedMaterial && (
-        <Autocomplete
-          disablePortal
-          id="combo-box-demo"
-          options={selectedMaterial.espesor}
-          value={selectedEspesor}
-          onChange={(event, newValue) => setSelectedMaterial(newValue)}
-          sx={{ width: 300 }}
-          renderInput={(params) => (
-            <TextField {...params} label="Material de impresión" />
-          )}
-        />
-      )}
-
-      {selectedMaterial && (
-        <Autocomplete
-          disablePortal
-          id="combo-box-demo"
-          options={formats}
-          getOptionLabel={(option) => option.label}
-          value={selectedFormat}
-          onChange={handleMaterialChange}
-          sx={{ width: 300 }}
-          renderInput={(params) => <TextField {...params} label="Formatos" />}
-        />
-      )}
+      <Autocomplete
+        disablePortal
+        id="combo-box-demo"
+        options={calidad}
+        disabled={Object.keys(selectedMaterial).length == 0}
+        sx={{ width: 300 }}
+        renderInput={(params) => (
+          <TextField {...params} label="Calidad de impresión" />
+        )}
+      />
     </Box>
   );
 }

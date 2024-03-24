@@ -4,44 +4,53 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 
 export default function Cnc() {
-  const [selectedMachine, setSelectedMachine] = React.useState(null);
-  const [selectedMaterial, setSelectedMaterial] = React.useState(null);
-  const [selectedEspesor, setselectedEspesor] = React.useState(null);
-  const [selectedFormat, setselectedFormat] = React.useState(null);
+  const [data, setData] = React.useState([
+    { value: "Sin seleccionar", label: "Sin seleccionar" },
+  ]);
 
-  const handleMachineChange = (event, newValue) => {
-    setSelectedMachine(newValue);
-    setSelectedMaterial(null);
-    setselectedEspesor(null);
-    setselectedFormat(null);
-  };
+  const [selectedMaterial, setSelectedMaterial] = React.useState({});
 
-  const cncMachines = [
+  const calidad = [
     {
-      label: "SRM 20",
-      materials: ["MDF", "Acrílico", "Alucubon", "Maderas", "Placa PCB"],
+      label: "Ultra baja",
     },
     {
-      label: "Modela MDX 50",
-      materials: ["MDF", "Acrilico", "Alucubon", "Maderas"],
+      label: "Baja",
     },
     {
-      label: "Gran Formato",
-      materials: ["MDF", "Acrilico", "Alucubon", "Maderas"],
+      label: "Media",
+    },
+    {
+      label: "Alta",
+    },
+    {
+      label: "Ultra Alta",
     },
   ];
 
-  const formats = [
-    {
-      label: "STL",
-    },
-    {
-      label: "DXF",
-    },
-    {
-      label: "OBJ",
-    },
-  ];
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("http://localhost:8000/api/material/read");
+        const resData = await res.json();
+        const materialesFiltrados = resData.filter(
+          (material) => material.description_material === "CNC Router"
+        );
+        const dataAutocomplete = materialesFiltrados.map((material) => {
+          return {
+            value: material.name_material,
+            label: material.name_material,
+          };
+        });
+        console.log(dataAutocomplete);
+        setData(dataAutocomplete);
+      } catch (error) {
+        console.error("Error al obtener datos:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <Box
@@ -54,48 +63,24 @@ export default function Cnc() {
       <Autocomplete
         disablePortal
         id="combo-box-demo"
-        options={cncMachines}
-        getOptionLabel={(option) => option.label}
-        onChange={handleMachineChange}
+        options={data}
+        onChange={(evt, values) => {
+          setSelectedMaterial(values);
+        }}
         sx={{ width: 300 }}
-        renderInput={(params) => <TextField {...params} label="Maquina" />}
+        renderInput={(params) => (
+          <TextField {...params} label="Material de impresión" />
+        )}
       />
 
-      {selectedMachine && (
-        <Autocomplete
-          disablePortal
-          id="combo-box-demo"
-          options={selectedMachine.materials}
-          value={selectedMaterial}
-          onChange={(event, newValue) => setSelectedMaterial(newValue)}
-          sx={{ width: 300 }}
-          renderInput={(params) => (
-            <TextField {...params} label="Material de impresión" />
-          )}
-        />
-      )}
-
-      {selectedMachine && (
-        <TextField
-          id="outlined-basic"
-          label="Espesor (mm)"
-          variant="outlined"
-          value={selectedEspesor}
-        />
-      )}
-
-      {selectedMachine && (
-        <Autocomplete
-          disablePortal
-          id="combo-box-demo"
-          options={formats}
-          getOptionLabel={(option) => option.label}
-          value={selectedFormat}
-          onChange={handleMachineChange}
-          sx={{ width: 300 }}
-          renderInput={(params) => <TextField {...params} label="Formatos" />}
-        />
-      )}
+      <Autocomplete
+        disablePortal
+        id="combo-box-demo"
+        options={calidad}
+        disabled={Object.keys(selectedMaterial).length == 0}
+        sx={{ width: 300 }}
+        renderInput={(params) => <TextField {...params} label="Dato 2" />}
+      />
     </Box>
   );
 }

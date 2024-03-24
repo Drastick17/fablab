@@ -4,20 +4,53 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 
 export default function CamaUv() {
-  const formats = [
+  const [data, setData] = React.useState([
+    { value: "Sin seleccionar", label: "Sin seleccionar" },
+  ]);
+
+  const [selectedMaterial, setSelectedMaterial] = React.useState({});
+
+  const calidad = [
     {
-      label: "DXF",
+      label: "Ultra baja",
     },
     {
-      label: "DWG",
+      label: "Baja",
     },
     {
-      label: "AI",
+      label: "Media",
     },
     {
-      label: "PDF",
+      label: "Alta",
+    },
+    {
+      label: "Ultra Alta",
     },
   ];
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("http://localhost:8000/api/material/read");
+        const resData = await res.json();
+        const materialesFiltrados = resData.filter(
+          (material) => material.description_material === "Uv printer"
+        );
+        const dataAutocomplete = materialesFiltrados.map((material) => {
+          return {
+            value: material.name_material,
+            label: material.name_material,
+          };
+        });
+        console.log(dataAutocomplete);
+        setData(dataAutocomplete);
+      } catch (error) {
+        console.error("Error al obtener datos:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <Box
@@ -27,26 +60,27 @@ export default function CamaUv() {
         typography: "body1",
       }}
     >
-      <TextField
-        id="outlined-basic"
-        label="Maquina"
-        value="Cama UV"
-        variant="outlined"
-        disabled
+      <Autocomplete
+        disablePortal
+        id="combo-box-demo"
+        options={data}
+        onChange={(evt, values) => {
+          setSelectedMaterial(values);
+        }}
+        sx={{ width: 300 }}
+        renderInput={(params) => (
+          <TextField {...params} label="Material de impresión" />
+        )}
       />
 
       <Autocomplete
         disablePortal
         id="combo-box-demo"
-        options={formats}
-        getOptionLabel={(option) => option.label}
+        options={calidad}
+        disabled={Object.keys(selectedMaterial).length == 0}
         sx={{ width: 300 }}
-        renderInput={(params) => <TextField {...params} label="Material" />}
+        renderInput={(params) => <TextField {...params} label="Dato 2" />}
       />
-
-      <TextField id="outlined-basic" label="Ancho (cm)" variant="outlined" />
-
-      <TextField id="outlined-basic" label="Alto (cm)" variant="outlined" />
     </Box>
   );
 }
