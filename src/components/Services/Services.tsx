@@ -20,7 +20,7 @@ type service = {
 };
 const services: service[] = [
   {
-    id: "3dprinter",
+    id: "3D Printer",
     name: "Impresoras 3D",
     image: "impresora3D",
     description:
@@ -28,7 +28,7 @@ const services: service[] = [
     formats: ["STL", "OBJ"],
   },
   {
-    id: "lasercutter",
+    id: "Laser Cutter",
     name: "Cortadora Laser",
     image: "CNC_ESCRITORIO",
     description:
@@ -36,7 +36,7 @@ const services: service[] = [
     formats: ["DXF", "DWG", "AI", "PDF"],
   },
   {
-    id: "cnc",
+    id: "CNC Router",
     name: "CNC",
     image: "CNC_ESCRITORIO",
     description:
@@ -44,7 +44,7 @@ const services: service[] = [
     formats: ["AI", "PSD", "PDF", "EPS"],
   },
   {
-    id: "uvprinter",
+    id: "UV Printer",
     name: "Inyeccion de tinta e impresión UV",
     image: "inyeccionTinta",
     description:
@@ -52,7 +52,7 @@ const services: service[] = [
     formats: ["DXF", "DWG", "AI", "PDF"],
   },
   {
-    id: "cutterplotter",
+    id: "Printer Cutter",
     name: "Plotter de impresion y corte",
     image: "inyeccionTinta",
     description:
@@ -60,7 +60,7 @@ const services: service[] = [
     formats: ["AI", "EPS", "SVG"],
   },
   {
-    id: "laserplotter",
+    id: "Metal Plotter",
     name: "Grabadora laser",
     image: "inyeccionTinta",
     description:
@@ -68,7 +68,7 @@ const services: service[] = [
     formats: ["DXF", "AI", "SVG"],
   },
   {
-    id: "printerplotter",
+    id: "Printer Plotter",
     name: "Plotter de impresion",
     image: "inyeccionTinta",
     description:
@@ -91,6 +91,7 @@ function Services() {
           backgroundImage: `url(${Banner})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
+          padding:'0.75rem'
         }}
       >
         <article style={{ maxWidth: "1000px" }}>
@@ -135,9 +136,9 @@ const CardComponent = (props: service) => {
       xl={2}
       justifySelf={"center"}
       sx={{
-        transition: "transform ease .3s",
+        transition: "transform ease .2s",
         "&:hover": {
-          transition: "transform ease .3s",
+          transition: "transform ease .2s",
           transform: "scale(1.05)",
         },
       }}

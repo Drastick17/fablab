@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import { UserContext } from "../store/UserContext";
-import Layout from "../views/Layout";
-import HeaderNav from "../components/Header";
 import NotFound from "../components/404";
-import SignIn from "../components/Sign-In";
-import SignUp from "../components/Sign-up";
+import Agendar from "../components/Agendar";
 import EmailVerification from "../components/EmailVerification";
 import ForgotPassword from "../components/ForgotPassword";
+import HeaderNav from "../components/Header";
 import PasswordRecovery from "../components/PasswordRecovery";
-import Services from "../components/Services/Services";
-import Agenda from "../components/Agenda";
-import Agendar from "../components/Agendar";
 import Profile from "../components/Profile";
+import Agenda from "../components/ServiceTabs";
+import Services from "../components/Services/Services";
+import SignIn from "../components/Sign-In";
+import SignUp from "../components/Sign-up";
+import { UserContext } from "../store/UserContext";
+import Layout from "../views/Layout";
 
 interface RouteConfig {
   roles: string[];
@@ -23,11 +23,6 @@ interface RouteConfig {
     name: string;
     navigation?: boolean;
   }[];
-}
-
-interface RouteData {
-  link: string;
-  label: string;
 }
 
 const routeConfig: RouteConfig[] = [
@@ -92,18 +87,6 @@ export default function RouterProvider() {
     } else {
       pathnames = routeConfig[0].routes;
     }
-
-    // const navigations = pathnames
-    // .map((route) => {
-    //   if (route.navigation) {
-    //     return {
-    //       link: route.path,
-    //       label: route.name,
-    //     };
-    //   }
-    //   return null;
-    // })
-    // .filter((item) => item !== null);
 
     setRoutes(pathnames);
     setLoading(false);

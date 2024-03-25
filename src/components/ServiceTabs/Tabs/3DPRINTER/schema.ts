@@ -1,13 +1,15 @@
 import z from "zod";
-//Esto no cambiar
 export type FormFields = z.infer<typeof formSchema>;
 
 export const formSchema = z.object({
-  machine: z.string().min(1),
-  email: z.string().email("Debe ser un correo"),
+  materials: z.array(z.object({
+    id_material: z.number()
+  })),
+  quantity: z.number().min(1),
+
 });
 
 export const defaultValues: FormFields = {
-  email: "",
-  machine: "",
+  materials: [{id_material: 0}],
+  quantity:0,
 };
