@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 type Context = {
@@ -17,6 +17,7 @@ type User = {
   email: string;
   id: string;
   roles: string[];
+  homePage: string;
 };
 
 const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
@@ -25,7 +26,8 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
     username: "",
     email: "",
     id: "",
-    roles: ["user", "admin"],
+    roles: [],
+    homePage: "/",
   });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -52,6 +54,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
           email: user_email,
           id: user_id,
           roles: user_roles,
+          homePage: "/services",
         });
         toast("Bienveido de vuelta " + user.username, { type: "success" });
       } else {
@@ -65,9 +68,9 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const refreshUser = async () => {
-    try{
-
+    try {
       const token = window.localStorage.getItem("token-fablab");
+
       const res = await fetch("http://localhost:8000/api/user/session", {
         headers: {
           "Content-Type": "application/json",
@@ -75,16 +78,24 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
         },
       });
       const { user_name, user_email, user_id, user_roles } = await res.json();
-  
+      if (!res.ok) {
+        return setUser({
+          username: "",
+          email: "",
+          id: "",
+          roles: [],
+          homePage: "/",
+        });
+      }
       setUser({
         username: user_name,
         email: user_email,
         id: user_id,
         roles: user_roles,
+        homePage: "/services",
       });
-
-    }catch(e){
-      console.log(e)
+    } catch (e) {
+      console.log(e);
     }
   };
 
@@ -94,9 +105,14 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
       username: "",
       email: "",
       id: "",
-      roles: [""],
+      roles: [],
+      homePage: "/",
     });
   };
+
+  useEffect(() => {
+    refreshUser();
+  }, []);
 
   const store = {
     handleSubmit,

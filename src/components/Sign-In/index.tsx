@@ -5,8 +5,8 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { AnimatePresence, motion } from "framer-motion";
-import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../store/UserContext";
 import style from "./style.module.css";
 
@@ -24,9 +24,18 @@ function Copyright() {
 }
 
 export default function SignIn() {
-  const { handleSubmit, loading } = useContext(UserContext);
+  const navigate = useNavigate();
+  const { handleSubmit, loading, user } = useContext(UserContext);
 
-
+  useEffect(() => {
+    const roles = user?.roles ?? [];
+    if (roles.includes("admin")) {
+      navigate("/home");
+    }
+    if (roles.includes("user")) {
+      navigate("/services");
+    }
+  }, [user, navigate]);
   return (
     <AnimatePresence mode="wait">
       <motion.div
