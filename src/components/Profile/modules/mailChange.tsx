@@ -76,7 +76,7 @@ export default function mailChange() {
         {errors.email?.message && <p className={style.p}>{errors.email?.message}</p>}
 
         <Typography variant="body2" gutterBottom>
-          Cuando pulses sobre el botón a continuación se te enviará rediccionara a un formulario donde debes colocar el codigo de verificacion de tu correo.
+          Cuando pulses sobre el botón a continuación se te rediccionara a un formulario donde debes colocar el codigo de verificacion de tu correo.
         </Typography>
 
         <Button

@@ -66,10 +66,10 @@ export default function Profile() {
           value={value}
           onChange={handleChange}
           aria-label="Vertical tabs example"
-          sx={{ borderRight: 1, borderColor: "divider" }}
+          sx={{ borderRight: 1, borderColor: "divider", minWidth: "15%" }}
         >
-          <Tab label="Cambiar correo" {...a11yProps(0)} />
-          <Tab label="Cambiar contraseña" {...a11yProps(1)} />
+          <Tab className={style.vertical} label="Cambiar correo" {...a11yProps(0)} />
+          <Tab className={style.vertical} label="Cambiar contraseña" {...a11yProps(1)} />
         </Tabs>
         <div className={style.center}>
           <TabPanel value={value} index={0}>

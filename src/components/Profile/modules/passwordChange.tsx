@@ -103,7 +103,7 @@ export default function passwordChange() {
         {errors.confirmPassword?.message && <p className={style.p}>{errors.confirmPassword?.message}</p>}
 
         <Typography variant="body2" gutterBottom>
-          Cambiar tu contraseña cerrará tu sesión tu dispositivo. Tendrás
+          Cambiar tu contraseña cerrará tu sesión en tu dispositivo. Tendrás
           que volver a iniciar sesion con tu nueva contraseña para acceder a tu cuenta.
         </Typography>
 
