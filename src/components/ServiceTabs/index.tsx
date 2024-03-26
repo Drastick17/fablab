@@ -14,6 +14,7 @@ import LASERTAB from "./Tabs/LASER";
 import UVTAB from "./Tabs/UV";
 import PRINTPLOTTERTAB from "./Tabs/PRINTPLOTTER";
 import METALPLOTTERTAB from "./Tabs/METALLASER";
+import PLOTTERCUTTERTAB from "./Tabs/PLOTTER";
 
 const services = [
   {
@@ -39,7 +40,7 @@ const services = [
   {
     name: "Plotter de impresion y corte",
     value: "Printer Cutter",
-    component: <PRINTER3DTAB />,
+    component: <PLOTTERCUTTERTAB />,
   },
   {
     name: "Grabadora laser de metal",
