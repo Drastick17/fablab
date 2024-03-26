@@ -49,7 +49,7 @@ export default function SignUp() {
         return toast("Las contraseñas no son iguales", { type: "error" });
       }
 
-      const res = await fetch("http://localhost:8000/api/user/sign-up", {
+      const res = await fetch("http://localhost:8000/api/user/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -12,6 +12,7 @@ import Agenda from "../components/ServiceTabs";
 import Services from "../components/Services/Services";
 import SignIn from "../components/Sign-In";
 import SignUp from "../components/Sign-up";
+import ChangeEmailVerification from "../components/ChangeEmailVerification";
 
 import "react-toastify/dist/ReactToastify.css";
 import { UserContext } from "../store/UserContext";
@@ -60,6 +61,11 @@ const routeConfig: RouteConfig[] = [
         element: <Agenda />,
         name: "Agendar Servicios",
         navigation: false,
+      },
+      {
+        path: "/change-email-verification/:id",
+        element: <ChangeEmailVerification />,
+        name: "Verificación de Correo",
       },
     ],
   },

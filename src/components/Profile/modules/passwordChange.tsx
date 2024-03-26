@@ -60,7 +60,7 @@ export default function passwordChange() {
     setLoading(true);
     try {
       const res = await fetch(
-        `http://localhost:8000/api/user/changePassword/1`,
+        `http://localhost:8000/api/user/changePassword/${user?.id}`,
         {
           method: "PUT",
           headers: {
@@ -70,16 +70,16 @@ export default function passwordChange() {
         }
       );
       if (!res.ok) {
-        return toast("Error al cambiar la contraseña", { type: "error" });
-      }else {
+        return toast("La constraseña actual es incorrecta", { type: "error" });
+      } else {
         toast("Contraseña actualizada correctamente", { type: "success" });
         resetUser?.();
-        window.localStorage.removeItem("token");
         navigate("/");
+        // window.location.reload()
       }
     } catch (error: any) {
       toast(error.message, { type: "error" });
-    }finally {
+    } finally {
       setLoading(false);
     }
   };
@@ -154,18 +154,18 @@ export default function passwordChange() {
           volver a iniciar sesion con tu nueva contraseña para acceder a tu
           cuenta.
         </Typography>
-        
+
         <LoadingButton
-            sx={{ mt: 3, mb: 2 }}
-            loading={loading}
-            variant="contained"
-            color="primary"
-            type="submit"
-            fullWidth
-          >
-            CAMBIAR CONTRASEÑA
+          sx={{ mt: 3, mb: 2 }}
+          loading={loading}
+          variant="contained"
+          color="primary"
+          type="submit"
+          fullWidth
+        >
+          CAMBIAR CONTRASEÑA
         </LoadingButton>
-        
+
         <Typography variant="body2" sx={{ mt: 2 }}>
           ¿Tienes problemas? Contáctanos en Soporte al cliente.
         </Typography>

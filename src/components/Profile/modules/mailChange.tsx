@@ -5,18 +5,22 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 import { useForm, SubmitHandler } from "react-hook-form";
-import {zodResolver} from "@hookform/resolvers/zod"
+import { zodResolver } from "@hookform/resolvers/zod";
 import { changeEmailSchema } from "../../../validations/changeEmailSchema";
 
-import style from "../style.module.css"
+import { toast } from "react-toastify";
+
+import style from "../style.module.css";
+import { UserContext } from "../../../store/UserContext";
+import LoadingButton from "@mui/lab/LoadingButton";
+import { Link, useNavigate } from "react-router-dom";
 
 type Inputs = {
-  email: string
+  email: string;
 };
 
 export default function mailChange() {
@@ -28,15 +32,49 @@ export default function mailChange() {
   //   });
   // };
 
-  const {register, handleSubmit, watch, formState: {errors}} = useForm<Inputs>({
-    resolver: zodResolver(changeEmailSchema)
-  })
+  const navigate = useNavigate();
 
-  console.log(errors)
+  const { user } = React.useContext(UserContext);
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data)
-  }
+  const [loading, setLoading] = React.useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<Inputs>({
+    resolver: zodResolver(changeEmailSchema),
+  });
+
+  console.log(errors);
+
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    console.log(data);
+    setLoading(true);
+    try {
+      const res = await fetch(
+        `http://localhost:8000/api/user/changeEmail/${user?.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      if (!res.ok) {
+        return toast("Error al cambiar el correo", { type: "error" });
+      } else {
+        toast("Codigo de verficacion enviado al nuevo correo", { type: "success" });
+        navigate(`/change-email-verification/${user?.id}`);
+      }
+    } catch (error: any) {
+      toast(error.message, { type: "error" });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <Container component="main" maxWidth="xs" sx={{ minWidth: "80vw" }}>
@@ -71,24 +109,27 @@ export default function mailChange() {
           label="Email Address"
           autoComplete="email"
           autoFocus
-          {...register('email')}
+          {...register("email")}
         />
-        {errors.email?.message && <p className={style.p}>{errors.email?.message}</p>}
+        {errors.email?.message && (
+          <p className={style.p}>{errors.email?.message}</p>
+        )}
 
         <Typography variant="body2" gutterBottom>
-          Cuando pulses sobre el botón a continuación se te rediccionara a un formulario donde debes colocar el codigo de verificacion de tu correo.
+          Cuando pulses sobre el botón a continuación se te rediccionara a un
+          formulario donde debes colocar el codigo de verificacion de tu correo.
         </Typography>
 
-        <Button
+        <LoadingButton
+          sx={{ mt: 3, mb: 2 }}
+          loading={loading}
           variant="contained"
           color="primary"
-          
-          fullWidth
           type="submit"
-          sx={{ mt: 3, mb: 2 }}
+          fullWidth
         >
           CAMBIAR CORREO
-        </Button>
+        </LoadingButton>
 
         <Typography variant="body2" sx={{ mt: 2 }}>
           ¿Tienes problemas? Contáctanos en Soporte al cliente.
