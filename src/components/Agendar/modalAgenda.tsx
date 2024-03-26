@@ -28,9 +28,13 @@ interface Agenda {
 }
 
 export function ModalAgendar(props) {
+  console.log(props);
+
   const [data, setData] = React.useState([
     { value: "Cargando...", label: "Cargando..." },
   ]);
+
+  const [dataSchedule, setDataSchedule] = React.useState<any>(null);
 
   const [maquina, setMaquina] = React.useState("");
   const [startDate, setStartDate] = React.useState("");
@@ -64,7 +68,6 @@ export function ModalAgendar(props) {
       try {
         const res = await fetch("http://localhost:8000/api/equipment");
         const resData = await res.json();
-        console.log(resData);
         const equipamientoFiltrado = resData.filter(
           (equipo) => equipo.Type_Equipment === servicio
         );
@@ -74,25 +77,56 @@ export function ModalAgendar(props) {
             label: equipo.Name_Equipment,
           };
         });
-        console.log(dataAutocomplete);
         setData(dataAutocomplete);
       } catch (error) {
         console.error("Error al obtener datos:", error);
       }
     };
-    console.log(props.servicio);
     fetchData(props.servicio);
-  });
+  }, []);
+
+  React.useEffect(() => {
+    const fetchDataSchedule = async (idSchedule: number) => {
+      try {
+        const res = await fetch(
+          `http://localhost:8000/api/schedule/list/${idSchedule}`
+        );
+        const resData = await res.json();
+        console.log(resData);
+        setDataSchedule(resData.schedule);
+      } catch (error) {
+        console.error("Error al obtener datos:", error);
+      }
+    };
+    fetchDataSchedule(props.id);
+  }, []);
 
   return (
     <>
       <Modal open={props.open} onClose={props.handleClose}>
-        <Box className={style.modal}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Agendar Cita
-          </Typography>
+        <Box className={style.modal} sx={{ borderRadius: "20px" }}>
+          {dataSchedule && (
+            <Box className={style.innerBox}>
+              <Typography id="modal-modal-title" variant="body1">
+                Pedido: {dataSchedule?.id}
+              </Typography>
+              <Typography id="modal-modal-title" variant="body1">
+                Servicio: {dataSchedule?.service_type}
+              </Typography>
+              <Typography id="modal-modal-title" variant="body1">
+                Notas: {dataSchedule?.note}
+              </Typography>
+              <Typography id="modal-modal-title" variant="body1">
+                Estado: {dataSchedule?.status}
+              </Typography>
+            </Box>
+          )}
 
+          {/* Box de maquinas, botones y datetime pickers */}
           <Box className={style.innerBox}>
+            <Typography id="modal-modal-title" variant="body1">
+              Asignar Maquina(s)
+            </Typography>
             <Grid
               container
               spacing={2}
@@ -100,6 +134,7 @@ export function ModalAgendar(props) {
                 md: 4,
               }}
             >
+              {/* Autocomplete maquinas */}
               <Grid item>
                 <Autocomplete
                   disablePortal
@@ -113,6 +148,7 @@ export function ModalAgendar(props) {
                 />
               </Grid>
 
+              {/* Datetime picker */}
               <Grid item>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DemoContainer
@@ -127,6 +163,7 @@ export function ModalAgendar(props) {
                 </LocalizationProvider>
               </Grid>
 
+              {/* Datetime picker */}
               <Grid item>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DemoContainer
@@ -140,6 +177,8 @@ export function ModalAgendar(props) {
                   </DemoContainer>
                 </LocalizationProvider>
               </Grid>
+
+              {/*Boton borrar */}
               <Grid item>
                 <Button
                   sx={{ marginTop: "10px" }}
@@ -152,6 +191,7 @@ export function ModalAgendar(props) {
             </Grid>
 
             {agenda.length > 0 && (
+              /*Agendar maquinas */
               <TableContainer>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                   <TableHead>

@@ -20,15 +20,17 @@ type User = {
   homePage: string;
 };
 
+const defaultUserValue = {
+  username: "",
+  email: "",
+  id: "",
+  roles: [],
+  homePage: "/",
+}
+
 const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState({
-    username: "",
-    email: "",
-    id: "",
-    roles: ["admin", "user"],
-    homePage: "/",
-  });
+  const [user, setUser] = useState(defaultUserValue);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -79,13 +81,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
       });
       const { user_name, user_email, user_id, user_roles } = await res.json();
       if (!res.ok) {
-        return setUser({
-          username: "",
-          email: "",
-          id: "",
-          roles: ["admin", "user"],
-          homePage: "/",
-        });
+        return setUser(defaultUserValue);
       }
       setUser({
         username: user_name,
@@ -101,13 +97,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
 
   const resetUser = () => {
     window.localStorage.removeItem("token-fablab");
-    setUser({
-      username: "",
-      email: "",
-      id: "",
-      roles: [],
-      homePage: "/",
-    });
+    setUser(defaultUserValue);
   };
 
   useEffect(() => {
