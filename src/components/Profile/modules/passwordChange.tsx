@@ -5,7 +5,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
@@ -17,6 +16,8 @@ import { toast } from "react-toastify";
 
 import style from "../style.module.css";
 import { UserContext } from "../../../store/UserContext";
+import LoadingButton from "@mui/lab/LoadingButton";
+import { Link, useNavigate } from "react-router-dom";
 
 type Inputs = {
   password: string;
@@ -34,7 +35,13 @@ export default function passwordChange() {
   //       confirmPassword: data.get("confirmPassword"),
   //   });
   // };
+  const navigate = useNavigate();
+
+  const { resetUser } = React.useContext(UserContext);
+
   const { user } = React.useContext(UserContext);
+
+  const [loading, setLoading] = React.useState(false);
 
   const {
     register,
@@ -46,12 +53,14 @@ export default function passwordChange() {
   });
 
   console.log(errors);
+  // `http://localhost:8000/api/user/changePassword/${user?.id}`
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     console.log(data);
+    setLoading(true);
     try {
       const res = await fetch(
-        `http://localhost:8000/api/user/changePassword/${user?.id}`,
+        `http://localhost:8000/api/user/changePassword/1`,
         {
           method: "PUT",
           headers: {
@@ -61,10 +70,17 @@ export default function passwordChange() {
         }
       );
       if (!res.ok) {
-        return toast("Error en la petición", { type: "error" });
+        return toast("Error al cambiar la contraseña", { type: "error" });
+      }else {
+        toast("Contraseña actualizada correctamente", { type: "success" });
+        resetUser?.();
+        window.localStorage.removeItem("token");
+        navigate("/");
       }
     } catch (error: any) {
       toast(error.message, { type: "error" });
+    }finally {
+      setLoading(false);
     }
   };
 
@@ -138,17 +154,18 @@ export default function passwordChange() {
           volver a iniciar sesion con tu nueva contraseña para acceder a tu
           cuenta.
         </Typography>
-
-        <Button
-          variant="contained"
-          color="primary"
-          fullWidth
-          type="submit"
-          sx={{ mt: 3, mb: 2 }}
-        >
-          CAMBIAR CONTRASEÑA
-        </Button>
-
+        
+        <LoadingButton
+            sx={{ mt: 3, mb: 2 }}
+            loading={loading}
+            variant="contained"
+            color="primary"
+            type="submit"
+            fullWidth
+          >
+            CAMBIAR CONTRASEÑA
+        </LoadingButton>
+        
         <Typography variant="body2" sx={{ mt: 2 }}>
           ¿Tienes problemas? Contáctanos en Soporte al cliente.
         </Typography>
