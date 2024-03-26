@@ -121,7 +121,7 @@ export default function Printers3D() {
         label="Notas"
         multiline
         rows={4}
-        defaultValue="Coloca una descripción de tu impresión, recuerda que, mientrás más precisa sea, mejor será tu resultado"
+        defaultValue="Coloca una descripción de tu impresión"
         variant="filled"
         sx={{ margin: "20px" }}
       />

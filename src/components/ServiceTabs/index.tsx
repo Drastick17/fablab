@@ -8,49 +8,54 @@ import { SyntheticEvent, useState } from "react";
 
 import { useParams } from "react-router-dom";
 
-import PRINTER3DTAB from './Tabs/3DPRINTER';
+import PRINTER3DTAB from "./Tabs/3DPRINTER";
+import CNCTAB from "./Tabs/CNC";
+import LASERTAB from "./Tabs/LASER";
+import UVTAB from "./Tabs/UV";
+import PRINTPLOTTERTAB from "./Tabs/PRINTPLOTTER";
+import METALPLOTTERTAB from "./Tabs/METALLASER";
 
 const services = [
   {
     name: "Impresiones 3D",
     value: "3D Printer",
-    component: <PRINTER3DTAB />
+    component: <PRINTER3DTAB />,
   },
   {
     name: "Cortadora Laser",
     value: "Laser Cutter",
-    component: <PRINTER3DTAB />
+    component: <LASERTAB />,
   },
   {
     name: "CNC Router (Fresadora)",
     value: "CNC Router",
-    component: <PRINTER3DTAB />
+    component: <CNCTAB />,
   },
   {
     name: "Cama plana UV",
     value: "UV Printer",
-    component: <PRINTER3DTAB />
+    component: <UVTAB />,
   },
   {
     name: "Plotter de impresion y corte",
     value: "Printer Cutter",
-    component: <PRINTER3DTAB />
+    component: <PRINTER3DTAB />,
   },
   {
     name: "Grabadora laser de metal",
     value: "Metal Plotter",
-    component: <PRINTER3DTAB />
+    component: <METALPLOTTERTAB />,
   },
   {
     name: "Plotter de impresion",
     value: "Printer Plotter",
-    component: <PRINTER3DTAB />
+    component: <PRINTPLOTTERTAB />,
   },
 ];
 
 export default function Agenda() {
-  const {path}= useParams();
-  const [value, setValue] = useState(path ?? '3DPrinter');
+  const { path } = useParams();
+  const [value, setValue] = useState(path ?? "3DPrinter");
 
   const handleChange = (_event: SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -72,11 +77,20 @@ export default function Agenda() {
             ))}
           </TabList>
           {services.map((service) => (
-              <TabPanel  value={service.value} >
-                {service.component}
-              </TabPanel>
-            ))}
-       </Box>
+            <TabPanel
+              sx={{
+                maxWidth: "100%",
+                mx: "auto",
+                "@media screen and (min-width:768px)": {
+                  maxWidth: "70%",
+                },
+              }}
+              value={service.value}
+            >
+              {service.component}
+            </TabPanel>
+          ))}
+        </Box>
       </TabContext>
     </Box>
   );

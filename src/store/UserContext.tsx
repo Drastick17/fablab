@@ -26,7 +26,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
     username: "",
     email: "",
     id: "",
-    roles: [],
+    roles: ["admin", "user"],
     homePage: "/",
   });
 
@@ -83,7 +83,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
           username: "",
           email: "",
           id: "",
-          roles: [],
+          roles: ["admin", "user"],
           homePage: "/",
         });
       }

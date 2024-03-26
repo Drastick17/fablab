@@ -12,6 +12,8 @@ import Agenda from "../components/ServiceTabs";
 import Services from "../components/Services/Services";
 import SignIn from "../components/Sign-In";
 import SignUp from "../components/Sign-up";
+
+import "react-toastify/dist/ReactToastify.css";
 import { UserContext } from "../store/UserContext";
 import Layout from "../views/Layout";
 
