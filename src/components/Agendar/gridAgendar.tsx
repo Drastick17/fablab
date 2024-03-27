@@ -36,19 +36,8 @@ export function GridAgendar() {
           `http://localhost:8000/api/schedule/${id}`
         );
         const resultadoData = await resultado.json();
-        // console.log(resultadoData);
-        const dataAgendas = resultadoData.agendas.map((agendas) => {
-          return {
-            id: 1,
-            name: "Paco",
-            cellphone: "0123456789",
-            material: "PLS",
-            service: "Laser Cutter",
-            bringMaterial: true,
-            notes: "Quiero de esta manera y esta y esta dsadsadsadhisadbiuasi",
-          };
-        });
-        setData(dataAgendas);
+        //console.log(resultadoData);
+        setData(resultadoData);
       } catch (error) {
         console.error("Error al obtener datos:", error);
       }
@@ -95,18 +84,20 @@ export function GridAgendar() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((row) => (
+            {data.schedules.map((row) => (
               <TableRow key={row.id}>
-                <TableCell>{row.name}</TableCell>
-                <TableCell>{row.cellphone}</TableCell>
-                <TableCell>{row.service}</TableCell>
+                <TableCell>{row.user.name}</TableCell>
+                <TableCell>{row.user.phone}</TableCell>
+                <TableCell>{row.service_type}</TableCell>
                 <TableCell>
                   <ButtonGroup
                     variant="contained"
                     aria-label="Basic button group"
                   >
                     <div>
-                      <Button onClick={() => handleOpen(row.service, row.id)}>
+                      <Button
+                        onClick={() => handleOpen(row.service_type, row.id)}
+                      >
                         Agendar Cita
                       </Button>
                     </div>

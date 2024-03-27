@@ -20,6 +20,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import AddIcon from "@mui/icons-material/Add";
 import style from "./style.module.css";
+import { toast } from "react-toastify";
 
 interface Agenda {
   maquina: string;
@@ -28,7 +29,7 @@ interface Agenda {
 }
 
 export function ModalAgendar(props) {
-  console.log(props);
+  //console.log(props);
 
   const [data, setData] = React.useState([
     { value: "Cargando...", label: "Cargando..." },
@@ -57,6 +58,29 @@ export function ModalAgendar(props) {
     setAgenda([...agenda, { maquina, startDate, endDate }]);
   };
 
+  const handleAgenda = async (idSchedule: number) => {
+    try {
+      const res = await fetch(
+        `http://localhost:8000/api/schedule/${idSchedule}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...agenda,
+          }),
+        }
+      );
+      if (!res.ok) {
+        return toast("Error en la petición", { type: "error" });
+      }
+      console.log(agenda);
+    } catch (error) {
+      console.error("Error al obtener datos:", error);
+    }
+  };
+
   const deleteAgenda = (index: number) => {
     const agendaData = agenda;
     const agendaFiltrada = agendaData.filter((_, i) => i !== index);
@@ -64,10 +88,27 @@ export function ModalAgendar(props) {
   };
 
   React.useEffect(() => {
+    const fetchDataSchedule = async (idSchedule: number) => {
+      try {
+        const res = await fetch(
+          `http://localhost:8000/api/schedule/get-one/${idSchedule}`
+        );
+        const resData = await res.json();
+
+        setDataSchedule(resData.schedule);
+      } catch (error) {
+        console.error("Error al obtener datos:", error);
+      }
+    };
+    fetchDataSchedule(props.id);
+  }, []);
+
+  React.useEffect(() => {
     const fetchData = async (servicio: string) => {
       try {
         const res = await fetch("http://localhost:8000/api/equipment");
         const resData = await res.json();
+        console.log(resData);
         const equipamientoFiltrado = resData.filter(
           (equipo) => equipo.Type_Equipment === servicio
         );
@@ -77,28 +118,13 @@ export function ModalAgendar(props) {
             label: equipo.Name_Equipment,
           };
         });
+        console.log(dataAutocomplete);
         setData(dataAutocomplete);
       } catch (error) {
         console.error("Error al obtener datos:", error);
       }
     };
     fetchData(props.servicio);
-  }, []);
-
-  React.useEffect(() => {
-    const fetchDataSchedule = async (idSchedule: number) => {
-      try {
-        const res = await fetch(
-          `http://localhost:8000/api/schedule/list/${idSchedule}`
-        );
-        const resData = await res.json();
-        console.log(resData);
-        setDataSchedule(resData.schedule);
-      } catch (error) {
-        console.error("Error al obtener datos:", error);
-      }
-    };
-    fetchDataSchedule(props.id);
   }, []);
 
   return (
@@ -233,7 +259,11 @@ export function ModalAgendar(props) {
                 </Table>
               </TableContainer>
             )}
-            <Button sx={{ marginTop: "10px" }} variant="contained">
+            <Button
+              sx={{ marginTop: "10px" }}
+              variant="contained"
+              onClick={() => handleAgenda(dataSchedule.id)}
+            >
               Agendar
             </Button>
           </Box>
