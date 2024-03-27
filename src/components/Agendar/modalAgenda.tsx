@@ -23,6 +23,7 @@ import style from "./style.module.css";
 import { toast } from "react-toastify";
 
 interface Agenda {
+  idMaquina: number[];
   maquina: string;
   startDate: string;
   endDate: string;
@@ -31,19 +32,24 @@ interface Agenda {
 export function ModalAgendar(props) {
   //console.log(props);
 
-  const [data, setData] = React.useState([
-    { value: "Cargando...", label: "Cargando..." },
-  ]);
+  const [data, setData] = React.useState([{ value: 0, label: "Cargando..." }]);
 
   const [dataSchedule, setDataSchedule] = React.useState<any>(null);
 
   const [maquina, setMaquina] = React.useState("");
+
   const [startDate, setStartDate] = React.useState("");
   const [endDate, setEndDate] = React.useState("");
   const [agenda, setAgenda] = React.useState<Agenda[]>([]);
 
-  const handleMaquina = (selectedMaquina: string) => {
+  const [idMaquina, setIdMaquina] = React.useState([]);
+  const handleMaquina = (
+    idSelectedMaquina: number,
+    selectedMaquina: string
+  ) => {
     setMaquina(selectedMaquina);
+    setIdMaquina((prevState) => prevState.concat(idSelectedMaquina));
+    console.log(idMaquina);
   };
 
   const handleStartDate = (selectedStartDate: string) => {
@@ -55,7 +61,7 @@ export function ModalAgendar(props) {
   };
 
   const handleSubmit = () => {
-    setAgenda([...agenda, { maquina, startDate, endDate }]);
+    setAgenda([...agenda, { idMaquina, maquina, startDate, endDate }]);
   };
 
   const handleAgenda = async (idSchedule: number) => {
@@ -114,7 +120,7 @@ export function ModalAgendar(props) {
         );
         const dataAutocomplete = equipamientoFiltrado.map((equipo) => {
           return {
-            value: equipo.Name_Equipment,
+            value: equipo.Id_Equipment,
             label: equipo.Name_Equipment,
           };
         });
@@ -166,7 +172,10 @@ export function ModalAgendar(props) {
                   disablePortal
                   id="combo-box-demo"
                   options={data}
-                  onChange={(evt, selected) => handleMaquina(selected.value)}
+                  onChange={(evt, selected) => {
+                    console.log(evt);
+                    handleMaquina(selected.value, selected?.label);
+                  }}
                   sx={{ width: "250px" }}
                   renderInput={(params) => (
                     <TextField {...params} label="Material de impresión" />
@@ -204,7 +213,7 @@ export function ModalAgendar(props) {
                 </LocalizationProvider>
               </Grid>
 
-              {/*Boton borrar */}
+              {/*Boton agregar */}
               <Grid item>
                 <Button
                   sx={{ marginTop: "10px" }}

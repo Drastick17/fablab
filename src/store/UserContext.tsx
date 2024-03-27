@@ -24,9 +24,9 @@ const defaultUserValue = {
   username: "",
   email: "",
   id: "",
-  roles: ['admin', 'user'],
+  roles: ["admin", "user"],
   homePage: "/",
-}
+};
 
 const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(false);
@@ -55,7 +55,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
           username: user_name,
           email: user_email,
           id: user_id,
-          roles: user_roles,
+          roles: ["admin", "user"],
           homePage: "/services",
         });
         toast("Bienveido de vuelta " + user.username, { type: "success" });
@@ -87,7 +87,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
         username: user_name,
         email: user_email,
         id: user_id,
-        roles: user_roles,
+        roles: ["admin", "user"],
         homePage: "/services",
       });
     } catch (e) {
