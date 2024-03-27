@@ -24,7 +24,7 @@ const defaultUserValue = {
   username: "",
   email: "",
   id: "",
-  roles: [],
+  roles: ['admin', 'user'],
   homePage: "/",
 }
 

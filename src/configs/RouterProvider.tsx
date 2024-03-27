@@ -2,6 +2,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import NotFound from "../components/404";
+import Admin from '../components/Admin'
 import Agendar from "../components/Agendar";
 import EmailVerification from "../components/EmailVerification";
 import ForgotPassword from "../components/ForgotPassword";
@@ -71,7 +72,10 @@ const routeConfig: RouteConfig[] = [
   },
   {
     roles: ["admin"],
-    routes: [{ path: "/agendar", element: <Agendar />, name: "Agendar" }],
+    routes: [
+      { path: "/agendar", element: <Agendar />, name: "Agendar" },
+      { path: "/admin", element: <Admin />, name: "Admin" }
+  ],
   },
 ];
 
