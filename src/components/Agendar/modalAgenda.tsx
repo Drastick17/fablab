@@ -25,8 +25,8 @@ import { toast } from "react-toastify";
 interface Agenda {
   idMaquina: number[];
   maquina: string;
-  startDate: string;
-  endDate: string;
+  startDate: string[];
+  endDate: string[];
 }
 
 export function ModalAgendar(props) {
@@ -38,26 +38,34 @@ export function ModalAgendar(props) {
 
   const [maquina, setMaquina] = React.useState("");
 
-  const [startDate, setStartDate] = React.useState("");
-  const [endDate, setEndDate] = React.useState("");
+  const [startDate, setStartDate] = React.useState<string[]>([]);
+  const [endDate, setEndDate] = React.useState<string[]>([]);
   const [agenda, setAgenda] = React.useState<Agenda[]>([]);
 
-  const [idMaquina, setIdMaquina] = React.useState([]);
+  const [idMaquina, setIdMaquina] = React.useState<number[]>([]);
+
   const handleMaquina = (
     idSelectedMaquina: number,
     selectedMaquina: string
   ) => {
     setMaquina(selectedMaquina);
     setIdMaquina((prevState) => prevState.concat(idSelectedMaquina));
-    console.log(idMaquina);
   };
 
   const handleStartDate = (selectedStartDate: string) => {
-    setStartDate(selectedStartDate);
+    setStartDate((prevState) =>
+      prevState.length === 0
+        ? [selectedStartDate]
+        : [...prevState, selectedStartDate]
+    );
   };
 
   const handleEndDate = (selectedEndDate: string) => {
-    setEndDate(selectedEndDate);
+    setEndDate((prevState) =>
+      prevState.length === 0
+        ? [selectedEndDate]
+        : [...prevState, selectedEndDate]
+    );
   };
 
   const handleSubmit = () => {
@@ -65,6 +73,9 @@ export function ModalAgendar(props) {
   };
 
   const handleAgenda = async (idSchedule: number) => {
+    const ultimoValorAgenda = agenda[agenda.length - 1];
+    delete ultimoValorAgenda.maquina;
+    console.log(ultimoValorAgenda);
     try {
       const res = await fetch(
         `http://localhost:8000/api/schedule/${idSchedule}`,
@@ -81,7 +92,6 @@ export function ModalAgendar(props) {
       if (!res.ok) {
         return toast("Error en la petición", { type: "error" });
       }
-      console.log(agenda);
     } catch (error) {
       console.error("Error al obtener datos:", error);
     }
@@ -91,6 +101,7 @@ export function ModalAgendar(props) {
     const agendaData = agenda;
     const agendaFiltrada = agendaData.filter((_, i) => i !== index);
     setAgenda(agendaFiltrada);
+    console.log(agendaFiltrada);
   };
 
   React.useEffect(() => {
