@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -7,17 +8,17 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { useParams } from "react-router";
 import { FormFields, defaultValues, formSchema } from "./schema";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { qualities } from "./default";
+import { UserContext } from "../../../../store/UserContext";
 
 export default function Index() {
-  const { path } = useParams();
+  const {user} = useContext(UserContext)
   const [materials, setMaterials] = useState<any>([{ label: "ex", value: 1 }]);
-  const otherMaterial = [1]; //only show with the user select other option
+  const otherMaterial = [0]; //only show with the user select other option
   const { control, handleSubmit, watch, formState, setValue } =
     useForm<FormFields>({
       mode: "onChange",
@@ -25,7 +26,7 @@ export default function Index() {
       resolver: zodResolver(formSchema),
       defaultValues,
     });
-  const { errors } = formState;
+  const { errors, isValid } = formState;
   const [quantity, mixedMaterials, materialsAdded] = watch([
     "quantity",
     "mixedMaterials",
@@ -34,7 +35,10 @@ export default function Index() {
 
   const getMaterials = async () => {
     try {
-      const res = await fetch(`http://localhost:8000/api/material/${path}`);
+      const currentType = window.location.pathname.split("/")[2];
+      const res = await fetch(
+        `http://localhost:8000/api/material/${currentType}`
+      );
       const data = await res.json();
       setMaterials(data);
     } catch (error) {
@@ -46,7 +50,13 @@ export default function Index() {
   }, []);
 
   const onSubmit = (data: any) => {
-    console.log(data);
+    const { mixedMaterials, note, materials, ...specs_material } = data;
+    const currentType = window.location.pathname.split("/")[2];
+    const user_id = user?.id
+    const bring_material = materials.some((material:any) => material.label === 'Otros')
+    const files = {}
+
+    
   };
 
   return (
@@ -129,6 +139,8 @@ export default function Index() {
           gap="1rem"
         >
           {mixedMaterials &&
+            quantity <= 30 &&
+            quantity > 0 &&
             new Array(+quantity).fill(quantity).map((_, index) => (
               <>
                 <Controller
@@ -141,6 +153,11 @@ export default function Index() {
                       options={materials}
                       onChange={(_, newValue: any) => {
                         onChange(+newValue?.value);
+                        setValue(`materials.${index}.name`, newValue.label, {
+                          shouldDirty: true,
+                          shouldTouch: true,
+                          shouldValidate: true,
+                        });
                       }}
                       sx={
                         otherMaterial.includes(materialsAdded[index]?.id)
@@ -163,7 +180,7 @@ export default function Index() {
                     />
                   )}
                 />
-                {otherMaterial.includes(materialsAdded[index]?.id) && (
+                {otherMaterial?.includes(materialsAdded[index]?.id) && (
                   <Controller
                     name={`materials.${index}.name`}
                     control={control}
@@ -192,6 +209,11 @@ export default function Index() {
                     options={materials}
                     onChange={(_, newValue: any) => {
                       onChange(newValue?.value);
+                      setValue(`materials.${0}.name`, newValue.label, {
+                        shouldDirty: true,
+                        shouldTouch: true,
+                        shouldValidate: true,
+                      });
                     }}
                     sx={
                       otherMaterial.includes(materialsAdded[0]?.id)
@@ -256,7 +278,9 @@ export default function Index() {
           </span>
         </Box>
         <Box margin="0 auto" textAlign="center" gridColumn="span 2">
-          <LoadingButton loading={false}>Cotizar</LoadingButton>
+          <LoadingButton type="submit" loading={false}>
+            Cotizar
+          </LoadingButton>
           <Typography
             sx={{ padding: "20px", fontSize: "0.8rem", color: "red" }}
             variant="body2"

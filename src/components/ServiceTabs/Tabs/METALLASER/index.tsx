@@ -23,7 +23,8 @@ export default function Index() {
 
   const getMaterials = async () => {
     try {
-      const res = await fetch(`http://localhost:8000/api/material/${path}`);
+      const currentType = window.location.pathname.split('/')[2]
+      const res = await fetch(`http://localhost:8000/api/material/${currentType}`);
       const data = await res.json();
       setMaterials(data);
     } catch (error) {
@@ -32,7 +33,7 @@ export default function Index() {
   };
   useEffect(() => {
     getMaterials();
-  }, []);
+  }, [path]);
 
   const onSubmit = (data: any) => {
     console.log(data);

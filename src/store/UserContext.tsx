@@ -18,14 +18,16 @@ type User = {
   id: string;
   roles: string[];
   homePage: string;
+  isAdmin: boolean;
 };
 
 const defaultUserValue = {
   username: "",
   email: "",
   id: "",
-  roles: ["admin", "user"],
+  roles: [],
   homePage: "/",
+  isAdmin:false,
 };
 
 const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
@@ -55,8 +57,9 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
           username: user_name,
           email: user_email,
           id: user_id,
-          roles: ["admin", "user"],
+          roles: user_roles,
           homePage: "/services",
+          isAdmin: user_roles.includes('admin')
         });
         toast("Bienveido de vuelta " + user.username, { type: "success" });
       } else {
@@ -81,17 +84,22 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
       });
       const { user_name, user_email, user_id, user_roles } = await res.json();
       if (!res.ok) {
-        return setUser(defaultUserValue);
+        setUser(defaultUserValue);
+        throw new Error("without-session")
       }
       setUser({
         username: user_name,
         email: user_email,
         id: user_id,
-        roles: ["admin", "user"],
+        roles: user_roles,
         homePage: "/services",
+        isAdmin: user_roles.includes('admin')
       });
-    } catch (e) {
-      console.log(e);
+    } catch (e:any) {
+      if(e.message === 'without-session' && window.location.pathname !== '/'){
+         window.location.href="/"
+       }
+    
     }
   };
 

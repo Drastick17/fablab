@@ -109,7 +109,7 @@ export default function RouterProvider() {
   const roles = user?.roles.length ?? 0;
   return (
     <Router>
-      {roles > 0 && <HeaderNav navigations={[]} />}
+      {roles > 0 && <HeaderNav />}
       <Layout>
         <Routes>
           {routes.map((route: any, index: number) => (

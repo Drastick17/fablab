@@ -9,12 +9,10 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { useParams } from "react-router";
 import { thicknesses } from "./default";
 import { FormFields, defaultValues, formSchema } from "./schema";
 
 export default function Index() {
-  const { path } = useParams();
   const [materials, setMaterials] = useState<any>([{ label: "ex", value: 1 }]);
   const otherMaterial = [1]; //only show with the user select other option
   const { control, handleSubmit, watch, formState, getValues } =
@@ -28,11 +26,13 @@ export default function Index() {
   const [ materialsAdded, thickness] = watch([
     "materials",
     "thickness",
+    "quantity"
   ]);
 
   const getMaterials = async () => {
     try {
-      const res = await fetch(`http://localhost:8000/api/material/${path}`);
+      const currentType = window.location.pathname.split('/')[2]
+      const res = await fetch(`http://localhost:8000/api/material/${currentType}`);
       const data = await res.json();
       setMaterials(data);
     } catch (error) {
@@ -43,7 +43,6 @@ export default function Index() {
     getMaterials();
   }, []);
 
-  console.log(getValues());
   const onSubmit = (data: any) => {
     console.log(data);
   };

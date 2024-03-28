@@ -3,15 +3,10 @@ import { Avatar, Box, Button, Menu, MenuItem } from "@mui/material";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../store/UserContext";
-import { type LinkType } from "./index";
 import style from "./style.module.css";
 
-export default function MenuComponent({
-  navigations,
-}: {
-  navigations: LinkType[];
-}) {
-  const { resetUser } = useContext(UserContext);
+export default function MenuComponent() {
+  const { resetUser, user} = useContext(UserContext);
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -29,16 +24,16 @@ export default function MenuComponent({
     }
     setAnchorEl(null);
   };
+
+
   return (
     <nav className={style.menu}>
-      {navigations.map(
-        (nav: any) =>
-          nav.label !== "Perfil" && (
-            <Link to={nav.link} className={style.menuLi}>
-              {nav.label}
-            </Link>
-          )
-      )}
+     <Link className={style.menuLi}hidden={!user?.isAdmin} to="/admin">
+      Panel de administrador
+     </Link>
+     <Link className={style.menuLi}hidden={!user?.isAdmin} to="/agendar">
+      Agenda
+     </Link>
       <Box>
         <Button
           id="basic-button"

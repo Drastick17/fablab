@@ -5,14 +5,9 @@ import { FaBars } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../store/UserContext";
 import style from "./style.module.css";
-import { type LinkType } from "./index";
 
-export default function MenuMobile({
-  navigations,
-}: {
-  navigations: LinkType[];
-}) {
-  const { resetUser } = useContext(UserContext);
+export default function MenuMobile() {
+  const { resetUser, user } = useContext(UserContext);
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -49,16 +44,21 @@ export default function MenuMobile({
           "aria-labelledby": "basic-button",
         }}
       >
-        {navigations.map((nav: any) => (
-          <MenuItem
-            onClick={() => {
-              navigate(nav.link);
-              handleClose("profile");
-            }}
-          >
-            {nav.label}
-          </MenuItem>
-        ))}
+        <MenuItem
+          onClick={() => handleClose("")}
+          hidden={!user?.isAdmin}
+          href="/admin"
+        >
+          Panel de administrador
+        </MenuItem>
+        <MenuItem
+          onClick={() => handleClose("")}
+          hidden={!user?.isAdmin}
+          href="/admin"
+        >
+          Agendar
+        </MenuItem>
+
         <MenuItem
           onClick={() => {
             handleClose("logout");

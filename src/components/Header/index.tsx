@@ -10,19 +10,15 @@ export type LinkType = {
   label?: string;
 };
 
-export default function HeaderNav({
-  navigations,
-}: {
-  navigations: LinkType[];
-}) {
+export default function HeaderNav() {
   const { user } = useContext(UserContext);
   return (
     <header className={style.header}>
       <Link to={user?.homePage ?? ""}>
         <img className={style.logo} src="/img/logo-withoutbg.png" />
       </Link>
-      <MenuComponent navigations={navigations} />
-      <MenuMobile navigations={navigations} />
+      <MenuComponent />
+      <MenuMobile/>
     </header>
   );
 }

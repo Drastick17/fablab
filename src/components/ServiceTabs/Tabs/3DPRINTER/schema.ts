@@ -6,7 +6,7 @@ export const formSchema = z.object({
     id: z.number(),
     name: z.string()
    })),
-  quantity: z.number().min(1),
+  quantity: z.number().min(1).max(30),
   mixedMaterials: z.boolean(),
   note: z.string().max(255),
   quality: z.string()

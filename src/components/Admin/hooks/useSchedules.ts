@@ -11,8 +11,9 @@ export const useCurrentDateDay = (date: Date) => {
         month: "2-digit",
         day: "2-digit",
       });
-      console.log(currentDate);
-      //const res = await fetch(`http://localhost:8000/api/schedule/${idEquipment}?date=${currentDate}`)
+      const res = await fetch(`http://localhost:8000/api/schedule/${idEquipment}?date=${currentDate}`)
+      const data = await res.json()
+      setList(data.schedules)
     };
   
     useEffect(() => {
@@ -22,7 +23,7 @@ export const useCurrentDateDay = (date: Date) => {
         2000
       )
       return () => clearTimeout(getSchedules)
-    }, [setList]);
+    }, [date]);
     return {
       list,
     };
