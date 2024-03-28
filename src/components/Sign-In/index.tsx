@@ -29,15 +29,9 @@ export default function SignIn() {
 
   useEffect(() => {
     const roles = user?.roles ?? [];
-<<<<<<< HEAD
     // if (roles) {
     //   navigate("/services");
     // }
-=======
-    if (roles.length) {
-      navigate("/services");
-    }
->>>>>>> a1b84e4e34937680b2bd30ba20a3631f6f3372cc
   }, [user, navigate]);
   return (
     <AnimatePresence mode="wait">
