@@ -24,32 +24,56 @@ import { toast } from "react-toastify";
 
 interface Agenda {
   idMaquina: number[];
-  maquina: string;
-  startDate: string[];
-  endDate: string[];
+  startDate: string;
+  endDate: string;
 }
 
 export function ModalAgendar(props) {
-  //console.log(props);
-
   const [data, setData] = React.useState([{ value: 0, label: "Cargando..." }]);
-
   const [dataSchedule, setDataSchedule] = React.useState<any>(null);
-
-  const [maquina, setMaquina] = React.useState("");
-
-  const [startDate, setStartDate] = React.useState<string[]>([]);
-  const [endDate, setEndDate] = React.useState<string[]>([]);
+  const [selectedMaquina, setSelectedMaquina] = React.useState("");
+  const [selectedIdMaquina, setSelectedIdMaquina] = React.useState(-1);
+  const [maquina, setMaquina] = React.useState<string[]>([]);
+  const [startDate, setStartDate] = React.useState("");
+  const [endDate, setEndDate] = React.useState("");
   const [agenda, setAgenda] = React.useState<Agenda[]>([]);
-
   const [idMaquina, setIdMaquina] = React.useState<number[]>([]);
 
-  const handleMaquina = (
-    idSelectedMaquina: number,
-    selectedMaquina: string
-  ) => {
-    setMaquina(selectedMaquina);
-    setIdMaquina((prevState) => prevState.concat(idSelectedMaquina));
+  const handleSelectedMaquina = (selectedMaq: string) => {
+    setSelectedMaquina(selectedMaq);
+  };
+
+  const handleSelectedIdMaquina = (selectedId: number) => {
+    setSelectedIdMaquina(selectedId);
+  };
+
+  const handleIdMaquina = (idSelectedMaquina: number) => {
+    if (!idMaquina.includes(idSelectedMaquina)) {
+      setIdMaquina((prevState) => prevState.concat(idSelectedMaquina));
+    }
+    console.log(idMaquina);
+  };
+
+  const handleNameMaquinas = (selectedMaquina: string) => {
+    if (!maquina.includes(selectedMaquina)) {
+      setMaquina((prevState) => prevState.concat(selectedMaquina));
+    }
+    console.log(maquina);
+  };
+
+  const handleIdMaquinaByArray = (idSelectedMaquina: number[]) => {
+    const uniqueIds = idSelectedMaquina.filter((id) => !idMaquina.includes(id));
+    setIdMaquina((prevState) => [...new Set([...prevState, ...uniqueIds])]);
+    console.log(idMaquina);
+  };
+
+  const handleNameMaquinasByArray = (selectedMaquina: string[]) => {
+    const uniqueNames = selectedMaquina.filter(
+      (name) => !maquina.includes(name)
+    );
+    setMaquina((prevState) => [...new Set([...prevState, ...uniqueNames])]);
+
+    console.log(maquina);
   };
 
   const handleStartDate = (selectedStartDate: string) => {
@@ -68,40 +92,42 @@ export function ModalAgendar(props) {
     );
   };
 
-  const handleSubmit = () => {
-    setAgenda([...agenda, { idMaquina, maquina, startDate, endDate }]);
-  };
-
   const handleAgenda = async (idSchedule: number) => {
-    const ultimoValorAgenda = agenda[agenda.length - 1];
-    delete ultimoValorAgenda.maquina;
-    console.log(ultimoValorAgenda);
-    try {
-      const res = await fetch(
-        `http://localhost:8000/api/schedule/${idSchedule}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            ...agenda,
-          }),
-        }
-      );
-      if (!res.ok) {
-        return toast("Error en la petición", { type: "error" });
-      }
-    } catch (error) {
-      console.error("Error al obtener datos:", error);
-    }
+    console.log(idMaquina);
+    console.log(startDate);
+    console.log(endDate);
+    setAgenda([...agenda, { idMaquina, startDate, endDate }]);
+    console.log(agenda);
+    // try {
+    //   const res = await fetch(
+    //     `http://localhost:8000/api/schedule/${idSchedule}`,
+    //     {
+    //       method: "PUT",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify({
+    //         ...agenda,
+    //       }),
+    //     }
+    //   );
+    //   if (!res.ok) {
+    //     return toast("Error en la petición", { type: "error" });
+    //   }
+    //   console.log(agenda);
+    // } catch (error) {
+    //   console.error("Error al obtener datos:", error);
+    // }
   };
 
-  const deleteAgenda = (index: number) => {
-    const agendaData = agenda;
-    const agendaFiltrada = agendaData.filter((_, i) => i !== index);
-    setAgenda(agendaFiltrada);
-    console.log(agendaFiltrada);
+  const deleteMaquinas = (index: number) => {
+    const maquinaData = maquina;
+    const maquinaFiltrada = maquinaData.filter((_, i) => i !== index);
+
+    const maquinaIdData = idMaquina;
+    const maquinaIdFiltrada = maquinaIdData.splice(index, 1);
+    handleIdMaquinaByArray(maquinaIdFiltrada);
+    handleNameMaquinasByArray(maquinaFiltrada);
   };
 
   React.useEffect(() => {
@@ -165,6 +191,37 @@ export function ModalAgendar(props) {
             </Box>
           )}
 
+          <Box className={style.innerBox}>
+            {/* Datetime picker */}
+            <Grid item>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoContainer
+                  sx={{ paddingTop: "0px" }}
+                  components={["DateTimePicker"]}
+                >
+                  <DateTimePicker
+                    label="Hora de inicio"
+                    onChange={(value) => handleStartDate(value as string)}
+                  />
+                </DemoContainer>
+              </LocalizationProvider>
+            </Grid>
+
+            {/* Datetime picker */}
+            <Grid item>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoContainer
+                  sx={{ paddingTop: "0px" }}
+                  components={["DateTimePicker"]}
+                >
+                  <DateTimePicker
+                    label="Hora de finalización"
+                    onChange={(value) => handleEndDate(value as string)}
+                  />
+                </DemoContainer>
+              </LocalizationProvider>
+            </Grid>
+          </Box>
           {/* Box de maquinas, botones y datetime pickers */}
           <Box className={style.innerBox}>
             <Typography id="modal-modal-title" variant="body1">
@@ -185,7 +242,8 @@ export function ModalAgendar(props) {
                   options={data}
                   onChange={(evt, selected) => {
                     console.log(evt);
-                    handleMaquina(selected.value, selected?.label);
+                    handleSelectedIdMaquina(selected?.value);
+                    handleSelectedMaquina(selected?.label);
                   }}
                   sx={{ width: "250px" }}
                   renderInput={(params) => (
@@ -194,49 +252,22 @@ export function ModalAgendar(props) {
                 />
               </Grid>
 
-              {/* Datetime picker */}
-              <Grid item>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DemoContainer
-                    sx={{ paddingTop: "0px" }}
-                    components={["DateTimePicker"]}
-                  >
-                    <DateTimePicker
-                      label="Hora de inicio"
-                      onChange={(value) => handleStartDate(value as string)}
-                    />
-                  </DemoContainer>
-                </LocalizationProvider>
-              </Grid>
-
-              {/* Datetime picker */}
-              <Grid item>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DemoContainer
-                    sx={{ paddingTop: "0px" }}
-                    components={["DateTimePicker"]}
-                  >
-                    <DateTimePicker
-                      label="Hora de finalización"
-                      onChange={(value) => handleEndDate(value as string)}
-                    />
-                  </DemoContainer>
-                </LocalizationProvider>
-              </Grid>
-
               {/*Boton agregar */}
               <Grid item>
                 <Button
                   sx={{ marginTop: "10px" }}
                   variant="contained"
-                  onClick={handleSubmit}
+                  onClick={() => {
+                    handleNameMaquinas(selectedMaquina);
+                    handleIdMaquina(selectedIdMaquina);
+                  }}
                 >
                   <AddIcon />
                 </Button>
               </Grid>
             </Grid>
 
-            {agenda.length > 0 && (
+            {selectedMaquina.length > 0 && (
               /*Agendar maquinas */
               <TableContainer>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -248,27 +279,22 @@ export function ModalAgendar(props) {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {agenda.map((agendaRow, agendaIndex) => (
+                    {maquina.map((maquinaRow, maquinaIndex) => (
                       <TableRow
-                        key={agendaIndex}
+                        key={maquinaIndex}
                         sx={{
                           "&:last-child td, &:last-child th": { border: 0 },
                         }}
                       >
                         <TableCell component="th" scope="row">
-                          {JSON.stringify(agendaRow.maquina)}
+                          {JSON.stringify(maquinaRow)}
                         </TableCell>
-                        <TableCell align="right">
-                          {JSON.stringify(agendaRow.startDate)}
-                        </TableCell>
-                        <TableCell align="right">
-                          {JSON.stringify(agendaRow.endDate)}
-                        </TableCell>
+
                         <TableCell align="right">
                           <Button
                             color="error"
                             variant="contained"
-                            onClick={() => deleteAgenda(agendaIndex)}
+                            onClick={() => deleteMaquinas(maquinaIndex)}
                           >
                             Quitar
                           </Button>
