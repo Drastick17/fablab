@@ -27,7 +27,7 @@ const defaultUserValue = {
   id: "",
   roles: [],
   homePage: "/",
-  isAdmin:false,
+  isAdmin: false,
 };
 
 const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
@@ -58,8 +58,8 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
           email: user_email,
           id: user_id,
           roles: user_roles,
-          homePage: "/services",
-          isAdmin: user_roles.includes('admin')
+          homePage: "/",
+          isAdmin: user_roles.includes("admin"),
         });
         toast("Bienveido de vuelta " + user.username, { type: "success" });
       } else {
@@ -85,7 +85,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
       const { user_name, user_email, user_id, user_roles } = await res.json();
       if (!res.ok) {
         setUser(defaultUserValue);
-        throw new Error("without-session")
+        throw new Error("without-session");
       }
       setUser({
         username: user_name,
@@ -93,14 +93,9 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
         id: user_id,
         roles: user_roles,
         homePage: "/services",
-        isAdmin: user_roles.includes('admin')
+        isAdmin: user_roles.includes("admin"),
       });
-    } catch (e:any) {
-      if(e.message === 'without-session' && window.location.pathname !== '/'){
-         window.location.href="/"
-       }
-    
-    }
+    } catch (e: any) {}
   };
 
   const resetUser = () => {

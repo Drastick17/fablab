@@ -43,15 +43,15 @@ export default function SignUp() {
     const target = event.target as HTMLFormElement;
     const data = Object.fromEntries(new FormData(target));
     const { Types: type, ConfirmPassword, ...user } = data;
-    console.log(data)
+    console.log(data);
     const phoneNumber = String(phone).replace("+", "").replaceAll(" ", "");
-    console.log(phoneNumber)
+    console.log(phoneNumber);
     try {
       if (ConfirmPassword !== data.Password) {
         return toast("Las contraseñas no son iguales", { type: "error" });
       }
 
-      const res = await fetch("http://localhost:8000/api/user/create", {
+      const res = await fetch("http://localhost:8000/api/user/sing-up", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
