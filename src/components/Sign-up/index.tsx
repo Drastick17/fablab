@@ -18,8 +18,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import style from "./style.module.css";
 
-import * as React from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
+import * as React from "react";
 
 function Copyright() {
   return (
@@ -42,8 +42,10 @@ export default function SignUp() {
     setLoading(true);
     const target = event.target as HTMLFormElement;
     const data = Object.fromEntries(new FormData(target));
-    const { Types: type, phone, ConfirmPassword, ...user } = data;
+    const { Types: type, ConfirmPassword, ...user } = data;
+    console.log(data)
     const phoneNumber = String(phone).replace("+", "").replaceAll(" ", "");
+    console.log(phoneNumber)
     try {
       if (ConfirmPassword !== data.Password) {
         return toast("Las contraseñas no son iguales", { type: "error" });

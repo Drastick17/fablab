@@ -1,4 +1,4 @@
-import * as React from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Typography from "@mui/material/Typography";
@@ -7,37 +7,22 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { ModalAgendar } from "./modalAgenda";
-
-const rows = [
-  {
-    id: 0,
-    name: "Juanito",
-    cellphone: "0123456789",
-    material: "AVS",
-    service: "3D Printer",
-  },
-  {
-    id: 1,
-    name: "Paco",
-    cellphone: "0123456789",
-    material: "PLS",
-    service: "Laser Cutter",
-  },
-];
+import { ModalAgendar } from "../modalAgenda";
+import { useState, useEffect } from "react";
 
 export function GridAgendar() {
-  const [data, setData] = React.useState(null);
+  const [data, setData] = useState<any>(null);
+  const [open, setOpen] = useState(false);
+  const [scheduleId, setScheduleId] = useState(0);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchData = async (id: number) => {
       try {
-        const resultado = await fetch(
+        const res = await fetch(
           `http://localhost:8000/api/schedule/${id}`
         );
-        const resultadoData = await resultado.json();
-        //console.log(resultadoData);
-        setData(resultadoData);
+        const data = await res.json();
+        setData(data);
       } catch (error) {
         console.error("Error al obtener datos:", error);
       }
@@ -45,15 +30,8 @@ export function GridAgendar() {
     fetchData(1);
   }, []);
 
-  const [open, setOpen] = React.useState(false);
-
-  const [service, setService] = React.useState("");
-
-  const [idPedido, setIdPedido] = React.useState(999);
-
-  const handleOpen = (serviceString: string, id: number) => {
-    setService(serviceString);
-    setIdPedido(id);
+  const handleOpen = (id: number) => {
+    setScheduleId(id);
     setOpen(true);
   };
   const handleClose = () => {
@@ -62,14 +40,11 @@ export function GridAgendar() {
 
   return (
     <>
-      {open && (
         <ModalAgendar
           open={open}
           handleClose={handleClose}
-          servicio={service}
-          id={idPedido}
-        ></ModalAgendar>
-      )}
+          id={scheduleId}
+        />
       <Typography component="h2" variant="h6" color="primary" gutterBottom>
         Agendamientos
       </Typography>
@@ -84,11 +59,12 @@ export function GridAgendar() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.schedules.map((row) => (
+            {data.schedules.map((row:any) => (
               <TableRow key={row.id}>
                 <TableCell>{row.user.name}</TableCell>
                 <TableCell>{row.user.phone}</TableCell>
                 <TableCell>{row.service_type}</TableCell>
+                {/* TODO ADD STATUS */}
                 <TableCell>
                   <ButtonGroup
                     variant="contained"
@@ -96,7 +72,7 @@ export function GridAgendar() {
                   >
                     <div>
                       <Button
-                        onClick={() => handleOpen(row.service_type, row.id)}
+                        onClick={() => handleOpen(row.id)}
                       >
                         Agendar Cita
                       </Button>

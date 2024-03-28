@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 
 import style from "./style.module.css";
 import Paper from "@mui/material/Paper";
-import { GridAgendar } from "./gridAgendar";
+import { GridAgendar } from "./components/GridAgendar";
 
 export default function Agendar() {
   return (

@@ -29,10 +29,7 @@ export default function SignIn() {
 
   useEffect(() => {
     const roles = user?.roles ?? [];
-    if (roles.includes("admin")) {
-      navigate("/home");
-    }
-    if (roles.includes("user")) {
+    if (roles) {
       navigate("/services");
     }
   }, [user, navigate]);

@@ -1,7 +1,17 @@
-import { Link } from "react-router-dom";
-import styles from "./style.module.css"; // Importa los estilos CSS Modules
 import { motion } from "framer-motion";
+import { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../store/UserContext";
+import styles from "./style.module.css"; // Importa los estilos CSS Modules
 export default function NotFound() {
+  const navigate = useNavigate()
+  const {user} = useContext(UserContext) 
+  useEffect(() =>{setTimeout(
+    () =>{
+      navigate(user?.homePage ?? '/')
+    },1000
+  )},[navigate]
+  )
   return (
     <motion.div
       initial={{  opacity: 0 }}
@@ -21,7 +31,6 @@ export default function NotFound() {
           src="https://th.bing.com/th/id/R.0d1329f5ff7d31712e3d12ce160df6ec?rik=I4zzFS%2boujobJA&pid=ImgRaw&r=0"
           alt="404 Error"
         />
-        <Link to="/">Volver a la página de inicio</Link>
       </div>
     </motion.div>
   );

@@ -49,13 +49,26 @@ export default function Index() {
     getMaterials();
   }, []);
 
-  const onSubmit = (data: any) => {
-    const { mixedMaterials, note, materials, ...specs_material } = data;
+  const onSubmit = async(formData: any) => {
+    const { mixedMaterials, note, materials, ...specs_material } = formData;
     const currentType = window.location.pathname.split("/")[2];
     const user_id = user?.id
     const bring_material = materials.some((material:any) => material.label === 'Otros')
     const files = {}
-
+    const res = await fetch("http://localhost:8000/api/schedule/",{
+      method:'POST',
+      headers:{'Content-Type':'application/json'}
+      ,
+      body:JSON.stringify({
+          service_type: currentType,
+          user_id,
+          bring_material,
+          files,
+          specs_material,
+          materials,
+      })
+    })
+    const data = await res.json()
     
   };
 
