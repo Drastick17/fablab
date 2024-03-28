@@ -25,7 +25,7 @@ const defaultUserValue = {
   username: "",
   email: "",
   id: "",
-  roles: [],
+  roles: ["admin", "user"],
   homePage: "/",
   isAdmin: false,
 };
@@ -57,8 +57,13 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
           username: user_name,
           email: user_email,
           id: user_id,
+<<<<<<< Updated upstream
           roles: user_roles,
           homePage: "/",
+=======
+          roles: ["user", "admin"],
+          homePage: "/services",
+>>>>>>> Stashed changes
           isAdmin: user_roles.includes("admin"),
         });
         toast("Bienveido de vuelta " + user.username, { type: "success" });
@@ -95,7 +100,15 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
         homePage: "/services",
         isAdmin: user_roles.includes("admin"),
       });
+<<<<<<< Updated upstream
     } catch (e: any) {}
+=======
+    } catch (e: any) {
+      // if (e.message === "without-session" && window.location.pathname !== "/") {
+      //   window.location.href = "/";
+      // }
+    }
+>>>>>>> Stashed changes
   };
 
   const resetUser = () => {

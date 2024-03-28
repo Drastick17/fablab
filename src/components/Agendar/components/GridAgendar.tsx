@@ -7,7 +7,7 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { ModalAgendar } from "../modalAgenda";
+import ModalAgendar from "./Modal";
 import { useState, useEffect } from "react";
 
 export function GridAgendar() {
@@ -18,9 +18,7 @@ export function GridAgendar() {
   useEffect(() => {
     const fetchData = async (id: number) => {
       try {
-        const res = await fetch(
-          `http://localhost:8000/api/schedule/${id}`
-        );
+        const res = await fetch(`http://localhost:8000/api/schedule/${id}`);
         const data = await res.json();
         setData(data);
       } catch (error) {
@@ -40,11 +38,9 @@ export function GridAgendar() {
 
   return (
     <>
-        <ModalAgendar
-          open={open}
-          handleClose={handleClose}
-          id={scheduleId}
-        />
+      {open && (
+        <ModalAgendar open={open} handleClose={handleClose} id={scheduleId} />
+      )}
       <Typography component="h2" variant="h6" color="primary" gutterBottom>
         Agendamientos
       </Typography>
@@ -55,15 +51,17 @@ export function GridAgendar() {
               <TableCell>Nombre</TableCell>
               <TableCell>Celular</TableCell>
               <TableCell>Servicio</TableCell>
+              <TableCell>Estado</TableCell>
               <TableCell>Acciones</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.schedules.map((row:any) => (
+            {data.schedules.map((row: any) => (
               <TableRow key={row.id}>
                 <TableCell>{row.user.name}</TableCell>
                 <TableCell>{row.user.phone}</TableCell>
                 <TableCell>{row.service_type}</TableCell>
+                <TableCell>{row.status}</TableCell>
                 {/* TODO ADD STATUS */}
                 <TableCell>
                   <ButtonGroup
@@ -71,9 +69,7 @@ export function GridAgendar() {
                     aria-label="Basic button group"
                   >
                     <div>
-                      <Button
-                        onClick={() => handleOpen(row.id)}
-                      >
+                      <Button onClick={() => handleOpen(row.id)}>
                         Agendar Cita
                       </Button>
                     </div>
