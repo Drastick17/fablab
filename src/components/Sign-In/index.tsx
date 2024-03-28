@@ -29,7 +29,7 @@ export default function SignIn() {
 
   useEffect(() => {
     const roles = user?.roles ?? [];
-    if (roles) {
+    if (roles.length) {
       navigate("/services");
     }
   }, [user, navigate]);

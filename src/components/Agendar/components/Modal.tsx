@@ -1,8 +1,23 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
+import {
+  Autocomplete,
+  Box,
+  Button,
+  Modal,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TextField,
+  Typography,
+} from "@mui/material";
+import style from '../style.module.css'
 
-export default function Modal({ id }: { id: number }) {
+export default function ModalEquipment({ id, open, handleClose }: { id: number, open: boolean, handleClose: () => void }) {
   const [schedule, setSchedule] = useState<any>(null);
   const [equipments, setEquipments] = useState([]);
   const [scheduleEquipments, setScheduleEquipment] = useState([]);
@@ -41,5 +56,7 @@ export default function Modal({ id }: { id: number }) {
     }
   }, [setSchedule]);
 
-  return <div>Modal</div>;
+  return      <Modal open={open} onClose={handleClose}>
+
+  </Modal>;
 }
